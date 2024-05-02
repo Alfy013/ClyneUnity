@@ -9,7 +9,6 @@ public class PatternHandler : MonoBehaviour
 	private float stunTime;
 	[SerializeField] private int phaseNumber = 0;
 	private bool changedPhase;
-	private bool first;
 	[Serializable]
 	private class BurstPattern 
 	{
