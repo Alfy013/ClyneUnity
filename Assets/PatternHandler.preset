@@ -1,0 +1,675 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PatternHandler
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: e10900a5a141db34ca290c502d924b73, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phaseNumber
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.size
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: ccca19324ff9a134d852627b5f85c43c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].fireRateCT
+    value: 7.3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].projectileCountCT
+    value: 90
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].burstsFired
+    value: 100
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].startAngle
+    value: -180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].endAngle
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].delayAfterStartCT
+    value: 2.4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].loopPattern
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].shotgunPatterns.Array.data[0].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[0].sprayPatterns.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: 7a7a93c16a76cf64580770ba2e3f8aa2, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].fireRateCT
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].projectileCountCT
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].burstsFired
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].startAngle
+    value: -90
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].endAngle
+    value: 90
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[0].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].projectilePrefab
+    value: 
+    objectReference: {fileID: 7952956152626720134, guid: 0311932421c62234396c1607add511e7, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].fireRateCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].projectileCountCT
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].burstsFired
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].startAngle
+    value: -180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].endAngle
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[1].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: 2ff9c339dba48ab42a9881b4b7fe2c39, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].fireRateCT
+    value: 7.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].projectileCountCT
+    value: 6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].burstsFired
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].startAngle
+    value: -180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].endAngle
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].delayAfterStartCT
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[2].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].projectilePrefab
+    value: 
+    objectReference: {fileID: 5200014473191838574, guid: de3d75f6d11950745a4e9c1aaf20dbbb, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].fireRateCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].projectileCountCT
+    value: 6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].burstsFired
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].startAngle
+    value: -30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].endAngle
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].delayAfterStartCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].shotgunPatterns.Array.data[3].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[1].sprayPatterns.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 7952956152626720134, guid: 9c325d4053590aa4886c5de391a335c4, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].fireRateCT
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].projectileCountCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].burstsFired
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].startAngle
+    value: -180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].endAngle
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].delayAfterStartCT
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[0].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: ccca19324ff9a134d852627b5f85c43c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].fireRateCT
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].projectileCountCT
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].burstsFired
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].startAngle
+    value: -180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].endAngle
+    value: 180
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].delayAfterStartCT
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].shotgunPatterns.Array.data[1].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[2].sprayPatterns.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: c00e8912b6b287049a3571ad75e8a5d1, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].fireRateCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].projectileCountCT
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].burstsFired
+    value: 6
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].startAngle
+    value: -20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].endAngle
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].offset
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].delayAfterStartCT
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].shotgunPatterns.Array.data[0].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 7952956152626720134, guid: 4de40742f45840a479159be50439c21d, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].fireRateCT
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].startAngle
+    value: -15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].endAngle
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].nominator
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].backAndForth
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].repetitionsUntilEndCT
+    value: 1000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[0].loopPattern
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: ddfde5735ad25b44baf58d98c71813f2, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].fireRateCT
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].startAngle
+    value: 170
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].endAngle
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].nominator
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].backAndForth
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].repetitionsUntilEndCT
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[1].loopPattern
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].projectilePrefab
+    value: 
+    objectReference: {fileID: 3599594784304194750, guid: ddfde5735ad25b44baf58d98c71813f2, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].fireRateCT
+    value: 0.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].startAngle
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].endAngle
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].nominator
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].backAndForth
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].repetitionsUntilEndCT
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[3].sprayPatterns.Array.data[2].loopPattern
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].startPos
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].projectilePrefab
+    value: 
+    objectReference: {fileID: 5200014473191838574, guid: de3d75f6d11950745a4e9c1aaf20dbbb, type: 3}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].fireRateCT
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].projectileCountCT
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].burstsFired
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].varyBursts
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].startAngle
+    value: -30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].endAngle
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].offset
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].delayAfterStartCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].delayBetweenLoopsCT
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].loopPattern
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].shotgunPatterns.Array.data[0].activated
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: phases.Array.data[4].sprayPatterns.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []
