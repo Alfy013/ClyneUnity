@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3233632374732557333}
   - component: {fileID: 7106674345394540757}
   - component: {fileID: 3018671680604568456}
-  - component: {fileID: 218634721115594772}
   m_Layer: 6
   m_Name: ParryBlade
   m_TagString: Projectile
@@ -118,7 +117,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 2.5
-      value: -5
+      value: 5
       inSlope: 0
       outSlope: 0
       tangentMode: 1
@@ -127,9 +126,9 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 2.6
-      value: 100
-      inSlope: 1050.001
-      outSlope: 1050.001
+      value: -100
+      inSlope: -1050.001
+      outSlope: -1050.001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -142,26 +141,9 @@ MonoBehaviour:
   parriable: 1
   destroyedOnParry: 1
   isBeam: 0
-  isEmitted: 0
-  orbits: 0
   sticks: 0
   _gracePeriod: 0.5
   stuck: 0
---- !u!114 &218634721115594772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952956152626720134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611859ae67ab8d041a16962ebaf272fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOnAfter: 0.5
-  verticality: 0
-  lockOnOnce: 1
 --- !u!1001 &3901115907806333174
 PrefabInstance:
   m_ObjectHideFlags: 0

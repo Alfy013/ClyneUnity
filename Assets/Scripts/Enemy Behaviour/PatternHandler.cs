@@ -7,8 +7,7 @@ public class PatternHandler : MonoBehaviour
 {
 
 	private float stunTime;
-	[SerializeField] private int phaseNumber = 0;
-	private bool changedPhase;
+	[SerializeField] public int phaseNumber = 0;
 	[Serializable]
 	private class BurstPattern 
 	{
@@ -84,39 +83,43 @@ public class PatternHandler : MonoBehaviour
 	{
 		[SerializeField] Transform startPos;
 		[SerializeField] GameObject projectilePrefab;
-		[SerializeField] internal float fireRateCT;
+		[SerializeField] internal float _fireRatePerMinute;
 		[SerializeField] internal float startAngle;
 		[SerializeField] internal float endAngle;
+		[SerializeField] internal int shots;
 		[SerializeField] internal float nominator = 1;
+		[SerializeField] internal int _sprayCount;
+		[SerializeField] internal float _timeToStart;
+		[SerializeField] internal float _timeToLoop;
 		[SerializeField] bool backAndForth;
-		[SerializeField] internal int repetitionsUntilEndCT;
-		[SerializeField] internal float delayAfterStartCT;
-		[SerializeField] internal float delayBetweenLoopsCT;
 		[SerializeField] internal bool loopPattern;
-		internal float fireRate;
+		internal float _timeBetweenSprays;
+		internal float timeBetweenSprays;
 		internal float angleStep = 0f;
-		internal float angle = 0f;
-		internal float delayAfterStart;
-		internal int burstCount;
-		internal float delayUntilLoop;
+		internal float currentAngle = 0f;
+		internal float timeTostart;
+		internal int sprayCount;
+		internal float timeToLoop;
+		Transform enemyTransform;
 
 		internal void Spray()
 		{
-			Transform enemyTransform = FindObjectOfType<EnemyStagger>().transform;
+			if(!enemyTransform)
+				enemyTransform = FindObjectOfType<EnemyStagger>().transform;
 			GameObject bul;
 			bul = ProjectilePools.ObjectPoolInstance.GetPooledObject(projectilePrefab);
 			if (bul != null)
 			{
-				if ((startAngle >= angle || angle >= endAngle) && backAndForth)
+				if ((currentAngle <= startAngle || currentAngle >= endAngle) && backAndForth)
 				{
 					angleStep *= -1;
 				}
-				angle += angleStep;
+				currentAngle += angleStep;
 				Vector3 bulDir;
 				if (backAndForth)
-					bulDir = Quaternion.AngleAxis(angle, Vector3.up) * startPos.forward;
+					bulDir = Quaternion.AngleAxis(currentAngle, Vector3.up) * startPos.forward;
 				else
-					bulDir = Quaternion.AngleAxis(angle, Vector3.up) * enemyTransform.forward;
+					bulDir = Quaternion.AngleAxis(currentAngle, Vector3.up) * enemyTransform.forward;
 				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
 				bul.SetActive(true);
 				bul.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
@@ -136,13 +139,7 @@ public class PatternHandler : MonoBehaviour
 	{
 		stunTime = EnemyStagger.StaggerInstance.stunDuration;
 		if (Input.GetKeyDown(KeyCode.H)) phaseNumber++;
-		if(stunTime <= 0f && !changedPhase){
-			if(phaseNumber < phases.Count - 1) phaseNumber++;
-			else phaseNumber = 0;
-			changedPhase = true;
-		}
-		if(stunTime > 0f && changedPhase)
-			changedPhase = false;
+
 		foreach (BurstPattern bp in phases[phaseNumber].shotgunPatterns)
 		{
 			if (stunTime > 0f)
@@ -164,27 +161,36 @@ public class PatternHandler : MonoBehaviour
 		{
 			if (stunTime > 0f)
 			{
-				sp.angle = sp.startAngle + MathF.Abs(sp.startAngle - sp.endAngle) / sp.nominator;
+				if(sp.shots > 0) sp.nominator = MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.shots;
+				sp.currentAngle = sp.startAngle + MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.nominator;
 				sp.angleStep = sp.nominator;
-				sp.fireRate = stunTime + sp.fireRateCT;
-				sp.delayAfterStart = sp.delayAfterStartCT;
-				sp.burstCount = sp.repetitionsUntilEndCT;
-			}
-			if (sp.fireRate > 0f) sp.fireRate -= Time.deltaTime; //reduce atkCooldown by 1 every second if positive
-			if (sp.delayUntilLoop > 0f) sp.delayUntilLoop -= Time.deltaTime; //reduce patternCooldown by 1 every second if positive
-			if (sp.delayAfterStart > 0f) sp.delayAfterStart -= Time.deltaTime; //reduce startDelay by 1 every second if positive, else initiate attacking sequence
-			if (sp.fireRate <= 0f && sp.delayUntilLoop <= 0f && sp.burstCount > 0 && sp.delayAfterStart <= 0f)
-			{
-				sp.fireRate = sp.fireRateCT;
-				sp.Spray();
-				sp.burstCount--;
-			}
-			else if (sp.burstCount <= 0 && sp.loopPattern)
-			{
-				sp.burstCount = sp.repetitionsUntilEndCT; //reset the burstCount, might cause issues
-				sp.delayUntilLoop = sp.delayBetweenLoopsCT; //set the patternCooldown, this terminates the attack sequence
-				sp.angle = sp.startAngle + MathF.Abs(sp.startAngle - sp.endAngle) / sp.nominator;
-				sp.angleStep = sp.nominator;
+				sp.timeBetweenSprays = stunTime + sp._timeBetweenSprays;
+				sp.timeTostart = sp._timeToStart;
+				sp.sprayCount = sp._sprayCount;
+				sp._timeBetweenSprays = 60f / sp._fireRatePerMinute;
+			} else{
+				//Decrementing the timers
+				if (sp.timeTostart > 0f) sp.timeTostart -= Time.deltaTime;
+				else if(sp.timeToLoop > 0f) sp.timeToLoop -= Time.deltaTime;
+				else if (sp.timeBetweenSprays > 0f) sp.timeBetweenSprays -= Time.deltaTime; 
+
+				if (sp.timeBetweenSprays <= 0f && sp.timeToLoop <= 0f && sp.sprayCount > 0 && sp.timeTostart <= 0f) //When all timers are off and there's a projectile to be fired
+				{
+					sp.timeBetweenSprays = sp._timeBetweenSprays; //Reset the time, fire, and decrement the projectile amount
+					sp.Spray();
+					sp.sprayCount--;
+				}
+				else if (sp.sprayCount <= 0)
+				{
+					if(sp.shots > 0) sp.nominator = MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.shots; //Reapply the calculations (why?)
+					sp.currentAngle = sp.startAngle + MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.nominator;
+					sp.angleStep = sp.nominator;
+
+					if(sp.loopPattern){
+						sp.sprayCount = sp._sprayCount;
+						sp.timeToLoop = sp._timeToLoop;
+					}
+				}
 			}
 		}
 	}

@@ -16,12 +16,16 @@ public class EnemyStagger : MonoBehaviour
 	[SerializeField] bool thrust;
 	private float hitCooldown;
 	private float staggerTimer;
+	PatternHandler ph;
 	private bool staggerTimerResetted;
 	[HideInInspector]
 	public float stunDuration = 0f;
+	private bool incrementedPhase;
+	private bool first = true;
 
 	private void Awake()
 	{
+		ph = GetComponent<PatternHandler>();
 		stunDuration = _stunDuration;
 		if (StaggerInstance == null) StaggerInstance = this;
 		staggerTimerResetted = true;
@@ -51,6 +55,15 @@ public class EnemyStagger : MonoBehaviour
 			if(thrust)
 				ta.enabled = true;
 		}
+		
+		if(stunDuration <= 0.5f && !incrementedPhase){
+			if(!first){
+				ph.phaseNumber++;
+			} else first = false;
+			incrementedPhase = true;		
+		}	
+		
+		
 		if(hitCooldown > 0f)
 		{
 			hitCooldown -= Time.deltaTime;
@@ -71,6 +84,8 @@ public class EnemyStagger : MonoBehaviour
 	}
 	void Stagger()
 	{
+		if(!first)
+			incrementedPhase = false;
 		//animator.SetBool("wasHit", true);
 		stunDuration = _stunDuration;
 		staggerTime.text = "Strike Now!";

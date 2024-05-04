@@ -1408,7 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10900a5a141db34ca290c502d924b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phaseNumber: -1
+  phaseNumber: 0
   phases:
   - shotgunPatterns:
     - startPos: {fileID: 61886864}
@@ -1426,7 +1426,7 @@ MonoBehaviour:
     - startPos: {fileID: 481591997}
       projectilePrefab: {fileID: 7952956152626720134, guid: 8ad76552315172f408489781d6d763c8, type: 3}
       fireRateCT: 0
-      projectileCountCT: 10
+      projectileCountCT: 8
       burstsFired: 1
       varyBursts: 0
       startAngle: -180
@@ -1476,48 +1476,66 @@ MonoBehaviour:
     sprayPatterns:
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      fireRateCT: 0.1
+      _fireRatePerMinute: 180
       startAngle: -180
       endAngle: 180
+      shots: 0
       nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
       backAndForth: 0
-      repetitionsUntilEndCT: 9999
-      delayAfterStartCT: 10
-      delayBetweenLoopsCT: 0
       loopPattern: 0
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      fireRateCT: 0.1
+      _fireRatePerMinute: 180
       startAngle: 0
       endAngle: 360
+      shots: 0
       nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
       backAndForth: 0
-      repetitionsUntilEndCT: 9999
-      delayAfterStartCT: 10
-      delayBetweenLoopsCT: 0
       loopPattern: 0
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      fireRateCT: 0.1
+      _fireRatePerMinute: 180
       startAngle: -90
       endAngle: 270
+      shots: 0
       nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
       backAndForth: 0
-      repetitionsUntilEndCT: 9999
-      delayAfterStartCT: 10
-      delayBetweenLoopsCT: 0
       loopPattern: 0
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      fireRateCT: 0.1
+      _fireRatePerMinute: 180
       startAngle: 90
       endAngle: 450
+      shots: 0
       nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
       backAndForth: 0
-      repetitionsUntilEndCT: 9999
-      delayAfterStartCT: 10
-      delayBetweenLoopsCT: 0
       loopPattern: 0
+  - shotgunPatterns: []
+    sprayPatterns:
+    - startPos: {fileID: 61886864}
+      projectilePrefab: {fileID: 7952956152626720134, guid: 4de40742f45840a479159be50439c21d, type: 3}
+      _fireRatePerMinute: 120
+      startAngle: -45
+      endAngle: 45
+      shots: 10
+      nominator: 0
+      _sprayCount: 20
+      _timeToStart: 0
+      _timeToLoop: 0
+      backAndForth: 1
+      loopPattern: 1
 --- !u!65 &459801412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21960,7 +21978,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30952
+  m_Name: pb_Mesh30950
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23086,7 +23104,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30868
+  m_Name: pb_Mesh30866
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
