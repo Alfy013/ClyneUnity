@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PatternHandler : MonoBehaviour
@@ -86,6 +87,7 @@ public class PatternHandler : MonoBehaviour
 		[SerializeField] internal float _fireRatePerMinute;
 		[SerializeField] internal float startAngle;
 		[SerializeField] internal float endAngle;
+		[SerializeField] internal bool random;
 		[SerializeField] internal int shots;
 		[SerializeField] internal float nominator = 1;
 		[SerializeField] internal int _sprayCount;
@@ -110,12 +112,15 @@ public class PatternHandler : MonoBehaviour
 			bul = ProjectilePools.ObjectPoolInstance.GetPooledObject(projectilePrefab);
 			if (bul != null)
 			{
-				if ((currentAngle <= startAngle || currentAngle >= endAngle) && backAndForth)
-				{
-					angleStep *= -1;
-				}
-				currentAngle += angleStep;
-				Vector3 bulDir;
+				if(!random){
+					if (((currentAngle <= startAngle  && angleStep < 0) || (currentAngle >= endAngle && angleStep > 0)) && backAndForth)
+					{
+						angleStep *= -1;
+					}
+					currentAngle += angleStep;
+				} else currentAngle = UnityEngine.Random.Range(startAngle, endAngle);
+				
+				Vector3 bulDir;	
 				if (backAndForth)
 					bulDir = Quaternion.AngleAxis(currentAngle, Vector3.up) * startPos.forward;
 				else
@@ -123,6 +128,7 @@ public class PatternHandler : MonoBehaviour
 				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
 				bul.SetActive(true);
 				bul.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
+				
 			}
 		}
 	}
@@ -161,9 +167,11 @@ public class PatternHandler : MonoBehaviour
 		{
 			if (stunTime > 0f)
 			{
-				if(sp.shots > 0) sp.nominator = MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.shots;
-				sp.currentAngle = sp.startAngle + MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.nominator;
-				sp.angleStep = sp.nominator;
+				if(!sp.random){
+					if(sp.shots > 0) sp.nominator = (MathF.Abs(sp.endAngle) + MathF.Abs(sp.startAngle)) / sp.shots;
+					sp.currentAngle = sp.startAngle;
+					sp.angleStep = sp.nominator;
+				}
 				sp.timeBetweenSprays = stunTime + sp._timeBetweenSprays;
 				sp.timeTostart = sp._timeToStart;
 				sp.sprayCount = sp._sprayCount;
@@ -182,10 +190,10 @@ public class PatternHandler : MonoBehaviour
 				}
 				else if (sp.sprayCount <= 0)
 				{
-					if(sp.shots > 0) sp.nominator = MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.shots; //Reapply the calculations (why?)
-					sp.currentAngle = sp.startAngle + MathF.Abs(sp.endAngle) - MathF.Abs(sp.startAngle) / sp.nominator;
-					sp.angleStep = sp.nominator;
-
+					if(!sp.random){
+						sp.currentAngle = sp.startAngle;
+						sp.angleStep = sp.nominator;
+					}
 					if(sp.loopPattern){
 						sp.sprayCount = sp._sprayCount;
 						sp.timeToLoop = sp._timeToLoop;

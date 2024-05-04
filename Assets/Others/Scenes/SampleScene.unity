@@ -1476,21 +1476,10 @@ MonoBehaviour:
     sprayPatterns:
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      _fireRatePerMinute: 180
-      startAngle: -180
-      endAngle: 180
-      shots: 0
-      nominator: 10
-      _sprayCount: 9999
-      _timeToStart: 5
-      _timeToLoop: 0
-      backAndForth: 0
-      loopPattern: 0
-    - startPos: {fileID: 61886864}
-      projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      _fireRatePerMinute: 180
+      _fireRatePerMinute: 300
       startAngle: 0
       endAngle: 360
+      random: 0
       shots: 0
       nominator: 10
       _sprayCount: 9999
@@ -1500,21 +1489,36 @@ MonoBehaviour:
       loopPattern: 0
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      _fireRatePerMinute: 180
-      startAngle: -90
-      endAngle: 270
-      shots: 0
-      nominator: 10
-      _sprayCount: 9999
-      _timeToStart: 5
-      _timeToLoop: 0
-      backAndForth: 0
-      loopPattern: 0
-    - startPos: {fileID: 61886864}
-      projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
-      _fireRatePerMinute: 180
+      _fireRatePerMinute: 300
       startAngle: 90
       endAngle: 450
+      random: 0
+      shots: 0
+      nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
+      backAndForth: 0
+      loopPattern: 0
+    - startPos: {fileID: 61886864}
+      projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
+      _fireRatePerMinute: 300
+      startAngle: 180
+      endAngle: 540
+      random: 0
+      shots: 0
+      nominator: 10
+      _sprayCount: 9999
+      _timeToStart: 5
+      _timeToLoop: 0
+      backAndForth: 0
+      loopPattern: 0
+    - startPos: {fileID: 61886864}
+      projectilePrefab: {fileID: 7952956152626720134, guid: 0a1c86eaf6b4af14b8acd9fa2700a153, type: 3}
+      _fireRatePerMinute: 300
+      startAngle: 270
+      endAngle: 630
+      random: 0
       shots: 0
       nominator: 10
       _sprayCount: 9999
@@ -1523,19 +1527,7 @@ MonoBehaviour:
       backAndForth: 0
       loopPattern: 0
   - shotgunPatterns: []
-    sprayPatterns:
-    - startPos: {fileID: 61886864}
-      projectilePrefab: {fileID: 7952956152626720134, guid: 4de40742f45840a479159be50439c21d, type: 3}
-      _fireRatePerMinute: 120
-      startAngle: -45
-      endAngle: 45
-      shots: 10
-      nominator: 0
-      _sprayCount: 20
-      _timeToStart: 0
-      _timeToLoop: 0
-      backAndForth: 1
-      loopPattern: 1
+    sprayPatterns: []
 --- !u!65 &459801412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21978,7 +21970,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30956
+  m_Name: pb_Mesh30950
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23104,7 +23096,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30872
+  m_Name: pb_Mesh30866
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
