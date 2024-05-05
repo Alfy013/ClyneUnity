@@ -101,8 +101,6 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Armature/Hips/Spine/wristIKL.R/Hand.R/Hand1.R/Hand2.R/Hand2.R_end
     m_Weight: 1
-  - m_Path: Armature/Hips/Spine/wristIKL.R/Hand.R/Sword
-    m_Weight: 1
   - m_Path: Armature/Hips/Spine/wristIKL.R/Hand.R/Thumb0.R
     m_Weight: 1
   - m_Path: Armature/Hips/Spine/wristIKL.R/Hand.R/Thumb0.R/Thumb1.R
@@ -147,5 +145,11 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Armature/kneeIK.R/kneeIK.R_end
     m_Weight: 0
+  - m_Path: Armature/Sword
+    m_Weight: 1
+  - m_Path: Armature/Sword/Sword
+    m_Weight: 1
+  - m_Path: Armature/Sword/Sword_end
+    m_Weight: 1
   - m_Path: Vessel
     m_Weight: 1

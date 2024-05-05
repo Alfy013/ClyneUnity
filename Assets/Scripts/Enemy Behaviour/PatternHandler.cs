@@ -143,7 +143,8 @@ public class PatternHandler : MonoBehaviour
 
 	void Update()
 	{
-		
+		if(phaseNumber > phases.Count - 1)
+			phaseNumber = 0;
 	}
 	void FixedUpdate(){
 		stunTime = EnemyStagger.StaggerInstance.stunDuration;
