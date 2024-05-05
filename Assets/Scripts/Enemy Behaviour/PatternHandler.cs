@@ -118,7 +118,7 @@ public class PatternHandler : MonoBehaviour
 						angleStep *= -1;
 					}
 					currentAngle += angleStep;
-				} else currentAngle = UnityEngine.Random.Range(startAngle, endAngle);
+				} else currentAngle = UnityEngine.Random.Range(startAngle, endAngle);	
 				
 				Vector3 bulDir;	
 				if (backAndForth)
@@ -143,6 +143,9 @@ public class PatternHandler : MonoBehaviour
 
 	void Update()
 	{
+		
+	}
+	void FixedUpdate(){
 		stunTime = EnemyStagger.StaggerInstance.stunDuration;
 		if (Input.GetKeyDown(KeyCode.H)) phaseNumber++;
 

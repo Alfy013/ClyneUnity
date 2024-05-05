@@ -84,9 +84,8 @@ public class ProjectileHandler : MonoBehaviour
 
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		
 		if (EnemyStagger.StaggerInstance != null)
 		{
 			if (EnemyStagger.StaggerInstance.stunDuration > 0f && interpolateTimer <= 0f) Evaporate();
@@ -99,10 +98,7 @@ public class ProjectileHandler : MonoBehaviour
 				lifeTime /= 3;
 				halved = true;
 			}
-
 		}
-		
-
 		if (lifeTime > 0f)
 			lifeTime -= Time.deltaTime + (Convert.ToInt64(isEvaporating) * 4f * Time.deltaTime);
 		else Evaporate();
@@ -113,9 +109,6 @@ public class ProjectileHandler : MonoBehaviour
 
 		if(_gracePeriod > 0f && gracePeriod <= 0f)
 			boxCollider.enabled = true;
-
-
-
 	}
 
 	private void OnTriggerEnter(Collider other)
