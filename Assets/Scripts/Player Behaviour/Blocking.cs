@@ -53,7 +53,7 @@ public class Blocking : MonoBehaviour
 			UICooldownText.color = Color.yellow;
 		}
 
-		if (Math.Ceiling(Input.GetAxisRaw("Block")) == 1 && moveSystem.stamina >= 1 && shieldCooldown <= 0f)
+		if (Math.Ceiling(Input.GetAxisRaw("Block")) == 1 && moveSystem.stamina >= 1 && shieldCooldown <= 0f && HealthHandler.deathStunTime <= 0f)
 		{
 			animator.SetBool("Blocking", true);
 			moveSystem.StartAction((int)(moveSystem.stamina >= 30? 30 : moveSystem.stamina));

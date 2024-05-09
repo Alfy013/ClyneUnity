@@ -115,7 +115,7 @@ public class ProjectileHandler : MonoBehaviour
 	{
 		if (other.CompareTag("Player") && !isBeam)
 		{
-			other.GetComponent<HitScript>().TakeHit(damageAmount);
+			other.GetComponent<HealthHandler>().TakeHit(damageAmount);
 			if (sticks)
 			{
 				transform.parent = other.transform;

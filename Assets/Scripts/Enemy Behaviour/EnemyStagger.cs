@@ -15,7 +15,8 @@ public class EnemyStagger : MonoBehaviour
 	[SerializeField] ThrustAttack ta;
 	[SerializeField] bool thrust;
 	private float hitCooldown;
-	private float staggerTimer;
+	[HideInInspector]
+	public float staggerTimer;
 	PatternHandler ph;
 	private bool staggerTimerResetted;
 	[HideInInspector]

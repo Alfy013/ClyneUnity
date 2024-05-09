@@ -16,7 +16,7 @@ public class Slashing : MonoBehaviour
     void Update()
     {
 		animator.SetBool("Slashing", isSlashing);
-		if (Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && canSlash && moveSystem.stamina >= 10f)
+		if (Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && canSlash && moveSystem.stamina >= 10f && HealthHandler.deathStunTime <= 0f)
         {
             moveSystem.StartAction(10);
             isSlashing = true;

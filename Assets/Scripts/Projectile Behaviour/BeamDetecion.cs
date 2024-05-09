@@ -10,6 +10,6 @@ public class BeamDetecion : MonoBehaviour
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.CompareTag("Player"))
-			collision.GetComponent<HitScript>().TakeHit(10, 2f * Convert.ToInt16(canStun));
+			collision.GetComponent<HealthHandler>().TakeHit(10, 2f * Convert.ToInt16(canStun));
 	}
 }

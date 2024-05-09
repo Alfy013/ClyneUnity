@@ -47,7 +47,7 @@ public class PlayerHandler : MonoBehaviour
 	[SerializeField] GameObject lockedCamera;
 	[SerializeField] GameObject unlockedCamera;
 
-
+	
 	private void AnimatorSet()
 	{
 		_animator.SetFloat("Vertical", vertSpeed);
