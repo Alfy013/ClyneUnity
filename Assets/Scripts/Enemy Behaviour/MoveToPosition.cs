@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class MoveToPosition : MonoBehaviour
 {
+
     [Serializable]
     private struct Action{
         public Transform targetPosition;
@@ -29,11 +30,6 @@ public class MoveToPosition : MonoBehaviour
     Vector3 selfPos;
     Vector3 targetPos;
 
-    [SerializeField] TMP_Text ActionIndex;
-    [SerializeField] TMP_Text ActionListIndex;
-    [SerializeField] TMP_Text TimeToStart;
-    [SerializeField] TMP_Text TimeToArrive;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -46,10 +42,15 @@ public class MoveToPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(EnemyStagger.StaggerInstance.staggerTimer > 0f)
+            Move();
+    }
+
+    void Move(){
         if(timeToArrive > 0f){
             if(timeToStart <= 0f){
                 if(!calculatedPositions){
-                    selfPos = new(transform.position.x, actionLists[AL_Index].actions[A_Index].verticality? transform.position.y : 0f, transform.position.z);
+                    selfPos = new(transform.position.x, transform.position.y, transform.position.z);
                     targetPos = new(actionLists[AL_Index].actions[A_Index].targetPosition.position.x, actionLists[AL_Index].actions[A_Index].verticality? actionLists[AL_Index].actions[A_Index].targetPosition.position.y : 0f, actionLists[AL_Index].actions[A_Index].targetPosition.position.z);
                     calculatedPositions = true; 
                 }
@@ -61,19 +62,9 @@ public class MoveToPosition : MonoBehaviour
             calculatedPositions = false;
             if(A_Index < actionLists[AL_Index].actions.Count - 1)
                 A_Index++;
-            else {
-                if(AL_Index + 1 <= actionLists.Count - 1){
-                    AL_Index++;
-                    A_Index = 0;
-                } else enabled = false;
-                
-            }
+            else A_Index = 0;
             timeToStart = actionLists[AL_Index].actions[A_Index].timeToStart;
             timeToArrive = actionLists[AL_Index].actions[A_Index].timeToArrive;
         }
-        ActionIndex.text = "AIndex " + Convert.ToString(A_Index);
-        ActionListIndex.text = "AIIndex " + Convert.ToString(AL_Index);
-        TimeToStart.text = "TimeToStart " + Convert.ToString(timeToStart);
-        TimeToArrive.text = "TimeToArrive " + Convert.ToString(timeToArrive);
     }
 }

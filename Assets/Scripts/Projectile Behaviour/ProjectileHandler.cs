@@ -130,8 +130,8 @@ public class ProjectileHandler : MonoBehaviour
 				mat.SetColor("_EmissionColor", invertedColorEM);
 			}
 			if (destroyedOnParry) lifeTime = 0f;
-			SetMoveDirection(new Vector3(-moveDir.x, 0f, -moveDir.z));
-			rb.rotation = Quaternion.LookRotation(new Vector3(moveDir.x, 0f, moveDir.z));
+			SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
+			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, moveDir.z));
 			transform.gameObject.layer = 11;
 			transform.gameObject.tag = "FProjectile";
 			if(blocking.slowdownCooldown <= 0f && !destroyedOnParry)
