@@ -30,7 +30,7 @@ public class HealthHandler : MonoBehaviour
         if(HP <= 0){
             playeranim.SetBool("Knocked", true);
             deathStunTime = _deathStunTime;
-        } else playeranim.SetBool("Knocked", false);
+        }
         UIHPText.text = "Health: " + HP;
 		UIHitText.text = "Hits taken: " + hitsTaken;
         if (stunTimer > 0f || deathStunTime > 0f)
@@ -51,9 +51,11 @@ public class HealthHandler : MonoBehaviour
 				moveSystem.actionPlaying = false;
                 defaulted = true;
                 deathCam.SetActive(false);
+                playeranim.SetBool("Knocked", false);
 			}
 		}
         if(stunTimer > 0f) stunTimer -= Time.deltaTime;
+        
         if(deathStunTime > 0f){
             deathStunTime -= Time.deltaTime;
             if(regeneratingHP < maxHP)

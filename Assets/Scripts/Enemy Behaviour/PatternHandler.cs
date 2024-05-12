@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PatternHandler : MonoBehaviour
 {
-
 	private float stunTime;
 	[SerializeField] public int phaseNumber = 0;
 	[Serializable]
