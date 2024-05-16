@@ -68,9 +68,9 @@ public class EnemyStagger : MonoBehaviour
 		if(hitCooldown > 0f)
 		{
 			hitCooldown -= Time.deltaTime;
-			animator.SetBool("wasHit", true);
+			//animator.SetBool("wasHit", true);
 		}
-		else animator.SetBool("wasHit", false);
+		//else animator.SetBool("wasHit", false);
 
 
 	}

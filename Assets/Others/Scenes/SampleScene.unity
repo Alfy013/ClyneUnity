@@ -1315,7 +1315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staggerTime: {fileID: 976927908}
-  animator: {fileID: 1935896684}
+  animator: {fileID: 0}
   staggerTimerCT: 30
   _stunDuration: 3
   ta: {fileID: 459801413}
@@ -1346,7 +1346,7 @@ MonoBehaviour:
       startAngle: -180
       endAngle: 180
       timeToStartCT: 0
-      timeBetweenBursts: 0.5
+      timeBetweenBursts: 1
       loopPattern: 1
       looksAtPlayer: 0
     - startPos: {fileID: 481591997}
@@ -1605,10 +1605,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4660e1112dd9c6489c1ce9f658bc5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordpos: {fileID: 726251325}
+  projectileToUse:
+  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
+  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
+  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
+  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
+  - {fileID: 1026118312263156613, guid: e29bea6d8ae622b4b9de7775da770629, type: 3}
+  transformToUse:
+  - {fileID: 726251325}
+  - {fileID: 726251325}
+  - {fileID: 726251325}
+  - {fileID: 726251325}
+  - {fileID: 726251325}
   moveSystem: {fileID: 481591995}
   animator: {fileID: 1744905145}
-  swordProjectile: {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
+  _slashCooldown: 0.4
+  _jumpDuration: 0.5
+  afterImage: {fileID: 1390343632}
 --- !u!114 &481592004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13714,6 +13727,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 400253825328740648, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
   m_PrefabInstance: {fileID: 1847223378}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &836858446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836858442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313d77a1417e57d43a020764652c5f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &948059235
 GameObject:
   m_ObjectHideFlags: 0
@@ -16279,7 +16304,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38524
+  m_Name: pb_Mesh184634
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16637,7 +16662,7 @@ MonoBehaviour:
   actionLists:
   - actions:
     - targetPosition: {fileID: 682621093}
-      timeToStart: 5
+      timeToStart: 9999999
       timeToArrive: 0.25
       verticality: 0
 --- !u!1 &1197656523
@@ -21951,7 +21976,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390343629}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fdf23363b7094c408534bba1c6edd7d, type: 3}
   m_Name: 
@@ -22395,7 +22420,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38620
+  m_Name: pb_Mesh184730
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23739,6 +23764,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: c656c3f401df3534a8c63880b69d77f0, type: 2}
+    - target: {fileID: 1875559163138296157, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6468647384524209787, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -29210,11 +29239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ta: {fileID: 459801413}
---- !u!95 &1935896684 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
-  m_PrefabInstance: {fileID: 1904770595}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1937138883 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6733139147327331818, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}

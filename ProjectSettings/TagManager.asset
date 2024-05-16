@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - EnemySwordHitbox
   - Pushzone
+  - ThrownSword
   layers:
   - Default
   - TransparentFX

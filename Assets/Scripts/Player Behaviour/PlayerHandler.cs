@@ -149,15 +149,22 @@ public class PlayerHandler : MonoBehaviour
 		UIStaminaSlider.value = stamina / 100f;
 	}
 
-	public void StartAction(int stamCost, bool stopMovement = false)
+	public bool StartAction(int stamCost, bool stopMovement = false)
 	{
-		stamRegen = 0f;
-		stamina -= stamCost;
-		if (stopMovement) canMove = false;
+		if(stamina > stamCost){
+			stamRegen = 0f;
+			stamina -= stamCost;
+			if (stopMovement) canMove = false;
+			return true;
+		}
+		return false;
 	}
 	public void StopAction()
 	{
 		actionPlaying = false;
 		canMove = true;
+	}
+	public float GetStamina(){
+		return stamina;
 	}
 }

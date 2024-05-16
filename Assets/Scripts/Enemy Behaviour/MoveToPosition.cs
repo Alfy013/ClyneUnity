@@ -41,7 +41,7 @@ public class MoveToPosition : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if(EnemyStagger.StaggerInstance.staggerTimer > 0f)
             Move();
     }

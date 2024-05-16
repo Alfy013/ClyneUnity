@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SwordProjectile : MonoBehaviour
 {
+	[SerializeField] float multiplier;
+	[SerializeField] ForceMode forceMode;
 	Rigidbody rb;
 
 	private void Awake()
@@ -14,6 +16,6 @@ public class SwordProjectile : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		rb.AddForce(transform.forward * 3, ForceMode.Impulse);
+		rb.AddForce(transform.forward * multiplier, forceMode);
 	}
 }
