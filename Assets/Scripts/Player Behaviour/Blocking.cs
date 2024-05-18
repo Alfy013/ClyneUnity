@@ -53,10 +53,9 @@ public class Blocking : MonoBehaviour
 			UICooldownText.color = Color.yellow;
 		}
 
-		if (Math.Ceiling(Input.GetAxisRaw("Block")) == 1 && moveSystem.stamina >= 1 && shieldCooldown <= 0f && HealthHandler.deathStunTime <= 0f)
+		if (Math.Ceiling(Input.GetAxisRaw("Block")) == 1 && moveSystem.stamina >= 1 && shieldCooldown <= 0f && moveSystem.StartAction(30, PlayerHandler.PlayerState.Parry))
 		{
 			animator.SetBool("Blocking", true);
-			moveSystem.StartAction((int)(moveSystem.stamina >= 30? 30 : moveSystem.stamina));
 			shieldCooldown = 1f;
 			FindObjectOfType<AudioManager>().PlaySound("reflect");
 		}
@@ -70,6 +69,7 @@ public class Blocking : MonoBehaviour
 	public void StopBlock()
 	{
 		shieldHitBox.SetActive(false);
+		moveSystem.StopAction();
 	}
 	public void ReflectSlowDown()
 	{

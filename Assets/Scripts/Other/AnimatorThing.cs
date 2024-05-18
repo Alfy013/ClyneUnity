@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AnimatorThing : MonoBehaviour
 {
-    [SerializeField] Dashing dashing;
     [SerializeField] Blocking blocking;
     [SerializeField] Slashing slashing;
 	void PlaySlash()

@@ -2,12 +2,14 @@ using Cinemachine;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
 	//General movement and action variables
-	[SerializeField] CharacterController _controller;
+	public enum PlayerState { None, Knocked, Slash, Charge, Parry, Engross, Monopolize }
+	public PlayerState playerState;
 	[SerializeField] Animator _animator;
 	[SerializeField] float _baseSpeed = 7f;
 	[SerializeField] float _focusModifier = 2;
@@ -16,7 +18,7 @@ public class PlayerHandler : MonoBehaviour
 	[SerializeField] GameObject playerAsset;
 	readonly float _gravity = -9.81f;
 
-	Camera cam;
+	CharacterController _controller;
 	Transform target;
 	private Quaternion rotation;
 	private Vector3 direction;
@@ -34,11 +36,9 @@ public class PlayerHandler : MonoBehaviour
 	private Vector3 jumpVec;
 	private Vector3 gravPull;
 
-	[HideInInspector] public float abCooldown;
 	[HideInInspector] public float stamina = 100f;
 	[HideInInspector] public float stamRegen;
 	[HideInInspector] public bool canMove = true;
-	[HideInInspector] public bool actionPlaying;
 
 	//UI element declarations
 	[SerializeField] TMP_Text UIStaminaText;
@@ -69,14 +69,10 @@ public class PlayerHandler : MonoBehaviour
 	}
 	private void Movement()
 	{
-		
 		if (Input.GetKeyDown(KeyCode.Z)) locked = !locked;
 		if (!locked)
 		{
 			transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f));
-			/*var dir = Input.mousePosition - cam.WorldToScreenPoint(playerAsset.transform.position);
-			var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);*/
 		}
 		else if(resetRotation)
 		{
@@ -124,7 +120,7 @@ public class PlayerHandler : MonoBehaviour
 
 	private void Start()
 	{
-		cam = FindObjectOfType<Camera>();
+		_controller = GetComponent<CharacterController>();
 		unlockedCamera.transform.rotation = lockedCamera.transform.rotation;
 		target = FindObjectOfType<EnemyStagger>().transform;
 		UIStaminaText.text = "Stamina value: " + Mathf.CeilToInt(stamina);
@@ -137,34 +133,32 @@ public class PlayerHandler : MonoBehaviour
 	}
 	void Update()
 	{
-		if (!actionPlaying && stamina < 100) stamRegen += Time.deltaTime;
-		if (!actionPlaying && stamina < 100 && stamRegen >= 3f) stamina += Time.deltaTime * stamRegen * 7.5f;
-		if (stamina < 0f) stamina = 0f; if (stamina > 100f) stamina = 100f;
+		stamina = Mathf.Clamp(stamina, 0, 100);
+		if (playerState == PlayerState.None && stamina < 100) stamRegen += Time.deltaTime;
+		if (playerState == PlayerState.None && stamina < 100 && stamRegen >= 3f) stamina += Time.deltaTime * stamRegen * 7.5f;
 
 		AnimatorSet();
 		Gravity();
-		Movement();
-
+		if(canMove) Movement();
+		
 		UIStaminaText.text = "Stamina value: " + Mathf.CeilToInt(stamina);
 		UIStaminaSlider.value = stamina / 100f;
 	}
 
-	public bool StartAction(int stamCost, bool stopMovement = false)
+	public bool StartAction(int stamCost, PlayerState state, bool stopMove = false)
 	{
-		if(stamina > stamCost){
+		if(stamina >= 1 && playerState == state || playerState == PlayerState.None){
+			canMove = !stopMove;
+			playerState = state;
 			stamRegen = 0f;
 			stamina -= stamCost;
-			if (stopMovement) canMove = false;
 			return true;
 		}
 		return false;
 	}
 	public void StopAction()
 	{
-		actionPlaying = false;
+		playerState = PlayerState.None;
 		canMove = true;
-	}
-	public float GetStamina(){
-		return stamina;
 	}
 }

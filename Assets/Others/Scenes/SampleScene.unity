@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staggerTime: {fileID: 976927908}
   animator: {fileID: 0}
-  staggerTimerCT: 30
+  staggerTimerCT: 50
   _stunDuration: 3
   ta: {fileID: 459801413}
   thrust: 0
@@ -1339,9 +1339,9 @@ MonoBehaviour:
   - shotgunPatterns:
     - startPos: {fileID: 61886864}
       projectilePrefab: {fileID: 7952956152626720134, guid: 4de40742f45840a479159be50439c21d, type: 3}
-      fireRateCT: 0
+      fireRateCT: 0.5
       projectileCountCT: 45
-      burstsFired: 1
+      burstsFired: 3
       varyBursts: 1
       startAngle: -180
       endAngle: 180
@@ -1518,18 +1518,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63e6230eead1704b844d0686d2c511b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 481591996}
+  playerState: 0
   _animator: {fileID: 1744905145}
   _baseSpeed: 14
   _focusModifier: 0.5
   rotationSpeed: 3
   aim: {fileID: 1390343632}
   playerAsset: {fileID: 1744905142}
-  abCooldown: 0
   stamina: 100
   stamRegen: 1
   canMove: 1
-  actionPlaying: 0
   UIStaminaText: {fileID: 346365865}
   UIStaminaSlider: {fileID: 1648934342}
   lockedCamera: {fileID: 985353029}
@@ -1620,8 +1618,9 @@ MonoBehaviour:
   moveSystem: {fileID: 481591995}
   animator: {fileID: 1744905145}
   _slashCooldown: 0.4
-  _jumpDuration: 0.5
+  _jumpDuration: 0.25
   afterImage: {fileID: 1390343632}
+  slashingIndex: 0
 --- !u!114 &481592004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16304,7 +16303,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh184634
+  m_Name: pb_Mesh31502
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23428,7 +23427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c20dc6157d68dd44a48ad41c6f146df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashing: {fileID: 0}
   blocking: {fileID: 481591998}
   slashing: {fileID: 481592003}
 --- !u!95 &1744905145

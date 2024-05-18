@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FPSMeter : MonoBehaviour
 {
@@ -20,5 +21,6 @@ public class FPSMeter : MonoBehaviour
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
 		float fps = 1.0f / deltaTime;
         FPS.text = "FPS: " + Mathf.Ceil(fps);
+        if(Input.GetKeyDown(KeyCode.Backspace)) SceneManager.LoadScene(0);
     }
 }

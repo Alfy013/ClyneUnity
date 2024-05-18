@@ -37,8 +37,8 @@ public class HealthHandler : MonoBehaviour
         {
             if(defaulted){
                 defaulted = false;
-                moveSystem.canMove = false;
-                moveSystem.actionPlaying = true;
+                moveSystem.StopAction();
+                moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
                 regeneratingHP = 0;
                 deathCam.SetActive(true);
             }
@@ -47,8 +47,7 @@ public class HealthHandler : MonoBehaviour
         {
             if (!defaulted)
             {
-				moveSystem.canMove = true;
-				moveSystem.actionPlaying = false;
+				moveSystem.StopAction();
                 defaulted = true;
                 deathCam.SetActive(false);
                 playeranim.SetBool("Knocked", false);

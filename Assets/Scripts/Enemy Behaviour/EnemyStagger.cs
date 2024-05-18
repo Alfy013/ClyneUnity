@@ -80,7 +80,7 @@ public class EnemyStagger : MonoBehaviour
 		if (collision.CompareTag("FProjectile"))
 		{
 			hitCooldown = 0.4f;
-			staggerTimer -= 5f;
+			staggerTimer -= 2f;
 		}
 	}
 	void Stagger()

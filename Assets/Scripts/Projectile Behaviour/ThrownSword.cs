@@ -7,6 +7,7 @@ public class ThrownSword : MonoBehaviour
     [SerializeField] float _timeToReturn;
     [SerializeField] float speedMultiplier;
     GameObject player;
+    float graceTime;
     float timeToArrive;
     Transform playerPos;
     Vector3 startingPos;
@@ -22,22 +23,26 @@ public class ThrownSword : MonoBehaviour
         rb.AddForce(transform.forward * speedMultiplier, ForceMode.Impulse);
         timeToArrive = _timeToReturn;
         swordGameObject.SetActive(false);
+        graceTime = 0.1f;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(returnDelay > 0f) returnDelay -= Time.deltaTime;
-        else{
+    {   
+        if(returnDelay > 0f){
+            if(graceTime > 0f) graceTime -= Time.deltaTime;
+            else GetComponent<BoxCollider>().enabled = true;
+            returnDelay -= Time.deltaTime;
+        } else{
             if(!started){
                 started = true;
                 startingPos = transform.position;
-                GetComponent<BoxCollider>().enabled = true;
             }
             transform.position = Vector3.Lerp(startingPos, playerPos.position, 1 - (timeToArrive / _timeToReturn));
             timeToArrive -= Time.deltaTime;
         }
     }
+
 
     void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Player")){
