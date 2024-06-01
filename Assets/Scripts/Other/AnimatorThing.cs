@@ -10,6 +10,9 @@ public class AnimatorThing : MonoBehaviour
 	{
 		slashing.PlaySlash();
 	}
+    void PlayStab(){
+        slashing.PlayStab();
+    }
 	void StartBlock()
     {
         blocking.StartBlock();

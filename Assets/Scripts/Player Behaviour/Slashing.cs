@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Slashing : MonoBehaviour
 {
-    [SerializeField] GameObject[] projectileToUse;
-    [SerializeField] Transform[] transformToUse;
+    [Serializable] private enum AttackType{
+        Slashes, Stabs
+    }
+
+    [SerializeField] AttackType type;
+    [SerializeField] GameObject[] slashProjectiles;
+    [SerializeField] Transform[] slashTransforms;
+    [SerializeField] GameObject[] stabProjectiles;
+    [SerializeField] Transform[] stabTransforms;
     [SerializeField] PlayerHandler moveSystem; 
     [SerializeField] Animator animator;
     [SerializeField] float _slashCooldown;
@@ -21,6 +28,25 @@ public class Slashing : MonoBehaviour
     
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.V)){
+            if(type == AttackType.Slashes) type = AttackType.Stabs;
+            else if(type == AttackType.Stabs) type = AttackType.Slashes;
+        }
+
+        if(type == AttackType.Slashes) Slashes();
+        else if(type == AttackType.Stabs) Stabs();
+    }
+    private void Stabs(){
+        animator.SetInteger("SlashingIndex", 0);
+        if(Input.GetAxisRaw("Slash") == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Stab)){
+            animator.SetBool("Stab", true);
+        } else{
+            animator.SetBool("Stab", false);
+            moveSystem.StopAction();
+        }
+    }
+    private void Slashes(){
+        animator.SetBool("Stab", false);
         animator.SetInteger("SlashingIndex", slashingIndex);
         if(Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && slashCooldown <= 0f){
             slashCooldown = _slashCooldown;
@@ -74,9 +100,15 @@ public class Slashing : MonoBehaviour
     public void PlaySlash()
     {
         if(slashingIndex == 0) return;
-		latestProjectile = Instantiate(projectileToUse[slashingIndex - 1], transformToUse[slashingIndex - 1].position, transformToUse[slashingIndex - 1].rotation);
+		latestProjectile = Instantiate(slashProjectiles[slashingIndex - 1], slashTransforms[slashingIndex - 1].position, slashTransforms[slashingIndex - 1].rotation);
 		Destroy(latestProjectile, 3);
 	}
+    public void PlayStab(){
+        moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);
+        int roll = UnityEngine.Random.Range(0, stabProjectiles.Length - 1);
+        latestProjectile = Instantiate(stabProjectiles[roll], stabTransforms[roll].transform.position, stabTransforms[roll].transform.rotation);
+        Destroy(latestProjectile, 1);
+    }
     public void ReturnSword(){
         slashCooldown = 1f;
         slashingIndex = 0;

@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf755c269503a3c43acd5420520bb564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 3
-  forceMode: 1
+  multiplier: 50
+  forceMode: 5
 --- !u!54 &-7290226718127381288
 Rigidbody:
   m_ObjectHideFlags: 0

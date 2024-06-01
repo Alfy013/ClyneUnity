@@ -56,6 +56,7 @@ public class HealthHandler : MonoBehaviour
         if(stunTimer > 0f) stunTimer -= Time.deltaTime;
         
         if(deathStunTime > 0f){
+            moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
             deathStunTime -= Time.deltaTime;
             if(regeneratingHP < maxHP)
                 regeneratingHP += Time.deltaTime * (maxHP / _deathStunTime);

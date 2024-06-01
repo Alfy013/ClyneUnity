@@ -1,6 +1,7 @@
 using Cinemachine;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class PlayerHandler : MonoBehaviour
 {
 	//General movement and action variables
-	public enum PlayerState { None, Knocked, Slash, Charge, Parry, Engross, Monopolize }
+	public enum PlayerState { None, Knocked, Slash, Stab, Charge, Parry, Engross, Monopolize }
 	public PlayerState playerState;
 	[SerializeField] Animator _animator;
 	[SerializeField] float _baseSpeed = 7f;
@@ -41,6 +42,7 @@ public class PlayerHandler : MonoBehaviour
 	[HideInInspector] public bool canMove = true;
 
 	//UI element declarations
+	[SerializeField] TMP_Text state;
 	[SerializeField] TMP_Text UIStaminaText;
 	[SerializeField] Slider UIStaminaSlider;
 
@@ -133,6 +135,7 @@ public class PlayerHandler : MonoBehaviour
 	}
 	void Update()
 	{
+		state.text = "State: " + Convert.ToString(playerState);
 		stamina = Mathf.Clamp(stamina, 0, 100);
 		if (playerState == PlayerState.None && stamina < 100) stamRegen += Time.deltaTime;
 		if (playerState == PlayerState.None && stamina < 100 && stamRegen >= 3f) stamina += Time.deltaTime * stamRegen * 7.5f;
@@ -147,7 +150,7 @@ public class PlayerHandler : MonoBehaviour
 
 	public bool StartAction(int stamCost, PlayerState state, bool stopMove = false)
 	{
-		if(stamina >= 1 && playerState == state || playerState == PlayerState.None){
+		if(stamina > 1 && (playerState == state || playerState == PlayerState.None)){
 			canMove = !stopMove;
 			playerState = state;
 			stamRegen = 0f;

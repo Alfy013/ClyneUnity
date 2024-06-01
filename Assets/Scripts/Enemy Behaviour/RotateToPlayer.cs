@@ -8,6 +8,10 @@ public class RotateToPlayer : MonoBehaviour
     public float RotationSpeed;
     private Vector3 _direction;
 	private Quaternion _rotation;
+	private void Start(){
+		if(target == null)
+			target = FindObjectOfType<EnemyStagger>().gameObject.transform;
+	}
     void Update()
 	{
 		_direction = (target.position - transform.position).normalized;
