@@ -33,7 +33,6 @@ public class ProjectilePools : MonoBehaviour
 				GameObject obj = Instantiate(projectilesToPool[i].projPrefab);
 				projectilesToPool[i].pooledBullets.Add(obj);
 				obj.GetComponent<ProjectileHandler>().SetIndex(i);
-				obj.SetActive(false);
 			}
 		}
 	}

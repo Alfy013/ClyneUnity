@@ -5,7 +5,14 @@ using UnityEngine;
 public class EnemyAnimatorEvents : MonoBehaviour
 {
 	[SerializeField] ThrustAttack ta;
-
+	[SerializeField] BurstSubEmitter bse;
+	[SerializeField] Animation_test at;
+	void FireBurst(){
+		bse.FireBurst();
+	}
+	void AttackEnd(){
+		at.ResetAnimationStance();
+	}
 	void StartThrust()
 	{
 		ta.StartThrust();

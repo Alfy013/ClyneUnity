@@ -122,6 +122,7 @@ public class PlayerHandler : MonoBehaviour
 
 	private void Start()
 	{
+		Application.targetFrameRate = 0;
 		_controller = GetComponent<CharacterController>();
 		unlockedCamera.transform.rotation = lockedCamera.transform.rotation;
 		target = FindObjectOfType<EnemyStagger>().transform;

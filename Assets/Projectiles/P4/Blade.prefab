@@ -92,8 +92,6 @@ MonoBehaviour:
   parriable: 0
   destroyedOnParry: 0
   isBeam: 0
-  isEmitted: 0
-  orbits: 0
   sticks: 0
   _gracePeriod: 0
   stuck: 0

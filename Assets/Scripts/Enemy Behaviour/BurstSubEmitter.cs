@@ -15,6 +15,8 @@ public class BurstSubEmitter : MonoBehaviour
 	[SerializeField] float delayAfterStartCT;
 	[SerializeField] float delayBetweenLoopsCT;
 	[SerializeField] bool loopPattern;
+	[SerializeField] bool fireOnTrigger = false;
+	[SerializeField] Transform positionOnTrigger;
 	bool switched = false;
 	float fireRate;
 	float waitAfterStart;
@@ -36,7 +38,10 @@ public class BurstSubEmitter : MonoBehaviour
 			{
 				Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
 				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
-				bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
+				if(!fireOnTrigger)
+					bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
+				else
+					bul.transform.SetPositionAndRotation(positionOnTrigger.position, positionOnTrigger.rotation * Quaternion.AngleAxis(angle, Vector3.up));
 				bul.SetActive(true);
 				angle += angleStep;
 			}
@@ -65,6 +70,12 @@ public class BurstSubEmitter : MonoBehaviour
 	}
 	void Update()
 	{
+		if(!fireOnTrigger) NonTrigger();
+	}
+
+
+	void NonTrigger(){
+		if(fireOnTrigger)
 		if (fireRate > 0f) fireRate -= Time.deltaTime; //reduce atkCooldown by 1 every second if positive
 		if (patternCooldown > 0f) patternCooldown -= Time.deltaTime; //reduce patternCooldown by 1 every second if positive
 		if (waitAfterStart > 0f) waitAfterStart -= Time.deltaTime; //reduce startDelay by 1 every second if positive, else initiate attacking sequence
@@ -79,6 +90,8 @@ public class BurstSubEmitter : MonoBehaviour
 			burstCount = burstsFired; //reset the burstCount, might cause issues
 			patternCooldown = delayBetweenLoopsCT; //set the patternCooldown, this terminates the attack sequence
 		}
-
+	}
+	public void FireBurst(){
+		Shotgun();
 	}
 }

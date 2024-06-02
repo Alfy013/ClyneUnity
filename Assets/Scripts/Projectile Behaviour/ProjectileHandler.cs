@@ -89,8 +89,9 @@ public class ProjectileHandler : MonoBehaviour
 		if (EnemyStagger.StaggerInstance != null)
 		{
 			if (EnemyStagger.StaggerInstance.stunDuration > 0f && interpolateTimer <= 0f) Evaporate();
-			if (!startEvaporate && !stuck && lifeTime > 0f && EnemyStagger.StaggerInstance.stunDuration < 0f)
-				SetVelocity(velocityCurve.Evaluate(lifeTimeCT - lifeTime));
+			if (!startEvaporate && !stuck && lifeTime > 0f && EnemyStagger.StaggerInstance.stunDuration < 0f && !isEvaporating){
+				SetVelocity(velocityCurve.Evaluate(1 - lifeTime/lifeTimeCT));
+			}
 			else SetVelocity(0f);
 
 			if (EnemyStagger.StaggerInstance.stunDuration > 0f && !halved)
@@ -129,7 +130,7 @@ public class ProjectileHandler : MonoBehaviour
 				mat.SetColor("_Color", invertedColorMAT);
 				mat.SetColor("_EmissionColor", invertedColorEM);
 			}
-			if (destroyedOnParry) lifeTime = 0f;
+			if (destroyedOnParry) Evaporate();
 			SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
 			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, moveDir.z));
 			transform.gameObject.layer = 11;
@@ -138,7 +139,7 @@ public class ProjectileHandler : MonoBehaviour
 			{
 				blocking.ReflectSlowDown();
 			}
-			
+
 		}
 		if (other.CompareTag("Enemy") && sticks)
 		{

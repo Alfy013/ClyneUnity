@@ -65,7 +65,7 @@ public class AfterImage : MonoBehaviour
 		}
 	}
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
     {
 		if (activate)
 		{
