@@ -22,6 +22,7 @@ public class PatternHandler : MonoBehaviour
 		[SerializeField] internal float timeBetweenBursts;
 		[SerializeField] internal bool loopPattern;
 		[SerializeField] internal bool looksAtPlayer;
+		[SerializeField] Transform parentPoint;
 		internal bool activated = true;
 		internal bool started;
 		private bool switched = false;
@@ -45,7 +46,10 @@ public class PatternHandler : MonoBehaviour
 				{
 					Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * (looksAtPlayer == true ? startPos.forward : Vector3.forward);
 					bul.transform.SetPositionAndRotation(startPos.position, startPos.rotation * Quaternion.AngleAxis(angle, Vector3.up));
-					bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
+					bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
+					if(bul.TryGetComponent(out CurvedProjectile curve) || parentPoint != null){
+						curve.parentPoint = parentPoint;
+					}
 					bul.SetActive(true);
 					angle += angleStep;
 				}
@@ -123,7 +127,7 @@ public class PatternHandler : MonoBehaviour
 					bulDir = Quaternion.AngleAxis(currentAngle, Vector3.up) * startPos.forward;
 				else
 					bulDir = Quaternion.AngleAxis(currentAngle, Vector3.up) * enemyTransform.forward;
-				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
+				bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
 				bul.SetActive(true);
 				bul.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
 				

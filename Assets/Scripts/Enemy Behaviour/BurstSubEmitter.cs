@@ -17,6 +17,7 @@ public class BurstSubEmitter : MonoBehaviour
 	[SerializeField] bool loopPattern;
 	[SerializeField] bool fireOnTrigger = false;
 	[SerializeField] Transform positionOnTrigger;
+	[SerializeField] Transform parentPoint;
 	bool switched = false;
 	float fireRate;
 	float waitAfterStart;
@@ -37,11 +38,14 @@ public class BurstSubEmitter : MonoBehaviour
 			if (bul != null)
 			{
 				Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
-				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
+				bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
 				if(!fireOnTrigger)
 					bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
 				else
 					bul.transform.SetPositionAndRotation(positionOnTrigger.position, positionOnTrigger.rotation * Quaternion.AngleAxis(angle, Vector3.up));
+				if(bul.TryGetComponent(out CurvedProjectile curve) || parentPoint != null){
+					curve.parentPoint = parentPoint;
+				}
 				bul.SetActive(true);
 				angle += angleStep;
 			}
@@ -70,12 +74,13 @@ public class BurstSubEmitter : MonoBehaviour
 	}
 	void Update()
 	{
-		if(!fireOnTrigger) NonTrigger();
+		float stunTime = EnemyStagger.StaggerInstance.stunDuration;
+		if(stunTime <= 0f)
+			if(!fireOnTrigger) NonTrigger();
 	}
 
 
 	void NonTrigger(){
-		if(fireOnTrigger)
 		if (fireRate > 0f) fireRate -= Time.deltaTime; //reduce atkCooldown by 1 every second if positive
 		if (patternCooldown > 0f) patternCooldown -= Time.deltaTime; //reduce patternCooldown by 1 every second if positive
 		if (waitAfterStart > 0f) waitAfterStart -= Time.deltaTime; //reduce startDelay by 1 every second if positive, else initiate attacking sequence

@@ -35,7 +35,7 @@ public class HomingProjectile : MonoBehaviour
 		{
 			lockedOnFor -= Time.deltaTime;
 			if (!verticality) targetDirection.y = 0f;
-			handler.SetMoveDirection(targetDirection.normalized);
+			//handler.SetMoveDirection(targetDirection.normalized);
 		}
 
 	}

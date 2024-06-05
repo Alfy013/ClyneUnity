@@ -1492,7 +1492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999958
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1500,7 +1500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0028797674
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1512,7 +1512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1621,6 +1621,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!54 &1007346854
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007346849}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1007346856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007346849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf4dc1d3228f8b48885569c20b956f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxCurveAngle: 0
+  _minCurveAngle: 0
+  _degreesPerSecond: 10
 --- !u!1 &1018054829
 GameObject:
   m_ObjectHideFlags: 0

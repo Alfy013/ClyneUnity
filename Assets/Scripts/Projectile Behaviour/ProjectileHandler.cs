@@ -1,9 +1,10 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ProjectileHandler : MonoBehaviour
 {
-	Rigidbody rb;
+	protected Rigidbody rb;
 	[SerializeField] AnimationCurve velocityCurve;
 	public float lifeTimeCT;
 	[SerializeField] private int damageAmount;
@@ -16,7 +17,6 @@ public class ProjectileHandler : MonoBehaviour
 	Blocking blocking;
 	[HideInInspector] public bool stuck;
 	private Vector3 originalScale;
-	private Vector3 moveDir;
 	private int projTypeIndex;
 	private bool startEvaporate;
 	private bool isEvaporating;
@@ -33,6 +33,7 @@ public class ProjectileHandler : MonoBehaviour
 	private Color invertedColorMAT;
 
 	bool halved = false;
+	protected float currentVelocity;
 
 	private void Start()
 	{
@@ -90,7 +91,7 @@ public class ProjectileHandler : MonoBehaviour
 		{
 			if (EnemyStagger.StaggerInstance.stunDuration > 0f && interpolateTimer <= 0f) Evaporate();
 			if (!startEvaporate && !stuck && lifeTime > 0f && EnemyStagger.StaggerInstance.stunDuration < 0f && !isEvaporating){
-				SetVelocity(velocityCurve.Evaluate(1 - lifeTime/lifeTimeCT));
+				SetVelocity(velocityCurve.Evaluate(lifeTimeCT - lifeTime));
 			}
 			else SetVelocity(0f);
 
@@ -131,8 +132,8 @@ public class ProjectileHandler : MonoBehaviour
 				mat.SetColor("_EmissionColor", invertedColorEM);
 			}
 			if (destroyedOnParry) Evaporate();
-			SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
-			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, moveDir.z));
+			//SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
+			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, other.transform.forward.z));
 			transform.gameObject.layer = 11;
 			transform.gameObject.tag = "FProjectile";
 			if(blocking.slowdownCooldown <= 0f && !destroyedOnParry)
@@ -148,11 +149,6 @@ public class ProjectileHandler : MonoBehaviour
 		}
 		if (other.CompareTag("Ground") && sticks)
 			stuck = true;
-	}
-	public void SetMoveDirection(Vector3 dir)
-	{
-		moveDir = dir;
-		Apply();
 	}
 	public void SetIndex(int index)
 	{
@@ -179,15 +175,8 @@ public class ProjectileHandler : MonoBehaviour
 	}
 	public void SetVelocity(float newSpeed)
 	{
-		if(moveSpeed != newSpeed)
-		{
-			moveSpeed = newSpeed;
-			Apply();
-		}
-	}
-	public void Apply()
-	{
-		rb.velocity = moveDir * moveSpeed;
+		moveSpeed = newSpeed;
+		rb.velocity = transform.forward * moveSpeed;
 	}
 }
 

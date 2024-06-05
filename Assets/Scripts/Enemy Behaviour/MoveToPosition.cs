@@ -51,7 +51,13 @@ public class MoveToPosition : MonoBehaviour
             if(timeToStart <= 0f){
                 if(!calculatedPositions){
                     selfPos = new(transform.position.x, transform.position.y, transform.position.z);
-                    targetPos = new(actionLists[AL_Index].actions[A_Index].targetPosition.position.x, actionLists[AL_Index].actions[A_Index].verticality? actionLists[AL_Index].actions[A_Index].targetPosition.position.y : 0f, actionLists[AL_Index].actions[A_Index].targetPosition.position.z);
+                    targetPos.x = actionLists[AL_Index].actions[A_Index].targetPosition.position.x;
+
+                    if(actionLists[AL_Index].actions[A_Index].verticality)
+                        targetPos.y = actionLists[AL_Index].actions[A_Index].targetPosition.position.y;
+                    else targetPos.y = transform.position.y;
+                
+                    targetPos.z = actionLists[AL_Index].actions[A_Index].targetPosition.position.z;
                     calculatedPositions = true; 
                 }
                 timeToArrive -= Time.deltaTime;

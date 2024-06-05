@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 640047528733790096}
   - component: {fileID: -5054161509263113279}
   m_Layer: 6
-  m_Name: TestProjectile
+  m_Name: TestProjectile 1
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.00075930357
-      value: 60
+      time: 0
+      value: 65
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -78,7 +78,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.9999
-      value: 60
+      value: 65
       inSlope: -0.0002672936
       outSlope: -0.0002672936
       tangentMode: 1
@@ -145,7 +145,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 0
     m_RotationOrder: 4
-  _baseModifier: 180
+  _baseModifier: -180
   _orbitAfterSeconds: 1
   parentPoint: {fileID: 0}
 --- !u!1001 &3901115907806333174
@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 251657e48be66f242918e961fe9e9400, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 657e6165f0d90bc4eb25882c022e697b, type: 2}
+      objectReference: {fileID: 2100000, guid: c196b93e34977e84a9406f83b08b70de, type: 2}
     - target: {fileID: -5754084199372789682, guid: 251657e48be66f242918e961fe9e9400, type: 3}
       propertyPath: m_Mesh
       value: 

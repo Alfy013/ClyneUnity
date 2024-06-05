@@ -60,7 +60,7 @@ public class SprayPattern : MonoBehaviour
 				bulDir = Quaternion.AngleAxis(angle, Vector3.up) * firePoint.forward;
 			else
                 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
-            bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
+            bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
 			bul.SetActive(true);
 			bul.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
         }

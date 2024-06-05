@@ -35,7 +35,7 @@ public class ShotgunPattern : MonoBehaviour
 			if (bul != null)
 			{
 				Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * firePoint.forward;
-				bul.GetComponent<ProjectileHandler>().SetMoveDirection(bulDir);
+				bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
 				bul.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 				bul.SetActive(true);
 				angle += angleStep;
