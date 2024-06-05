@@ -31,7 +31,7 @@ public class BeamAttack : MonoBehaviour
 		indicator.SetActive(false);
 		beamHitbox.SetActive(true);
 		beam.SetActive(true);
-		ShakeHandler.Instance.ShakeCamera(2f, 1f);
+		//ShakeHandler.Instance.ShakeCamera(2f, 1f);
 	}
 	public void StopStun()
 	{

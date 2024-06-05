@@ -271,6 +271,6 @@ MonoBehaviour:
   afterImageMAT: {fileID: 2100000, guid: b30286db3f4d06b49b2336a416782c0d, type: 2}
   _objectsToBeAfterImaged:
   - {fileID: 4243206610045973927}
-  _afterImageCount: 10
+  _afterImageCount: 60
   useSkinnedMesh: 0
   activate: 1

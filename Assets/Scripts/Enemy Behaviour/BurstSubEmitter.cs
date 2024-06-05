@@ -16,16 +16,17 @@ public class BurstSubEmitter : MonoBehaviour
 	[SerializeField] float delayBetweenLoopsCT;
 	[SerializeField] bool loopPattern;
 	[SerializeField] bool fireOnTrigger = false;
-	[SerializeField] Transform positionOnTrigger;
 	[SerializeField] Transform parentPoint;
 	bool switched = false;
 	float fireRate;
 	float waitAfterStart;
 	int burstCount;
 	float patternCooldown;
+	float delayTime = -100f;
 
 	void Shotgun()
 	{
+		delayTime = -100f;
 		float angleStep = (endAngle - startAngle) / projectileCountCT;
 		float angle = startAngle;
 		if (switched) angle += angleStep / 1.5f;
@@ -39,10 +40,7 @@ public class BurstSubEmitter : MonoBehaviour
 			{
 				Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
 				bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
-				if(!fireOnTrigger)
-					bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
-				else
-					bul.transform.SetPositionAndRotation(positionOnTrigger.position, positionOnTrigger.rotation * Quaternion.AngleAxis(angle, Vector3.up));
+				bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
 				if(bul.TryGetComponent(out CurvedProjectile curve) || parentPoint != null){
 					curve.parentPoint = parentPoint;
 				}
@@ -72,11 +70,14 @@ public class BurstSubEmitter : MonoBehaviour
 		waitAfterStart = delayAfterStartCT;
 		burstCount = burstsFired;
 	}
-	void Update()
+	void FixedUpdate()
 	{
 		float stunTime = EnemyStagger.StaggerInstance.stunDuration;
 		if(stunTime <= 0f)
 			if(!fireOnTrigger) NonTrigger();
+		
+		if(delayTime > 0f) delayTime -= Time.deltaTime;
+		else if(delayTime > -100f)Shotgun();
 	}
 
 
@@ -96,7 +97,7 @@ public class BurstSubEmitter : MonoBehaviour
 			patternCooldown = delayBetweenLoopsCT; //set the patternCooldown, this terminates the attack sequence
 		}
 	}
-	public void FireBurst(){
-		Shotgun();
+	public void FireBurst(float delay = 0){
+		delayTime = delay;
 	}
 }

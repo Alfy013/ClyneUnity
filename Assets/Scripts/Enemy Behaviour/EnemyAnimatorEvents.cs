@@ -5,33 +5,19 @@ using UnityEngine;
 
 public class EnemyAnimatorEvents : MonoBehaviour
 {
-	[SerializeField] ThrustAttack ta;
-	[SerializeField] BurstSubEmitter bse;
-	[SerializeField] Animation_test at;
+	[SerializeField] BurstSubEmitter[] BSEOrbit;
+	[SerializeField] float[] delaysForBSEOrbit;
+	[SerializeField] BurstSubEmitter singleSlash;
+	
+	void Slash(){
+		singleSlash.FireBurst();
+	}
+
 	void FireBurst(){
-		bse.FireBurst();
+		for(int i = 0; i < BSEOrbit.Length; i++)
+			BSEOrbit[i].FireBurst(delaysForBSEOrbit[i]);
 	}
 	void AttackEnd(){
-		at.ResetAnimationStance();
-	}
-	void StartThrust()
-	{
-		ta.StartThrust();
-	}
-	void StopThrust()
-	{
-		ta.StopThrust();
-	}
-	void EndThrust()
-	{
-		ta.EndThrust();
-	}
-	void HitBoxOff()
-	{
-		ta.HitBoxOff();
-	}
-	void LockOn()
-	{
-		ta.LockOn();
+		GetComponent<ScytheAttack>().ResetAnimationStance();
 	}
 }

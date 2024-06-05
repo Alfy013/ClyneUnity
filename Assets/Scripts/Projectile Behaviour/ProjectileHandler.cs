@@ -25,6 +25,7 @@ public class ProjectileHandler : MonoBehaviour
 	private float interpolateTimer = 0f;
 	private float gracePeriod;
 	private BoxCollider boxCollider;
+	AfterImage aim;
 
 	private Material mat;
 	private Color originalColorEM;
@@ -37,6 +38,7 @@ public class ProjectileHandler : MonoBehaviour
 
 	private void Start()
 	{
+		aim = GetComponentInChildren<AfterImage>();
 		stuck = false;
 		if (TryGetComponent(out MeshRenderer mRend))
 		{
@@ -87,6 +89,10 @@ public class ProjectileHandler : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if(aim != null){
+			if(rb.velocity == Vector3.zero) aim.activate = false;
+			else aim.activate = true;
+		} 
 		if (EnemyStagger.StaggerInstance != null)
 		{
 			if (EnemyStagger.StaggerInstance.stunDuration > 0f && interpolateTimer <= 0f) Evaporate();
@@ -111,6 +117,7 @@ public class ProjectileHandler : MonoBehaviour
 
 		if(_gracePeriod > 0f && gracePeriod <= 0f)
 			boxCollider.enabled = true;
+		
 	}
 
 	private void OnTriggerEnter(Collider other)

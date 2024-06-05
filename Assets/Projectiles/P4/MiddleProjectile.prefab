@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 640047528733790096}
   - component: {fileID: -5054161509263113279}
   m_Layer: 6
-  m_Name: TestProjectile 1
+  m_Name: MiddleProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7952956152626720134}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3578449939573862173}
@@ -69,38 +69,20 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 65
-      inSlope: 0
-      outSlope: 0
+      value: 10
+      inSlope: -10
+      outSlope: -10
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9999
-      value: 65
-      inSlope: -0.0002672936
-      outSlope: -0.0002672936
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.0001851927
-      outSlope: -0.0001851927
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lifeTimeCT: 30
+  lifeTimeCT: 4
   damageAmount: 10
-  parriable: 1
-  destroyedOnParry: 1
+  parriable: 0
+  destroyedOnParry: 0
   isBeam: 0
   sticks: 0
   _gracePeriod: 1
@@ -142,11 +124,29 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.999
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
-    m_PostInfinity: 0
+    m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseModifier: -180
-  _orbitAfterSeconds: 1
+  _baseModifier: 90
+  _orbitAfterSeconds: -1
   parentPoint: {fileID: 0}
 --- !u!1001 &3901115907806333174
 PrefabInstance:
@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 251657e48be66f242918e961fe9e9400, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c196b93e34977e84a9406f83b08b70de, type: 2}
+      objectReference: {fileID: 2100000, guid: 657e6165f0d90bc4eb25882c022e697b, type: 2}
     - target: {fileID: -5754084199372789682, guid: 251657e48be66f242918e961fe9e9400, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -262,13 +262,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4243206610045973927}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fdf23363b7094c408534bba1c6edd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   afterImageGhost: {fileID: 354484599326861306, guid: af209fa7358eac04282cc80ddcf158f1, type: 3}
-  afterImageMAT: {fileID: 2100000, guid: e0e26173c9aca0547903f270aca5ca2c, type: 2}
+  afterImageMAT: {fileID: 2100000, guid: b30286db3f4d06b49b2336a416782c0d, type: 2}
   _objectsToBeAfterImaged:
   - {fileID: 4243206610045973927}
   _afterImageCount: 60

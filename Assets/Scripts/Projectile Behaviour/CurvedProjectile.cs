@@ -13,19 +13,19 @@ public class CurvedProjectile : MonoBehaviour
     [SerializeField] float _orbitAfterSeconds = -1;
     [HideInInspector]
     public Transform parentPoint;
-    float time;
+    float countUpToOrbit;
     Rigidbody rb;
     private void Awake(){
         rb = GetComponent<Rigidbody>();
     }
     private void OnEnable(){
-        time = 0;
+        countUpToOrbit = 0;
     }
     void FixedUpdate()
     {
-        time += Time.deltaTime;
-        if(time < _orbitAfterSeconds || _orbitAfterSeconds <= -1){
-            Vector3 angleVelocity = new(0f, _baseModifier * directionOverTime.Evaluate(time), 0f);
+        countUpToOrbit += Time.deltaTime;
+        if(countUpToOrbit < _orbitAfterSeconds || _orbitAfterSeconds <= -1){
+            Vector3 angleVelocity = new(0f, _baseModifier * directionOverTime.Evaluate(countUpToOrbit), 0f);
             Quaternion deltaRotation = Quaternion.Euler(angleVelocity * Time.deltaTime);
             rb.MoveRotation(deltaRotation * rb.rotation);
         } else {
