@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PatternHandler : MonoBehaviour
 {
-	private float stunTime;
 	[SerializeField] public int phaseNumber = 0;
 	[Serializable]
 	private class BurstPattern 
@@ -149,12 +148,11 @@ public class PatternHandler : MonoBehaviour
 			phaseNumber = 0;
 	}
 	void FixedUpdate(){
-		stunTime = EnemyStagger.StaggerInstance.stunDuration;
 		if (Input.GetKeyDown(KeyCode.H)) phaseNumber++;
 
 		foreach (BurstPattern bp in phases[phaseNumber].shotgunPatterns)
 		{
-			if (stunTime > 0f)
+			if (EnemyStagger.StaggerInstance.staggered)
 			{
 				bp.activated = false;
 				bp.burstCount = bp.burstsFired;
@@ -171,14 +169,14 @@ public class PatternHandler : MonoBehaviour
 		}
 		foreach (SprayPattern sp in phases[phaseNumber].sprayPatterns)
 		{
-			if (stunTime > 0f)
+			if (EnemyStagger.StaggerInstance.staggered)
 			{
 				if(!sp.random){
 					if(sp.shots > 0) sp.nominator = (MathF.Abs(sp.endAngle) + MathF.Abs(sp.startAngle)) / sp.shots;
 					sp.currentAngle = sp.startAngle;
 					sp.angleStep = sp.nominator;
 				}
-				sp.timeBetweenSprays = stunTime + sp._timeBetweenSprays;
+				sp.timeBetweenSprays = sp._timeBetweenSprays;
 				sp.timeTostart = sp._timeToStart;
 				sp.sprayCount = sp._sprayCount;
 				sp._timeBetweenSprays = 60f / sp._fireRatePerMinute;

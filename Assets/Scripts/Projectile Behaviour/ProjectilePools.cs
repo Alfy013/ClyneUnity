@@ -19,18 +19,15 @@ public class ProjectilePools : MonoBehaviour
 	[SerializeField]
 	private List<ProjectilesToPool> projectilesToPool;
 
-	private void Awake()
+	private void Awake()//Pre-generate every gameobject on the list before the game starts
 	{
 		if (ObjectPoolInstance == null) ObjectPoolInstance = this;
-	}
-
-	private void Start() //Pre-generate every gameobject on the list before the game starts
-	{
 		for (int i = 0; i < projectilesToPool.Count; i++)
 		{
 			for (int j = 0; j < projectilesToPool[i].projAmount; j++)
 			{
 				GameObject obj = Instantiate(projectilesToPool[i].projPrefab);
+				obj.SetActive(false);
 				projectilesToPool[i].pooledBullets.Add(obj);
 				obj.GetComponent<ProjectileHandler>().SetIndex(i);
 			}

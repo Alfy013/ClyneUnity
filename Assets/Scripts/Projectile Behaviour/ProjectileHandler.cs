@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ProjectileHandler : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ProjectileHandler : MonoBehaviour
 	[SerializeField] private bool isBeam;
 	[SerializeField] private bool sticks;
 	[SerializeField] private float _gracePeriod = 0f;
+	[SerializeField] private float _endAfterImage = -1;
 
 	Blocking blocking;
 	[HideInInspector] public bool stuck;
@@ -25,7 +27,7 @@ public class ProjectileHandler : MonoBehaviour
 	private float interpolateTimer = 0f;
 	private float gracePeriod;
 	private BoxCollider boxCollider;
-	AfterImage aim;
+	VisualEffect aim;
 
 	private Material mat;
 	private Color originalColorEM;
@@ -33,12 +35,10 @@ public class ProjectileHandler : MonoBehaviour
 	private Color invertedColorEM;
 	private Color invertedColorMAT;
 
-	bool halved = false;
 	protected float currentVelocity;
 
 	private void Start()
 	{
-		aim = GetComponentInChildren<AfterImage>();
 		stuck = false;
 		if (TryGetComponent(out MeshRenderer mRend))
 		{
@@ -56,10 +56,11 @@ public class ProjectileHandler : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		originalScale = transform.localScale;
 		blocking = FindObjectOfType<Blocking>();
+		aim = GetComponentInChildren<VisualEffect>();
+
 	}
 	private void OnEnable()
 	{
-		halved = false;
 		gracePeriod = _gracePeriod;
 		if (_gracePeriod > 0f)
 			boxCollider.enabled = false;
@@ -70,6 +71,7 @@ public class ProjectileHandler : MonoBehaviour
 		if(!isBeam) transform.localScale = originalScale;
 		lifeTime = lifeTimeCT;
 		transform.parent = null;
+		if(aim != null) aim.Play();
 	}
 	private void OnDisable()
 	{
@@ -89,23 +91,17 @@ public class ProjectileHandler : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if(aim != null){
-			if(rb.velocity == Vector3.zero) aim.activate = false;
-			else aim.activate = true;
-		} 
+		if(aim != null && _endAfterImage > 0f){
+			if(lifeTimeCT - lifeTime > _endAfterImage)
+				aim.Stop();
+		}
 		if (EnemyStagger.StaggerInstance != null)
 		{
-			if (EnemyStagger.StaggerInstance.stunDuration > 0f && interpolateTimer <= 0f) Evaporate();
-			if (!startEvaporate && !stuck && lifeTime > 0f && EnemyStagger.StaggerInstance.stunDuration < 0f && !isEvaporating){
+			if (EnemyStagger.StaggerInstance.staggered && interpolateTimer <= 0f) lifeTime = 0;
+			if (!startEvaporate && !stuck && lifeTime > 0f && !EnemyStagger.StaggerInstance.staggered && !isEvaporating){
 				SetVelocity(velocityCurve.Evaluate(lifeTimeCT - lifeTime));
 			}
 			else SetVelocity(0f);
-
-			if (EnemyStagger.StaggerInstance.stunDuration > 0f && !halved)
-			{
-				lifeTime /= 3;
-				halved = true;
-			}
 		}
 		if (lifeTime > 0f)
 			lifeTime -= Time.deltaTime + (Convert.ToInt64(isEvaporating) * 4f * Time.deltaTime);

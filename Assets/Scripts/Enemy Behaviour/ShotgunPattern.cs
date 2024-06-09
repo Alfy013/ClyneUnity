@@ -13,7 +13,6 @@ public class ShotgunPattern : MonoBehaviour
 	[SerializeField] int bulletsShot;
 	[SerializeField] bool switchShots;
 	private bool switched;
-	private float stunTime;
 	float atkCoolDown;
 
 	private void Start()
@@ -59,10 +58,9 @@ public class ShotgunPattern : MonoBehaviour
 
 	void Update()
 	{
-		stunTime = EnemyStagger.StaggerInstance.stunDuration;
 		animator.SetFloat("CD", atkCoolDown);
 
-		if (stunTime > 0f) atkCoolDown = stunTime + atkCoolDownCT;
+		if (EnemyStagger.StaggerInstance.staggered) atkCoolDown = 999;
 
 		if(atkCoolDown <= 0f)
 		{

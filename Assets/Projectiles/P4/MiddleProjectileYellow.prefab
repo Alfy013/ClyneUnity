@@ -69,23 +69,42 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 10
-      inSlope: -10
-      outSlope: -10
-      tangentMode: 34
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 14.5
+      outSlope: 20
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2
+      value: 30
+      inSlope: 20
+      outSlope: 0
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lifeTimeCT: 4
+  lifeTimeCT: 8
   damageAmount: 10
-  parriable: 0
-  destroyedOnParry: 0
+  parriable: 1
+  destroyedOnParry: 1
   isBeam: 0
   sticks: 0
   _gracePeriod: 1
+  _endAfterImage: -1
   stuck: 0
 --- !u!65 &640047528733790096
 BoxCollider:
@@ -145,7 +164,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseModifier: -90
+  _baseModifier: -180
   _orbitAfterSeconds: -1
   parentPoint: {fileID: 0}
 --- !u!1001 &3901115907806333174
@@ -267,10 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fdf23363b7094c408534bba1c6edd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  afterImageGhost: {fileID: 354484599326861306, guid: af209fa7358eac04282cc80ddcf158f1, type: 3}
-  afterImageMAT: {fileID: 2100000, guid: b30286db3f4d06b49b2336a416782c0d, type: 2}
-  _objectsToBeAfterImaged:
-  - {fileID: 4243206610045973927}
-  _afterImageCount: 60
-  useSkinnedMesh: 0
-  activate: 1
+  afterImageGhost: {fileID: 0}
+  afterImageMAT: {fileID: 0}
+  _objectsToBeAfterImaged: []
+  _afterImageCount: 0
+  useSkinnedMesh: 1
+  activate: 0

@@ -11,60 +11,32 @@ public class EnemyStagger : MonoBehaviour
 	[SerializeField] TMP_Text staggerTime;
 	[SerializeField] Animator animator;
 	[SerializeField] private float staggerTimerCT;
-	[SerializeField] private float _stunDuration;
 	[SerializeField] ThrustAttack ta;
 	[SerializeField] bool thrust;
+	public bool staggered;
 	private float hitCooldown;
 	[HideInInspector]
 	public float staggerTimer;
-	PatternHandler ph;
-	private bool staggerTimerResetted;
-	[HideInInspector]
-	public float stunDuration = 0f;
-	private bool incrementedPhase;
-	private bool first = true;
 
 	private void Awake()
 	{
-		ph = GetComponent<PatternHandler>();
-		stunDuration = _stunDuration;
 		if (StaggerInstance == null) StaggerInstance = this;
-		staggerTimerResetted = true;
 		staggerTimer = 0f;
 		hitCooldown = 0f;
 	}
 
 	private void Update()
 	{
-		if (staggerTimer >= 0f && staggerTimerResetted)
+		if(staggerTimer > 0f) staggered = false;
+		else staggered = true;
+		if(Input.GetKeyDown(KeyCode.Alpha1)) staggerTimer = staggerTimerCT;
+		if (staggerTimer >= 0f)
 		{
 			staggerTimer -= Time.deltaTime;
 			staggerTime.color = Color.green;
 			staggerTime.text = "Time until stagger: " + Convert.ToInt64(staggerTimer);
 		}
-		else if(staggerTimerResetted)
-		{
-			Stagger();
-		}
-
-		if (stunDuration > 0f)
-			stunDuration -= Time.deltaTime;
-		else if (!staggerTimerResetted)
-		{
-			staggerTimer = staggerTimerCT;
-			staggerTimerResetted = true;
-			if(thrust)
-				ta.enabled = true;
-		}
-		
-		if(stunDuration <= 0.5f && !incrementedPhase){
-			if(!first){
-				ph.phaseNumber++;
-			} else first = false;
-			incrementedPhase = true;		
-		}	
-		
-		
+		if(staggered) Stagger();
 		if(hitCooldown > 0f)
 		{
 			hitCooldown -= Time.deltaTime;
@@ -85,13 +57,9 @@ public class EnemyStagger : MonoBehaviour
 	}
 	void Stagger()
 	{
-		if(!first)
-			incrementedPhase = false;
 		//animator.SetBool("wasHit", true);
-		stunDuration = _stunDuration;
 		staggerTime.text = "Strike Now!";
 		staggerTime.color = Color.red;
-		staggerTimerResetted = false;
 		if (thrust)
 			ta.enabled = false;
 	}

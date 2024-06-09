@@ -4,17 +4,11 @@ using TMPro;
 public class HealthHandler : MonoBehaviour
 {
     [SerializeField] int maxHP = 250;
-    [SerializeField] float _deathStunTime;
     [SerializeField] Animator playeranim;
 	[SerializeField] TMP_Text UIHPText;
 	[SerializeField] TMP_Text UIHitText;
     [SerializeField] GameObject deathCam;
-    private bool defaulted;
-    private float stunTimer;
-
-    [HideInInspector]
-    public static float deathStunTime;
-    private float regeneratingHP;
+    private bool defaulted = true;
     private int HP = 250;
 
     
@@ -27,42 +21,19 @@ public class HealthHandler : MonoBehaviour
 
     private void Update()
     {
-        if(HP <= 0){
-            playeranim.SetBool("Knocked", true);
-            deathStunTime = _deathStunTime;
-        }
         UIHPText.text = "Health: " + HP;
 		UIHitText.text = "Hits taken: " + hitsTaken;
-        if (stunTimer > 0f || deathStunTime > 0f)
+        if (HP <= 0)
         {
             if(defaulted){
                 defaulted = false;
                 moveSystem.StopAction();
                 moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
-                regeneratingHP = 0;
                 deathCam.SetActive(true);
+                EnemyStagger.StaggerInstance.staggerTimer = -1f;
+                Debug.Log("dead");
             }
-        }
-        else
-        {
-            if (!defaulted)
-            {
-				moveSystem.StopAction();
-                defaulted = true;
-                deathCam.SetActive(false);
-                playeranim.SetBool("Knocked", false);
-			}
-		}
-        if(stunTimer > 0f) stunTimer -= Time.deltaTime;
-        
-        if(deathStunTime > 0f){
-            moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
-            deathStunTime -= Time.deltaTime;
-            if(regeneratingHP < maxHP)
-                regeneratingHP += Time.deltaTime * (maxHP / _deathStunTime);
-            HP = Mathf.FloorToInt(regeneratingHP);
-            EnemyStagger.StaggerInstance.staggerTimer = -1f;
-            EnemyStagger.StaggerInstance.stunDuration = 1f;
+            playeranim.SetBool("Knocked", true);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -85,6 +56,14 @@ public class HealthHandler : MonoBehaviour
         HP -= damage;
         hitsTaken++;
         moveSystem.stamRegen = 0f;
-        stunTimer = stunTime;
+    }
+    public void Unknocked(){
+        HP = maxHP;
+        moveSystem.StopAction();
+        playeranim.SetBool("Knocked", false);
+        deathCam.SetActive(false);
+        defaulted = true;
+        moveSystem.stamina = 100f;
+        Debug.Log("test");
     }
 }

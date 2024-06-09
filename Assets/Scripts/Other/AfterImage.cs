@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -7,8 +8,7 @@ public class AfterImage : MonoBehaviour
 {
 	[SerializeField] GameObject afterImageGhost;
 	[SerializeField] Material afterImageMAT;
-	[SerializeField]
-	GameObject[] _objectsToBeAfterImaged;
+	[SerializeField] GameObject[] _objectsToBeAfterImaged;
 	[SerializeField] int _afterImageCount;
 	GameObject[] afterImageSMObjects;
 	[SerializeField] bool useSkinnedMesh = true;
@@ -16,13 +16,13 @@ public class AfterImage : MonoBehaviour
 	private MeshRenderer afterImageMeshRenderer;
 	private Mesh meshToUse;
 	private int currentAfterImageObject;
+	AfterImageObject[] afterImageObjects;
+	SkinnedMeshRenderer characterMesh;
 	class AfterImageObject
 	{
 		internal int objectID;
 		internal GameObject afterImageGO;
 	}
-	AfterImageObject[] afterImageObjects;
-	SkinnedMeshRenderer characterMesh;
 	private void Start()
 	{
 		currentAfterImageObject = 0;

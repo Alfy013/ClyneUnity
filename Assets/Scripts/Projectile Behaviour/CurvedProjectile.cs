@@ -11,6 +11,9 @@ public class CurvedProjectile : MonoBehaviour
     [SerializeField] AnimationCurve directionOverTime;
     [SerializeField] float _baseModifier;
     [SerializeField] float _orbitAfterSeconds = -1;
+    [SerializeField] float _closeInAfter = -1;
+    [SerializeField] float _closeInSpeed;
+    [SerializeField] float _closeInFor;
     [HideInInspector]
     public Transform parentPoint;
     float countUpToOrbit;
@@ -31,5 +34,6 @@ public class CurvedProjectile : MonoBehaviour
         } else {
             transform.SetParent(parentPoint);
         }
+        if(countUpToOrbit > _closeInAfter && _closeInAfter > 0f && countUpToOrbit - _closeInAfter < _closeInFor) rb.velocity = (_baseModifier > 0? 1 : -1) * transform.right * _closeInSpeed;
     }
 }

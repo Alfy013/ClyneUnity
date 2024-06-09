@@ -55,7 +55,7 @@ public class ThrustAttack : MonoBehaviour
 	public void StopThrust()
     {
         dashForward = false;
-		aim.activate = false;
+		//aim.activate = false;
 	}
 	public void EndThrust()
     {
@@ -71,6 +71,6 @@ public class ThrustAttack : MonoBehaviour
     {
 		targetPoint = new Vector3(player.position.x, 0f, player.position.z);
 		thrustHitBox.SetActive(true);
-		aim.activate = true;
+		//aim.activate = true;
 	}
 }

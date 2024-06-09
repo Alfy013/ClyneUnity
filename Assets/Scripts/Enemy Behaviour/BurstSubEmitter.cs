@@ -72,8 +72,7 @@ public class BurstSubEmitter : MonoBehaviour
 	}
 	void FixedUpdate()
 	{
-		float stunTime = EnemyStagger.StaggerInstance.stunDuration;
-		if(stunTime <= 0f)
+		if(!EnemyStagger.StaggerInstance.staggered)
 			if(!fireOnTrigger) NonTrigger();
 		
 		if(delayTime > 0f) delayTime -= Time.deltaTime;

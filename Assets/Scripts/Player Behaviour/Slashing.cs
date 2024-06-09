@@ -32,7 +32,8 @@ public class Slashing : MonoBehaviour
             if(type == AttackType.Slashes) type = AttackType.Stabs;
             else if(type == AttackType.Stabs) type = AttackType.Slashes;
         }
-
+    }
+    void FixedUpdate(){
         if(type == AttackType.Slashes) Slashes();
         else if(type == AttackType.Stabs) Stabs();
     }
@@ -102,6 +103,7 @@ public class Slashing : MonoBehaviour
         if(slashingIndex == 0) return;
 		latestProjectile = Instantiate(slashProjectiles[slashingIndex - 1], slashTransforms[slashingIndex - 1].position, slashTransforms[slashingIndex - 1].rotation);
 		Destroy(latestProjectile, 3);
+        
 	}
     public void PlayStab(){
         moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveToPosition : MonoBehaviour
@@ -29,6 +30,7 @@ public class MoveToPosition : MonoBehaviour
     private bool calculatedPositions;
     Vector3 selfPos;
     Vector3 targetPos;
+    float timer = -1f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +44,12 @@ public class MoveToPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if(EnemyStagger.StaggerInstance.staggerTimer > 0f)
+        if(Input.GetKeyDown(KeyCode.Alpha1)) timer = 1f;
+        if(timer > 0f) timer -= Time.fixedDeltaTime;
+        if(EnemyStagger.StaggerInstance.staggerTimer > 0f && timer > -1f && timer <= 0f)
             Move();
+        
+
     }
 
     void Move(){

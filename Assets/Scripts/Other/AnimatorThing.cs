@@ -6,10 +6,17 @@ public class AnimatorThing : MonoBehaviour
 {
     [SerializeField] Blocking blocking;
     [SerializeField] Slashing slashing;
+    [SerializeField] HealthHandler health;
+    void Unknocked(){
+        health.Unknocked();
+    }
 	void PlaySlash()
 	{
 		slashing.PlaySlash();
 	}
+    void FireSlash(){
+        
+    }
     void PlayStab(){
         slashing.PlayStab();
     }

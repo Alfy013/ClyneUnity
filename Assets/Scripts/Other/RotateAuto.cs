@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class RotateAuto : MonoBehaviour
@@ -9,7 +6,7 @@ public class RotateAuto : MonoBehaviour
     public float speed_Y = 0f;
     public float speed_Z = 0f;
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(speed_X, speed_Y, speed_Z);
     }

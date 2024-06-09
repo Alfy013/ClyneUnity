@@ -137,8 +137,8 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 0
   delayAfterStartCT: 2
-  delayBetweenLoopsCT: 0
-  loopPattern: 0
+  delayBetweenLoopsCT: 2
+  loopPattern: 1
   fireOnTrigger: 0
   parentPoint: {fileID: 0}
 --- !u!1 &3716219539120194290

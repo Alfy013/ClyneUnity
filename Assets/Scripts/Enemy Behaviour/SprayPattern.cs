@@ -14,7 +14,6 @@ public class SprayPattern : MonoBehaviour
 	[SerializeField] float nominator;
 	[SerializeField] bool backAndForth;
 	private float atkCoolDown;
-	private float stunTime;
     private float angleStep = 0f;
     private float angle = 0f;
 	
@@ -29,9 +28,7 @@ public class SprayPattern : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-        stunTime = EnemyStagger.StaggerInstance.stunDuration;
-
-        if (stunTime > 0f) atkCoolDown = stunTime;
+        if (EnemyStagger.StaggerInstance.staggered) atkCoolDown = 999;
 
         if (atkCoolDown <= 0f)
         {
