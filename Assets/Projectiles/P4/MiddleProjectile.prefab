@@ -97,7 +97,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lifeTimeCT: 8
+  lifeTimeCT: 3
   damageAmount: 10
   parriable: 1
   destroyedOnParry: 1
@@ -166,6 +166,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseModifier: 120
   _orbitAfterSeconds: -1
+  _closeInAfter: -1
+  _closeInSpeed: 0
+  _closeInFor: 0
   parentPoint: {fileID: 0}
 --- !u!1001 &3901115907806333174
 PrefabInstance:

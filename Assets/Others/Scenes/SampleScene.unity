@@ -501,14 +501,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80870752}
-  m_LocalRotation: {x: -0.1917698, y: -0, z: -0, w: 0.98143995}
+  m_LocalRotation: {x: -0.13434736, y: 0.98422194, z: -0.11146715, w: 0.028861921}
   m_LocalPosition: {x: -12.91, y: 22.79, z: 14.542129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 30
-  m_LocalEulerAnglesHint: {x: -22.112, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 167.78, y: -5.0930176, z: -196.091}
 --- !u!1 &109264339 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2169855318590814128, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
@@ -1867,18 +1867,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  slashProjectiles:
-  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
-  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
-  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
-  - {fileID: 8042940794177779186, guid: 215d3a588e598f24b8f51f62ae53c54e, type: 3}
-  - {fileID: 1026118312263156613, guid: e29bea6d8ae622b4b9de7775da770629, type: 3}
-  slashTransforms:
-  - {fileID: 726251325}
-  - {fileID: 726251325}
-  - {fileID: 726251325}
-  - {fileID: 726251325}
-  - {fileID: 726251325}
+  slashProjectile: {fileID: 8042940794177779186, guid: ef16bbf65c8fd5742beca39edab65363, type: 3}
+  slashTransform: {fileID: 726251325}
   stabProjectiles:
   - {fileID: 8042940794177779186, guid: ca7f1d2845fbb174486914f361f9cf58, type: 3}
   stabTransforms:
@@ -14721,7 +14711,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985353029}
-  m_LocalRotation: {x: 0.62410814, y: -0.000000030061695, z: 0.000000024012337, w: 0.781338}
+  m_LocalRotation: {x: 0.62410814, y: 0.000000030061695, z: -0.000000024012337, w: 0.781338}
   m_LocalPosition: {x: 0, y: 40.19, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20785,7 +20775,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438860773}
-  m_LocalRotation: {x: 0.62410814, y: -0.000000030061695, z: 0.000000024012337, w: 0.781338}
+  m_LocalRotation: {x: 0.62410814, y: 0.000000030061695, z: -0.000000024012337, w: 0.781338}
   m_LocalPosition: {x: 0, y: 40.19, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21263,6 +21253,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1600638104}
   - component: {fileID: 1600638103}
+  - component: {fileID: 1600638105}
+  - component: {fileID: 1600638106}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -21308,6 +21300,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1600638105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600638102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb776e97c69ccca4f93b3f6824841207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheatCode: 6d000000650000006e00000064000000
+  CheatEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 481592004}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cheatMessage: 'Invulnerability enabled! '
+--- !u!114 &1600638106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600638102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb776e97c69ccca4f93b3f6824841207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheatCode: 68000000750000007200000074000000
+  CheatEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 481592004}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  cheatMessage: Invulnerability disabled!
 --- !u!1 &1636535108
 GameObject:
   m_ObjectHideFlags: 3
@@ -28031,12 +28081,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 20fe951fac1130e44b121d9b26fddade, type: 2}
     - target: {fileID: 3307617885036624446, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99846727
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307617885036624446, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0109402435
+      value: 0.0109318
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307617885036624446, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0057927985
       objectReference: {fileID: 0}
     - target: {fileID: 3307617885036624446, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.05398733
+      value: -0.053945668
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2993cbbb77143124c92c71e62d6bba39, type: 3}
       propertyPath: m_Controller

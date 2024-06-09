@@ -10,12 +10,8 @@ public class AnimatorThing : MonoBehaviour
     void Unknocked(){
         health.Unknocked();
     }
-	void PlaySlash()
-	{
-		slashing.PlaySlash();
-	}
     void FireSlash(){
-        
+        slashing.FireSlash();
     }
     void PlayStab(){
         slashing.PlayStab();

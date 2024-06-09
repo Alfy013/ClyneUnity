@@ -9,8 +9,8 @@ public class Slashing : MonoBehaviour
     }
 
     [SerializeField] AttackType type;
-    [SerializeField] GameObject[] slashProjectiles;
-    [SerializeField] Transform[] slashTransforms;
+    [SerializeField] GameObject slashProjectile;
+    [SerializeField] Transform slashTransform;
     [SerializeField] GameObject[] stabProjectiles;
     [SerializeField] Transform[] stabTransforms;
     [SerializeField] PlayerHandler moveSystem; 
@@ -20,10 +20,12 @@ public class Slashing : MonoBehaviour
     [SerializeField] AfterImage afterImage;
     Transform sword;
     GameObject latestProjectile;
+    bool slash;
     float jumpDuration;
     Vector3 startingPos;
     private bool isDashing;
     float slashCooldown;
+    bool stopped;
     public int slashingIndex = 0;
     
     void Update()
@@ -32,9 +34,7 @@ public class Slashing : MonoBehaviour
             if(type == AttackType.Slashes) type = AttackType.Stabs;
             else if(type == AttackType.Stabs) type = AttackType.Slashes;
         }
-    }
-    void FixedUpdate(){
-        if(type == AttackType.Slashes) Slashes();
+        if(type == AttackType.Slashes) QuickSlashes();
         else if(type == AttackType.Stabs) Stabs();
     }
     private void Stabs(){
@@ -46,7 +46,20 @@ public class Slashing : MonoBehaviour
             moveSystem.StopAction();
         }
     }
-    private void Slashes(){
+    private void QuickSlashes(){
+        animator.SetBool("Stab", false);
+        animator.SetBool("Firing", slash);
+        if(Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Slash)){
+            slash = true;
+            stopped = false;
+        } else if(!stopped){
+            moveSystem.StopAction();
+            slash = false;
+            stopped = true;
+        }
+        
+    }
+    /*private void Slashes(){
         animator.SetBool("Stab", false);
         animator.SetInteger("SlashingIndex", slashingIndex);
         if(Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && slashCooldown <= 0f){
@@ -97,14 +110,17 @@ public class Slashing : MonoBehaviour
             slashingIndex = 0;
             moveSystem.StopAction();
         }
+    }*/
+    public void FireSlash(){
+        if(moveSystem.StartAction(1, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
+            latestProjectile = Instantiate(slashProjectile, slashTransform.position, slashTransform.transform.rotation);
+            Destroy(latestProjectile, 3);
+        } else{
+            slash = false;
+            moveSystem.StopAction();
+            stopped = true;
+        }
     }
-    public void PlaySlash()
-    {
-        if(slashingIndex == 0) return;
-		latestProjectile = Instantiate(slashProjectiles[slashingIndex - 1], slashTransforms[slashingIndex - 1].position, slashTransforms[slashingIndex - 1].rotation);
-		Destroy(latestProjectile, 3);
-        
-	}
     public void PlayStab(){
         moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);
         int roll = UnityEngine.Random.Range(0, stabProjectiles.Length - 1);
