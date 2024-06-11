@@ -8,15 +8,16 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] Animator playeranim;
 	[SerializeField] TMP_Text UIHPText;
 	[SerializeField] TMP_Text UIHitText;
-    [SerializeField] GameObject deathCam;
     [SerializeField] Image hpfill;
-    [SerializeField] float _fillStabilizeMultiplier;
     [SerializeField] Color _maxColor;
     [SerializeField] Color _minColor;
+    [SerializeField] float _fillStabilizeMultiplier;
     [SerializeField] float healthFlashExponent = 10;
+    [SerializeField] float flashingThreshold;
     [SerializeField] ParticleSystem hit;
+    [SerializeField] GameObject deathCam;
     private bool defaulted = true;
-    private int HP = 250;
+    private float HP = 250;
     private float clampedHP;
     private float oldClampedHP_IP;
     private float newClampedHP_IP;
@@ -49,10 +50,11 @@ public class HealthHandler : MonoBehaviour
             IP_timer -= Time.deltaTime;
         }
         hpfill.fillAmount = clampedHP;
-        UIHPText.text = HP + "/" + maxHP;
+        UIHPText.text = (int)HP + "/" + maxHP;
 		UIHitText.text = "Hits taken: " + hitsTaken;
         UIHPText.color = Color.Lerp(_minColor, _maxColor, (float)HP/maxHP);
-        if((float)HP / maxHP <= 0.4f && HP > 0) UIHPText.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, Mathf.Lerp(-0.5f, 0.5f, Mathf.PingPong(Time.time * Mathf.Pow(healthFlashExponent, 1 - ((float)HP / maxHP / 0.4f)), 1)));
+        hpfill.color = Color.Lerp(_minColor, _maxColor, (float)HP/maxHP);
+        if((float)HP / maxHP <= flashingThreshold / 100f && HP > 0) UIHPText.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, Mathf.Lerp(-0.5f, 0.5f, Mathf.PingPong(Time.time * Mathf.Pow(healthFlashExponent, 1 - ((float)HP / maxHP / flashingThreshold / 100f)), 1)));
         else UIHPText.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, -0.5f);
         if (HP <= 0)
         {
@@ -61,7 +63,7 @@ public class HealthHandler : MonoBehaviour
                 moveSystem.StopAction();
                 moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
                 deathCam.SetActive(true);
-                EnemyStagger.StaggerInstance.staggerTimer = -1f;
+                EnemyStagger.StaggerInstance.HP = 0;
             }
             playeranim.SetBool("Knocked", true);
         }

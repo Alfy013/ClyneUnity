@@ -46,7 +46,7 @@ public class MoveToPosition : MonoBehaviour
     { 
         if(Input.GetKeyDown(KeyCode.Alpha1)) timer = 1f;
         if(timer > 0f) timer -= Time.fixedDeltaTime;
-        if(EnemyStagger.StaggerInstance.staggerTimer > 0f && timer > -1f && timer <= 0f)
+        if(EnemyStagger.StaggerInstance.HP > 0f && timer > -1f && timer <= 0f)
             Move();
         
 
