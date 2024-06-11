@@ -61,6 +61,7 @@ public class ProjectileHandler : MonoBehaviour
 	}
 	private void OnEnable()
 	{
+		if(aim != null) aim.enabled = true;
 		gracePeriod = _gracePeriod;
 		if (_gracePeriod > 0f)
 			boxCollider.enabled = false;
@@ -159,6 +160,7 @@ public class ProjectileHandler : MonoBehaviour
 	}
 	public void Evaporate()
 	{
+		if(aim != null) aim.enabled = false;
 		if (!isBeam)
 		{
 			gameObject.GetComponent<Collider>().enabled = false;

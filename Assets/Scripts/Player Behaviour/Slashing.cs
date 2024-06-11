@@ -114,7 +114,7 @@ public class Slashing : MonoBehaviour
     public void FireSlash(){
         if(moveSystem.StartAction(1, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
             latestProjectile = Instantiate(slashProjectile, slashTransform.position, slashTransform.transform.rotation);
-            Destroy(latestProjectile, 3);
+            Destroy(latestProjectile, 1);
         } else{
             slash = false;
             moveSystem.StopAction();

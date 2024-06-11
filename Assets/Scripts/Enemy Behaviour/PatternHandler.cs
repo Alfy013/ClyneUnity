@@ -148,8 +148,6 @@ public class PatternHandler : MonoBehaviour
 			phaseNumber = 0;
 	}
 	void FixedUpdate(){
-		if (Input.GetKeyDown(KeyCode.H)) phaseNumber++;
-
 		foreach (BurstPattern bp in phases[phaseNumber].shotgunPatterns)
 		{
 			if (EnemyStagger.StaggerInstance.staggered)

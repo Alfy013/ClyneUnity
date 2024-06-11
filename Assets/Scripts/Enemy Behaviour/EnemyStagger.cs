@@ -13,6 +13,8 @@ public class EnemyStagger : MonoBehaviour
 	[SerializeField] private float staggerTimerCT;
 	[SerializeField] ThrustAttack ta;
 	[SerializeField] bool thrust;
+	[SerializeField] ParticleSystem hit;
+	[SerializeField] GameObject[] rotationPoints;
 	public bool staggered;
 	private float hitCooldown;
 	[HideInInspector]
@@ -29,7 +31,12 @@ public class EnemyStagger : MonoBehaviour
 	{
 		if(staggerTimer > 0f) staggered = false;
 		else staggered = true;
-		if(Input.GetKeyDown(KeyCode.Alpha1)) staggerTimer = staggerTimerCT;
+		if(Input.GetKeyDown(KeyCode.Alpha1)){
+			foreach(GameObject point in rotationPoints){
+				point.transform.position = new Vector3(transform.position.x, 5.66f, transform.position.z);
+			}
+			staggerTimer = staggerTimerCT;
+		}
 		if (staggerTimer >= 0f)
 		{
 			staggerTimer -= Time.deltaTime;
@@ -53,6 +60,7 @@ public class EnemyStagger : MonoBehaviour
 		{
 			hitCooldown = 0.4f;
 			staggerTimer -= 2f;
+			hit.Play();
 		}
 	}
 	void Stagger()
@@ -62,5 +70,6 @@ public class EnemyStagger : MonoBehaviour
 		staggerTime.color = Color.red;
 		if (thrust)
 			ta.enabled = false;
+		
 	}
 }

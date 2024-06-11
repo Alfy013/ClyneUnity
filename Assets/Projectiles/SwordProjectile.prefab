@@ -26,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7201252530572759852}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.569}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4767443329597929287}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &4623888260743042949
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7201252530572759852}
-  m_Mesh: {fileID: 2534964839176971238, guid: 9de6e04e7df0fd645b4f87f62b9dfc84, type: 3}
+  m_Mesh: {fileID: 4711208715938537054, guid: 254a0ca1a464bac41b1a5c02425fd31e, type: 3}
 --- !u!23 &3455791517981579692
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec89c368cd6e9d54ca5d02e1b2a50d2c, type: 2}
+  - {fileID: 2100000, guid: 2e9ed981be188594cbc9c3b33ba3436c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 7068780439166716396}
   - component: {fileID: -7290226718127381288}
   - component: {fileID: 7175676153955988044}
+  - component: {fileID: 7982169794761080255}
   m_Layer: 0
   m_Name: SwordProjectile
   m_TagString: FProjectile
@@ -150,8 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf755c269503a3c43acd5420520bb564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 10
+  multiplier: 100
   forceMode: 1
+  _timeToDisappear: 0.1
 --- !u!54 &-7290226718127381288
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,10 +164,10 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!65 &7175676153955988044
@@ -179,5 +181,19 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.083807, y: 2.6, z: 5.083808}
+  m_Size: {x: 2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7982169794761080255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042940794177779186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba7e298ed60a234787b9dc0168385d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeToMax: 0.5
+  _scaleUpMax: {x: 5, y: 1, z: 3}
