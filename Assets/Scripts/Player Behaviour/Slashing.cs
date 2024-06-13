@@ -112,9 +112,8 @@ public class Slashing : MonoBehaviour
         }
     }*/
     public void FireSlash(){
-        if(moveSystem.StartAction(1, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
+        if(moveSystem.StartAction(1.5f, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
             latestProjectile = Instantiate(slashProjectile, slashTransform.position, slashTransform.transform.rotation);
-            Destroy(latestProjectile, 1);
         } else{
             slash = false;
             moveSystem.StopAction();
@@ -125,7 +124,6 @@ public class Slashing : MonoBehaviour
         moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);
         int roll = UnityEngine.Random.Range(0, stabProjectiles.Length - 1);
         latestProjectile = Instantiate(stabProjectiles[roll], stabTransforms[roll].transform.position, stabTransforms[roll].transform.rotation);
-        Destroy(latestProjectile, 1);
     }
     public void ReturnSword(){
         slashCooldown = 1f;

@@ -153,7 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 100
   forceMode: 1
-  _timeToDisappear: 0.1
+  _timeToDisappear: 0.2
+  lifeTime: 0.2
+  damage: 10
 --- !u!54 &-7290226718127381288
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -195,5 +197,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba7e298ed60a234787b9dc0168385d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToMax: 0.5
+  _timeToMax: 0.2
   _scaleUpMax: {x: 5, y: 1, z: 3}

@@ -43,8 +43,7 @@ public class PlayerHandler : MonoBehaviour
 
 	//UI element declarations
 	[SerializeField] TMP_Text state;
-	[SerializeField] TMP_Text UIStaminaText;
-	[SerializeField] Slider UIStaminaSlider;
+	[SerializeField] UIBarInterpolator UIBP;
 
 	[SerializeField] GameObject lockedCamera;
 	[SerializeField] GameObject unlockedCamera;
@@ -122,34 +121,36 @@ public class PlayerHandler : MonoBehaviour
 
 	private void Start()
 	{
+		UIBP._maxValue = 100;
 		Application.targetFrameRate = 60;
 		_controller = GetComponent<CharacterController>();
 		unlockedCamera.transform.rotation = lockedCamera.transform.rotation;
 		target = FindObjectOfType<EnemyStagger>().transform;
-		UIStaminaText.text = "Stamina value: " + Mathf.CeilToInt(stamina);
 		//Lock the camera on scene start.
 		Cursor.lockState = CursorLockMode.Locked;
 		stamRegen = 1f;
 		stamina = 100f;
-		UIStaminaSlider.value = stamina / 100f;
+
 		baseSpeed = _baseSpeed;
 	}
 	void Update()
 	{
 		state.text = "State: " + Convert.ToString(playerState);
 		stamina = Mathf.Clamp(stamina, 0, 100);
-		if (playerState == PlayerState.None && stamina < 100) stamRegen += Time.deltaTime;
-		if (playerState == PlayerState.None && stamina < 100 && stamRegen >= 3f) stamina += Time.deltaTime * stamRegen * 7.5f;
+		if (playerState == PlayerState.None && stamina < 100){
+			stamRegen += Time.deltaTime;
+		}
+		if (playerState == PlayerState.None && stamina < 100 && stamRegen >= 3f){
+			stamina += Time.deltaTime * stamRegen * 7.5f;
+		}
+		UIBP.value = stamina;
 
 		AnimatorSet();
 		Gravity();
 		if(canMove) Movement();
-		
-		UIStaminaText.text = "Stamina value: " + Mathf.CeilToInt(stamina);
-		UIStaminaSlider.value = stamina / 100f;
 	}
 
-	public bool StartAction(int stamCost, PlayerState state, bool stopMove = false)
+	public bool StartAction(float stamCost, PlayerState state, bool stopMove = false)
 	{
 		if(stamina > 1 && (playerState == state || playerState == PlayerState.None)){
 			canMove = !stopMove;
