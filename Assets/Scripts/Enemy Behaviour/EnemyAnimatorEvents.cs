@@ -17,7 +17,4 @@ public class EnemyAnimatorEvents : MonoBehaviour
 		for(int i = 0; i < BSEOrbit.Length; i++)
 			BSEOrbit[i].FireBurst(delaysForBSEOrbit[i]);
 	}
-	void AttackEnd(){
-		GetComponent<ScytheAttack>().ResetAnimationStance();
-	}
 }

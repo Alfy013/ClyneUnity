@@ -22,7 +22,7 @@ public class SwordProjectile : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
     {
 		lifeTime -= Time.deltaTime;
 		if(lifeTime < 0f && timeToDisappear < 0) StartDisappearance();

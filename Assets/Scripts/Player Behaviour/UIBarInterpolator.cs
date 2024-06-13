@@ -14,6 +14,7 @@ public class UIBarInterpolator : MonoBehaviour
 
 	[SerializeField] TMP_Text valueText;
 	[SerializeField] Image valueFill;
+	[SerializeField] Image slowValueFill;
 	[SerializeField] Color _maxColor;
 	[SerializeField] Color _minColor;
 	/*[SerializeField] float _maxTimeToStabilize;
@@ -22,8 +23,14 @@ public class UIBarInterpolator : MonoBehaviour
 	[SerializeField] float _flashingThreshold;
 	[SerializeField] bool interpolateTextValue;
 	[SerializeField] float fraction;
+	[SerializeField] float _waitAfterChange;
+	[SerializeField] float drainRate;
+	[SerializeField] float approximationAbsolutionModifier = 1E-06f;
+	[SerializeField] float approximationEpsilonModifier = 8f;
 	private float currentValue01;
+	private float currentSlowValue01;
 	private float targetValue01;
+	private float waitAfterChange;
 	/*
 	private float minValue01;
 	private float oldValue01;
@@ -35,29 +42,28 @@ public class UIBarInterpolator : MonoBehaviour
 	private float highestMaxTimer;*/
 	private float displayValue;
 
-
-	private void Start(){
-		currentValue01 = 1;
-		targetValue01 = 1;
-	}
-
 	private void Awake()
 	{
 		value = 0;
 		if(valueText != null)
 			valueText.text = (int)value + "/" + _maxValue;
 		valueFill.fillAmount = targetValue01;
+		currentSlowValue01 = 0;
+		slowValueFill.fillAmount = 0;
 	}
 
 	private void Update()
 	{
+		SlowBarUpdate();
 		value = Mathf.Clamp(value, 0, _maxValue);
 		currentValue01 = value / _maxValue;
 		targetValue01 = Mathf.Lerp(targetValue01, currentValue01, 1 - Mathf.Pow(fraction, Time.deltaTime * 10)); //yes. this is a wrong lerp and no, I don't give a shit anymore
 
 		displayValue = targetValue01 > 0.99f? Mathf.CeilToInt(targetValue01 * _maxValue) : Mathf.FloorToInt(targetValue01 * _maxValue);
-		valueFill.fillAmount = targetValue01;
+		
 
+
+		valueFill.fillAmount = targetValue01;
 		valueFill.color = Color.Lerp(_minColor, _maxColor, (float)value/_maxValue);
 
 		if(valueText != null){
@@ -90,5 +96,23 @@ public class UIBarInterpolator : MonoBehaviour
 			maxTimer -= Time.deltaTime;
 		}*/
 
+	}
+	public static bool Approximately(float a, float b, float absolutionModifier = 1E-06f, float epsilonModifier = 8f)
+    {
+        return Mathf.Abs(b - a) < Mathf.Max(absolutionModifier * Mathf.Max(Mathf.Abs(a), Mathf.Abs(b)), Mathf.Epsilon * epsilonModifier);
+    }
+	void SlowBarUpdate(){
+		if(!Approximately(currentValue01, targetValue01, approximationAbsolutionModifier, approximationEpsilonModifier) && targetValue01 >= currentValue01)
+			if(value > 0) waitAfterChange = _waitAfterChange;
+
+		if(waitAfterChange > 0f)
+			waitAfterChange -= Time.deltaTime;
+		else{
+			if(currentSlowValue01 > targetValue01)
+				currentSlowValue01 = Mathf.MoveTowards(currentSlowValue01, targetValue01, Time.deltaTime * drainRate);
+			else
+				currentSlowValue01 = targetValue01;
+		}
+		slowValueFill.fillAmount = currentSlowValue01;
 	}
 }

@@ -112,7 +112,7 @@ public class Slashing : MonoBehaviour
         }
     }*/
     public void FireSlash(){
-        if(moveSystem.StartAction(1.5f, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
+        if(moveSystem.StartAction(1f, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
             latestProjectile = Instantiate(slashProjectile, slashTransform.position, slashTransform.transform.rotation);
         } else{
             slash = false;

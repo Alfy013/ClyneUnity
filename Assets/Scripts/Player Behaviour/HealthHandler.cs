@@ -24,6 +24,8 @@ public class HealthHandler : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.L))
+            HP -= 50;
         UIBP.value = HP;
         HP = Mathf.Clamp(HP, 0, maxHP);
         if (HP <= 0)
