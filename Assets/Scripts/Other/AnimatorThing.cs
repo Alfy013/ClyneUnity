@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimatorThing : MonoBehaviour
@@ -7,6 +8,13 @@ public class AnimatorThing : MonoBehaviour
     [SerializeField] Blocking blocking;
     [SerializeField] Slashing slashing;
     [SerializeField] HealthHandler health;
+    [SerializeField] AbilityHandler ah;
+    void FireAbility(){
+        ah.FireAbility();
+    }
+    void ResetAbility(){
+        ah.ResetAbility();
+    }
     void Unknocked(){
         health.Unknocked();
     }
@@ -15,7 +23,7 @@ public class AnimatorThing : MonoBehaviour
     }
     void PlayStab(){
         slashing.PlayStab();
-    }
+    }/*
 	void StartBlock()
     {
         blocking.StartBlock();
@@ -23,7 +31,7 @@ public class AnimatorThing : MonoBehaviour
     void EndBlock()
     {
         blocking.StopBlock();
-    }
+    }*/
     /*void DashStart()
     {
         dashing.StartDash();

@@ -135,14 +135,14 @@ public class ProjectileHandler : MonoBehaviour
 				mat.SetColor("_Color", invertedColorMAT);
 				mat.SetColor("_EmissionColor", invertedColorEM);
 			}
-			if (destroyedOnParry) Evaporate();
+			if (destroyedOnParry) lifeTime = 0;
 			//SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
 			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, other.transform.forward.z));
 			transform.gameObject.layer = 11;
 			transform.gameObject.tag = "FProjectile";
 			if(blocking.slowdownCooldown <= 0f && !destroyedOnParry)
 			{
-				blocking.ReflectSlowDown();
+				//blocking.ReflectSlowDown();
 			}
 
 		}
@@ -160,13 +160,13 @@ public class ProjectileHandler : MonoBehaviour
 	}
 	public void Evaporate()
 	{
-		if(aim != null) aim.enabled = false;
+		if(aim != null && interpolateTimer >= 0.9f) aim.enabled = false;
 		if (!isBeam)
 		{
 			gameObject.GetComponent<Collider>().enabled = false;
 			isEvaporating = true;
 			interpolateTimer += Time.deltaTime;
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0f, 0f, 1f), interpolateTimer);
+			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.01f, 0.01f, 1f), interpolateTimer);
 			if (interpolateTimer >= 1f) Destroyed();
 		}
 		else Destroyed();

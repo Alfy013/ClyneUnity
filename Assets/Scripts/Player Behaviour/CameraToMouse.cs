@@ -10,7 +10,7 @@ public class CameraToMouse : MonoBehaviour
     void Start()
     {
         cam = FindObjectOfType<Camera>();
-        player = FindObjectOfType<PlayerHandler>().transform;
+        player = FindObjectOfType<MovementHandler>().transform;
     }
 
     // Update is called once per frame

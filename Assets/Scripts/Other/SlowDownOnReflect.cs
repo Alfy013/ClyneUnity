@@ -15,7 +15,7 @@ public class SlowDownOnReflect : MonoBehaviour
 		{
 			if(proj.parriable && !proj.stuck)
 			{
-				blocking.ReflectSlowDown();
+				//blocking.ReflectSlowDown();
 				slowdownCooldown = _slowdownCooldown;
 			}
 		}

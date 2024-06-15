@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BurstSubEmitter : MonoBehaviour
 {
+	[SerializeField] Transform startPoint;
 	[SerializeField] GameObject projectilePrefab;
 	[SerializeField] float fireRateCT;
 	[SerializeField] int projectileCountCT;
@@ -40,7 +41,7 @@ public class BurstSubEmitter : MonoBehaviour
 			{
 				Vector3 bulDir = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
 				bul.GetComponent<Rigidbody>().rotation = Quaternion.Euler(bulDir);
-				bul.transform.SetPositionAndRotation(transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
+				bul.transform.SetPositionAndRotation(startPoint != null ? startPoint.transform.position : transform.position, transform.rotation * Quaternion.AngleAxis(angle, Vector3.up));
 				if(bul.TryGetComponent(out CurvedProjectile curve) || parentPoint != null){
 					curve.parentPoint = parentPoint;
 				}

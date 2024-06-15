@@ -13,7 +13,7 @@ public class Slashing : MonoBehaviour
     [SerializeField] Transform slashTransform;
     [SerializeField] GameObject[] stabProjectiles;
     [SerializeField] Transform[] stabTransforms;
-    [SerializeField] PlayerHandler moveSystem; 
+    [SerializeField] MovementHandler moveSystem; 
     [SerializeField] Animator animator;
     [SerializeField] float _slashCooldown;
     [SerializeField] float _jumpDuration;
@@ -39,24 +39,24 @@ public class Slashing : MonoBehaviour
     }
     private void Stabs(){
         animator.SetInteger("SlashingIndex", 0);
-        if(Input.GetAxisRaw("Slash") == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Stab)){
+        /*if(Input.GetAxisRaw("Slash") == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Stab)){
             animator.SetBool("Stab", true);
         } else{
             animator.SetBool("Stab", false);
             moveSystem.StopAction();
-        }
+        }*/
     }
     private void QuickSlashes(){
         animator.SetBool("Stab", false);
         animator.SetBool("Firing", slash);
-        if(Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Slash)){
+        /*if(Math.Ceiling(Input.GetAxisRaw("Slash")) == 1 && moveSystem.StartAction(0, PlayerHandler.PlayerState.Slash)){
             slash = true;
             stopped = false;
         } else if(!stopped){
             moveSystem.StopAction();
             slash = false;
             stopped = true;
-        }
+        }*/
         
     }
     /*private void Slashes(){
@@ -112,23 +112,23 @@ public class Slashing : MonoBehaviour
         }
     }*/
     public void FireSlash(){
-        if(moveSystem.StartAction(1f, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
+        /*if(moveSystem.StartAction(1f, PlayerHandler.PlayerState.Slash) && Math.Ceiling(Input.GetAxisRaw("Slash")) == 1){
             latestProjectile = Instantiate(slashProjectile, slashTransform.position, slashTransform.transform.rotation);
         } else{
             slash = false;
             moveSystem.StopAction();
             stopped = true;
-        }
+        }*/
     }
     public void PlayStab(){
-        moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);
+        //moveSystem.StartAction(1, PlayerHandler.PlayerState.Stab);
         int roll = UnityEngine.Random.Range(0, stabProjectiles.Length - 1);
         latestProjectile = Instantiate(stabProjectiles[roll], stabTransforms[roll].transform.position, stabTransforms[roll].transform.rotation);
     }
     public void ReturnSword(){
         slashCooldown = 1f;
         slashingIndex = 0;
-        moveSystem.StopAction();
+        //moveSystem.StopAction();
         isDashing = false;
         afterImage.activate = false;
     }

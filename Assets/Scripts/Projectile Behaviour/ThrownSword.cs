@@ -18,7 +18,7 @@ public class ThrownSword : MonoBehaviour
     {
         swordGameObject = FindObjectOfType<Sword>().gameObject;
         rb = GetComponent<Rigidbody>();
-        player = FindObjectOfType<PlayerHandler>().gameObject;
+        player = FindObjectOfType<MovementHandler>().gameObject;
         playerPos = player.transform;
         rb.AddForce(transform.forward * speedMultiplier, ForceMode.Impulse);
         timeToArrive = _timeToReturn;

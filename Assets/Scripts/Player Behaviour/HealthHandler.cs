@@ -8,43 +8,46 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] Animator playeranim;
     [SerializeField] ParticleSystem hit;
     [SerializeField] GameObject deathCam;
-    [SerializeField] UIBarInterpolator UIBP;
-    private bool defaulted = true;
-    private float HP = 250;
+    UIBarInterpolator UIBP;
+    [SerializeField] TMP_Text hits;
+    [HideInInspector]
+    public float HP = 250;
 
 
     
-    PlayerHandler moveSystem;
+    MovementHandler moveHandler;
+    AbilityHandler abilityHandler;
     private int hitsTaken = 0;
 
-    private void Start(){
-        moveSystem = FindObjectOfType<PlayerHandler>();
+    private void Awake(){
+        moveHandler = GetComponent<MovementHandler>();
+        abilityHandler = GetComponent<AbilityHandler>();
+        UIBP = GetComponent<UIBarInterpolator>();
         UIBP._maxValue = maxHP;
     }
 
     private void Update()
     {
+        if (HP <= 0)
+        {
+            deathCam.SetActive(true);
+            EnemyStagger.StaggerInstance.staggered = true;
+            moveHandler.enabled = false;
+            abilityHandler.enabled = false;
+            playeranim.SetBool("Knocked", true);
+        }
         if(Input.GetKeyDown(KeyCode.L))
             HP -= 50;
         UIBP.value = HP;
         HP = Mathf.Clamp(HP, 0, maxHP);
-        if (HP <= 0)
-        {
-            if(defaulted){
-                defaulted = false;
-                moveSystem.StopAction();
-                moveSystem.StartAction(0, PlayerHandler.PlayerState.Knocked, true);
-                deathCam.SetActive(true);
-                EnemyStagger.StaggerInstance.staggered = true;
-            }
-            playeranim.SetBool("Knocked", true);
-        }
+
+        hits.text = "Hits taken: " + hitsTaken;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             hitsTaken = 0;
             HP = maxHP;
-            moveSystem.stamina = 100f;
+            abilityHandler.stamina = 100f;
         }
     }
 	private void OnTriggerEnter(Collider other)
@@ -64,10 +67,10 @@ public class HealthHandler : MonoBehaviour
     }
     public void Unknocked(){
         HP = maxHP;
-        moveSystem.StopAction();
+        moveHandler.enabled = true;
+        abilityHandler.enabled = true;
+        abilityHandler.stamina = 100f;
         playeranim.SetBool("Knocked", false);
         deathCam.SetActive(false);
-        defaulted = true;
-        moveSystem.stamina = 100f;
     }
 }

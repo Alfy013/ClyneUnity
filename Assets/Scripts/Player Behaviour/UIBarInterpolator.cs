@@ -27,8 +27,10 @@ public class UIBarInterpolator : MonoBehaviour
 	[SerializeField] float drainRate;
 	[SerializeField] float approximationAbsolutionModifier = 1E-06f;
 	[SerializeField] float approximationEpsilonModifier = 8f;
-	private float currentValue01;
-	private float currentSlowValue01;
+	[HideInInspector]
+	public float currentValue01;
+	[HideInInspector]
+	public float currentSlowValue01;
 	private float targetValue01;
 	private float waitAfterChange;
 	/*

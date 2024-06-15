@@ -13,7 +13,7 @@ public class HomingProjectile : MonoBehaviour
 
     private void Start()
 	{
-		target = FindObjectOfType<PlayerHandler>().transform;
+		target = FindObjectOfType<MovementHandler>().transform;
         handler = GetComponent<ProjectileHandler>();
 	}
 

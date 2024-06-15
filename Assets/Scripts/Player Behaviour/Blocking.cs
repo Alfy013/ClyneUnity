@@ -12,17 +12,17 @@ public class Blocking : MonoBehaviour
 	[SerializeField] Animator animator;
 	public float slowdownCooldown;
 	//[SerializeField] GameObject blocker;
-	PlayerHandler moveSystem;
+	MovementHandler moveSystem;
 	bool reflected = false;
 	float timeToNormalize;
 	float timeToSlowDown;
 	float shieldCooldown = 0f;
 	private void Awake()
 	{
-		moveSystem = FindObjectOfType<PlayerHandler>();
+		moveSystem = FindObjectOfType<MovementHandler>();
 	}
 
-	void Update()
+	/*void Update()
 	{
 		if (slowdownCooldown > 0f) slowdownCooldown -= Time.unscaledDeltaTime;
 		if (timeToSlowDown > 0f)
@@ -76,5 +76,5 @@ public class Blocking : MonoBehaviour
 		slowdownCooldown = 1f;
 		timeToSlowDown = timeToSlowDownCT;
 		reflected = true;
-	}
+	}*/
 }
