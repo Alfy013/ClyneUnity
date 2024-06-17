@@ -82,7 +82,6 @@ public class AbilityHandler : MonoBehaviour
 	public void ResetAbility(){
 		if(abilityInUse != null){
 			abilityInUse.AbilityReset();
-			abilityInUse.cooldown = abilityInUse._cooldown;
 			abilityInUse.aborted = false;
 			abilityInUse = null;
 		}else Debug.Log("Ability already null.");

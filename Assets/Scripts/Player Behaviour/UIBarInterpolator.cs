@@ -28,9 +28,11 @@ public class UIBarInterpolator : MonoBehaviour
 	[SerializeField] bool interpolateTextValue;
 	[SerializeField] float fraction;
 	[SerializeField] float _waitAfterChange;
-	[SerializeField] float drainRate;
+	[SerializeField] float _drainRate;
 	[SerializeField] float approximationAbsolutionModifier = 1E-06f;
 	[SerializeField] float approximationEpsilonModifier = 8f;
+	[HideInInspector]
+	public float drainRate;
 	[HideInInspector]
 	public float currentValue01;
 	[HideInInspector]
@@ -47,6 +49,7 @@ public class UIBarInterpolator : MonoBehaviour
 	private float highestMinTimer;
 	private float highestMaxTimer;*/
 	private float displayValue;
+	bool spedUp;
 
 	private void Awake()
 	{
@@ -74,7 +77,9 @@ public class UIBarInterpolator : MonoBehaviour
 		if(valueText != null){
 			valueText.text = (interpolateTextValue? (int)displayValue : (int)value) + "/" + _virtualMaxValue; 
 			if(value <= _virtualMaxValue) valueText.color = Color.Lerp(_minColor, _maxColor, value/_virtualMaxValue);
-			else valueText.color = Color.Lerp(_maxColor, _overFlowColor, ((value-_virtualMaxValue)*12)/_actualMaxValue);
+			else{
+				valueText.color = Color.Lerp(_maxColor, _overFlowColor, (value-_virtualMaxValue) * 12 /_actualMaxValue);
+			}
 			float flashingPercent = _flashingThreshold / 100f;
 			if(value / _virtualMaxValue <= flashingPercent && value > 0){ //basically, if the value is below the threshold but higher than 0
 				float value10 = 1 - value / _virtualMaxValue; //clamp the value and reverse it 
@@ -82,7 +87,7 @@ public class UIBarInterpolator : MonoBehaviour
 				float flashingTime01 = Mathf.PingPong(Time.time * timeMultiplier, 1); //make the flashing go up and down between 0 and 1 over time, goes up and down faster if the value is lower
 				float flashingFrequency = Mathf.Lerp(-0.5f, 0.5f, flashingTime01);
 				valueText.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, flashingFrequency);
-			}	
+			}
 			else valueText.fontMaterial.SetFloat(ShaderUtilities.ID_FaceDilate, -0.5f);
 		}
 		/*if(!Mathf.Approximately(oldValue01, newValue01)){ //if the "absolute" value changes from the last frame to this one
@@ -121,10 +126,19 @@ public class UIBarInterpolator : MonoBehaviour
 		}
 		if(slowValueFill != null)
 			slowValueFill.fillAmount = currentSlowValue01;
+		
+		if(value < 1f && !spedUp && _drainRate < 0.5f){
+			spedUp = true;
+			drainRate *= 45f;
+		}
+		if(value > 1f && spedUp){
+			spedUp = false;
+			drainRate = _drainRate;
+		}	
 	}
 	void ClampValues(){
-		currentValue01 = Mathf.Clamp01(currentValue01);
-		targetValue01 = Mathf.Clamp01(targetValue01);
 		currentSlowValue01 = Mathf.Clamp01(currentSlowValue01);
+		targetValue01 = Mathf.Clamp01(targetValue01);
+		currentValue01 = Mathf.Clamp01(currentValue01);
 	}
 }

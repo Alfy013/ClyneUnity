@@ -217,13 +217,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   lifeTimeCT: 6
   damageAmount: 15
-  parriable: 1
-  destroyedOnParry: 1
   isBeam: 0
-  sticks: 0
-  _gracePeriod: 0
+  _gracePeriod: 0.25
   _endAfterImage: -1
-  stuck: 0
 --- !u!65 &640047528733790096
 BoxCollider:
   m_ObjectHideFlags: 0

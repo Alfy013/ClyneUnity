@@ -7,33 +7,43 @@ public class Resonance : AbilityHandler.Ability
 {
     [SerializeField] float _staminaCostMultiplier = 2f;
     [SerializeField] float _healMultiplier = 3f;
+    [SerializeField] float drainMultiplier;
     [SerializeField] VisualEffect resonanceParticles;
+    [SerializeField] UIBarInterpolator UIBIMend;
+    
     MovementHandler player;
-    UIBarInterpolator UIBI;
+    UIBarInterpolator UIBIHP;
     HealthHandler health;
+    float difference;
     private void Awake(){
         resonanceParticles.Stop();
         health = GetComponent<HealthHandler>();
-        UIBI = GetComponent<UIBarInterpolator>();
+        UIBIHP = GetComponent<UIBarInterpolator>();
         player = GetComponent<MovementHandler>();
+        UIBIMend._virtualMaxValue = _cooldown;
+    }
+    void Update(){
+        UIBIMend.value = cooldown;
     }
     internal override void AbilitySetup()
     {
-        if(UIBI.currentSlowValue01 - UIBI.currentValue01 <= 0f){
+        if(UIBIHP.currentSlowValue01 - UIBIHP.currentValue01 <= 0f){
             aborted = true;
             return;
         }
+        difference = UIBIHP.currentSlowValue01 - UIBIHP.currentValue01;
+        resonanceParticles.Play();
         FindObjectOfType<AudioManager>().PlaySound("Resonance");
         animator.SetBool("Resonance", true);
         player.enabled = false; //this will 100% cause issues later
+        UIBIHP.drainRate *= drainMultiplier;
 
     }
     internal override void AbilityEffect()
     {
-        resonanceParticles.Play();
-        float difference = UIBI.currentSlowValue01 - UIBI.currentValue01;
         _staminaCost = difference * _staminaCostMultiplier * 100;
-        health.HP += difference * UIBI._virtualMaxValue * _healMultiplier;
+        health.HP += difference * UIBIHP._virtualMaxValue * _healMultiplier;
+        UIBIHP.drainRate /= drainMultiplier;
     }
     internal override void AbilityReset()
     {

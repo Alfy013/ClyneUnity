@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class OnParry : MonoBehaviour
 {
-    
     [SerializeField] GameObject projectileToTurnInto;
     [SerializeField] int burstAmount;
     float angleStep;
