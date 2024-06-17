@@ -17,12 +17,6 @@ public class AnimatorThing : MonoBehaviour
     }
     void Unknocked(){
         health.Unknocked();
-    }
-    void FireSlash(){
-        slashing.FireSlash();
-    }
-    void PlayStab(){
-        slashing.PlayStab();
     }/*
 	void StartBlock()
     {

@@ -13,7 +13,6 @@ public class ScytheAttack : MonoBehaviour
     }
     public void ResetAnimationStance(){
         anim.SetInteger("CurrentAnim", 2);
-        Debug.Log(2);
     }
     void Update(){
         if(Input.GetKeyDown(KeyCode.Alpha1)){
@@ -24,7 +23,6 @@ public class ScytheAttack : MonoBehaviour
         }
         if(EnemyStagger.StaggerInstance.staggered && anim.GetInteger("CurrentAnim") != 2){
             ResetAnimationStance();
-            Debug.Log("reset from stagger");
         }
     }
 

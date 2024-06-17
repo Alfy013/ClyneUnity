@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SwordProjectile : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class SwordProjectile : MonoBehaviour
 	[SerializeField] float _timeToDisappear;
 	[SerializeField] float lifeTime;
 	[SerializeField] float damage = 10;
+	[SerializeField] bool destroyedOnParry = true;
+	[SerializeField] VisualEffect aim;
 	Vector3 startSize;
 
-	float timeToDisappear = -100f;
+	float timeToDisappear = 0f;
 	Rigidbody rb;
 
 	private void Awake()
@@ -25,7 +28,10 @@ public class SwordProjectile : MonoBehaviour
 	void FixedUpdate()
     {
 		lifeTime -= Time.deltaTime;
-		if(lifeTime < 0f && timeToDisappear < 0) StartDisappearance();
+		if(aim != null){
+			aim.SetFloat("Lifetime", lifeTime + _timeToDisappear - timeToDisappear);
+		}
+		if(lifeTime < 0f && timeToDisappear <= 0) StartDisappearance();
 		if(timeToDisappear > 0f){
 			transform.localScale = Vector3.Lerp(startSize, Vector3.zero, 1 - (timeToDisappear/_timeToDisappear));
 			timeToDisappear -= Time.deltaTime;
@@ -40,7 +46,8 @@ public class SwordProjectile : MonoBehaviour
 	}
 	void OnTriggerEnter(Collider col){			
 		if(col.CompareTag("Enemy")){
-			StartDisappearance();
+			if(destroyedOnParry)
+				StartDisappearance();
 			col.GetComponent<EnemyStagger>().HP -= damage;
 		}
 	}

@@ -8,13 +8,17 @@ using Unity.VisualScripting;
 public class UIBarInterpolator : MonoBehaviour
 {
 	[HideInInspector]
-	public float _maxValue;
+	public float _virtualMaxValue;
+	[HideInInspector]
+	public float _actualMaxValue;
+	
 	[HideInInspector]
 	public float value;
 
 	[SerializeField] TMP_Text valueText;
 	[SerializeField] Image valueFill;
 	[SerializeField] Image slowValueFill;
+	[SerializeField] Color _overFlowColor;
 	[SerializeField] Color _maxColor;
 	[SerializeField] Color _minColor;
 	/*[SerializeField] float _maxTimeToStabilize;
@@ -48,32 +52,32 @@ public class UIBarInterpolator : MonoBehaviour
 	{
 		value = 0;
 		if(valueText != null)
-			valueText.text = (int)value + "/" + _maxValue;
+			valueText.text = (int)value + "/" + _virtualMaxValue;
 		valueFill.fillAmount = targetValue01;
 		currentSlowValue01 = 0;
-		slowValueFill.fillAmount = 0;
+		if(slowValueFill != null)
+			slowValueFill.fillAmount = 0;
 	}
 
 	private void Update()
 	{
 		SlowBarUpdate();
-		value = Mathf.Clamp(value, 0, _maxValue);
-		currentValue01 = value / _maxValue;
+		value = Mathf.Clamp(value, 0, _actualMaxValue != 0? _actualMaxValue : _virtualMaxValue);
+		currentValue01 = value / _virtualMaxValue;
 		targetValue01 = Mathf.Lerp(targetValue01, currentValue01, 1 - Mathf.Pow(fraction, Time.deltaTime * 10)); //yes. this is a wrong lerp and no, I don't give a shit anymore
 
-		displayValue = targetValue01 > 0.99f? Mathf.CeilToInt(targetValue01 * _maxValue) : Mathf.FloorToInt(targetValue01 * _maxValue);
-		
-
+		displayValue = targetValue01 > 0.99f? Mathf.CeilToInt(targetValue01 * _virtualMaxValue) : Mathf.FloorToInt(targetValue01 * _virtualMaxValue);
 
 		valueFill.fillAmount = targetValue01;
-		valueFill.color = Color.Lerp(_minColor, _maxColor, (float)value/_maxValue);
+		valueFill.color = Color.Lerp(_minColor, _maxColor, value/_virtualMaxValue);
 
 		if(valueText != null){
-			valueText.text = (interpolateTextValue? (int)displayValue : (int)value) + "/" + _maxValue; 
-			valueText.color = Color.Lerp(_minColor, _maxColor, (float)value/_maxValue);
+			valueText.text = (interpolateTextValue? (int)displayValue : (int)value) + "/" + _virtualMaxValue; 
+			if(value <= _virtualMaxValue) valueText.color = Color.Lerp(_minColor, _maxColor, value/_virtualMaxValue);
+			else valueText.color = Color.Lerp(_maxColor, _overFlowColor, ((value-_virtualMaxValue)*12)/_actualMaxValue);
 			float flashingPercent = _flashingThreshold / 100f;
-			if(value / _maxValue <= flashingPercent && value > 0){ //basically, if the value is below the threshold but higher than 0
-				float value10 = 1 - value / _maxValue; //clamp the value and reverse it 
+			if(value / _virtualMaxValue <= flashingPercent && value > 0){ //basically, if the value is below the threshold but higher than 0
+				float value10 = 1 - value / _virtualMaxValue; //clamp the value and reverse it 
 				float timeMultiplier = Mathf.Pow(_flashExponent, value10 / flashingPercent); //exponent to the power of x (x determining how fast it should flash, the lower the faster)
 				float flashingTime01 = Mathf.PingPong(Time.time * timeMultiplier, 1); //make the flashing go up and down between 0 and 1 over time, goes up and down faster if the value is lower
 				float flashingFrequency = Mathf.Lerp(-0.5f, 0.5f, flashingTime01);
@@ -97,7 +101,7 @@ public class UIBarInterpolator : MonoBehaviour
 			maxValue01 = Mathf.Lerp(maxValue01, newValue01, 1 - maxTimer / highestMaxTimer);
 			maxTimer -= Time.deltaTime;
 		}*/
-
+		ClampValues();
 	}
 	public static bool Approximately(float a, float b, float absolutionModifier = 1E-06f, float epsilonModifier = 8f)
     {
@@ -115,6 +119,12 @@ public class UIBarInterpolator : MonoBehaviour
 			else
 				currentSlowValue01 = targetValue01;
 		}
-		slowValueFill.fillAmount = currentSlowValue01;
+		if(slowValueFill != null)
+			slowValueFill.fillAmount = currentSlowValue01;
+	}
+	void ClampValues(){
+		currentValue01 = Mathf.Clamp01(currentValue01);
+		targetValue01 = Mathf.Clamp01(targetValue01);
+		currentSlowValue01 = Mathf.Clamp01(currentSlowValue01);
 	}
 }

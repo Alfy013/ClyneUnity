@@ -49,8 +49,4 @@ public class ThrownSword : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnDestroy(){
-        player.GetComponent<Slashing>().ReturnSword();
-        swordGameObject.SetActive(true);
-    }
 }

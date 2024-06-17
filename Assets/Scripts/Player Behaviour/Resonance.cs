@@ -33,7 +33,7 @@ public class Resonance : AbilityHandler.Ability
         resonanceParticles.Play();
         float difference = UIBI.currentSlowValue01 - UIBI.currentValue01;
         _staminaCost = difference * _staminaCostMultiplier * 100;
-        health.HP += difference * UIBI._maxValue * _healMultiplier;
+        health.HP += difference * UIBI._virtualMaxValue * _healMultiplier;
     }
     internal override void AbilityReset()
     {

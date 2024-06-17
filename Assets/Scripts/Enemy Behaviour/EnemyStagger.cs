@@ -26,7 +26,7 @@ public class EnemyStagger : MonoBehaviour
 		if (StaggerInstance == null) StaggerInstance = this;
 		hitCooldown = 0f;
 		HP = 0;
-		UIBP._maxValue = maxHP;
+		UIBP._virtualMaxValue = maxHP;
 	}
 
 	private void Update()

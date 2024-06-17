@@ -30,6 +30,9 @@ public class ProjectilePools : MonoBehaviour
 				obj.SetActive(false);
 				projectilesToPool[i].pooledBullets.Add(obj);
 				obj.GetComponent<ProjectileHandler>().SetIndex(i);
+				if(TryGetComponent<OnParry>(out OnParry onParry)){
+					onParry.SetIndex(i);
+				}
 			}
 		}
 	}

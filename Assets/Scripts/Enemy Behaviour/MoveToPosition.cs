@@ -32,7 +32,6 @@ public class MoveToPosition : MonoBehaviour
     private bool calculatedPositions;
     Vector3 selfPos;
     Vector3 targetPos;
-    float timer = -1f;
 
     // Start is called before the first frame update
     void Start()

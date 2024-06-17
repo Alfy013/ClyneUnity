@@ -2,26 +2,9 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class Blocking : MonoBehaviour
+public class Blocking : AbilityHandler.Ability
 {
-	[SerializeField] float slowDownValue;
-	[SerializeField] float timeToNormalizeCT;
-	[SerializeField] float timeToSlowDownCT;
 	[SerializeField] GameObject shieldHitBox;
-    [SerializeField] TMP_Text UICooldownText;
-	[SerializeField] Animator animator;
-	public float slowdownCooldown;
-	//[SerializeField] GameObject blocker;
-	MovementHandler moveSystem;
-	bool reflected = false;
-	float timeToNormalize;
-	float timeToSlowDown;
-	float shieldCooldown = 0f;
-	private void Awake()
-	{
-		moveSystem = FindObjectOfType<MovementHandler>();
-	}
-
 	/*void Update()
 	{
 		if (slowdownCooldown > 0f) slowdownCooldown -= Time.unscaledDeltaTime;
@@ -77,4 +60,17 @@ public class Blocking : MonoBehaviour
 		timeToSlowDown = timeToSlowDownCT;
 		reflected = true;
 	}*/
+	internal override void AbilitySetup()
+    {
+        animator.SetBool("Blocking", true);
+		shieldHitBox.SetActive(true);
+    }
+    internal override void AbilityEffect()
+    {
+		shieldHitBox.SetActive(false);
+    }
+    internal override void AbilityReset()
+    {
+        animator.SetBool("Blocking", false);
+    }
 }

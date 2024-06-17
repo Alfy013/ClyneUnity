@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlowDownOnReflect : MonoBehaviour
 {
-	[SerializeField] float _slowdownCooldown;
+	/*[SerializeField] float _slowdownCooldown;
 	float slowdownCooldown;
 	[SerializeField] Blocking blocking;
 	private void OnTriggerEnter(Collider other)
@@ -23,5 +23,5 @@ public class SlowDownOnReflect : MonoBehaviour
 	private void Update()
 	{
 		if (slowdownCooldown > 0f) slowdownCooldown -= Time.unscaledDeltaTime;
-	}
+	}*/
 }

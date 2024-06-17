@@ -202,15 +202,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.0851816
-        functionName: StartBlock
+      - time: 0.3309771
+        functionName: FireAbility
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3309771
-        functionName: EndBlock
+      - time: 0.9969419
+        functionName: ResetAbility
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -613,7 +613,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.760254
-        functionName: FireSlash
+        functionName: FireAbility
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9969419
+        functionName: ResetAbility
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

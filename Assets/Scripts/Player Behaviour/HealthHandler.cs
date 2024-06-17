@@ -5,13 +5,17 @@ using UnityEngine.UI;
 public class HealthHandler : MonoBehaviour
 {
     [SerializeField] int maxHP = 250;
+    [SerializeField] int overHealMax;
+    [SerializeField] float overHealDrain;
     [SerializeField] Animator playeranim;
     [SerializeField] ParticleSystem hit;
     [SerializeField] GameObject deathCam;
-    UIBarInterpolator UIBP;
+    UIBarInterpolator UIBPNormal;
+    [SerializeField] UIBarInterpolator UIBPOverheal;
     [SerializeField] TMP_Text hits;
     [HideInInspector]
     public float HP = 250;
+    float overHeal;
 
 
     
@@ -22,8 +26,10 @@ public class HealthHandler : MonoBehaviour
     private void Awake(){
         moveHandler = GetComponent<MovementHandler>();
         abilityHandler = GetComponent<AbilityHandler>();
-        UIBP = GetComponent<UIBarInterpolator>();
-        UIBP._maxValue = maxHP;
+        UIBPNormal = GetComponent<UIBarInterpolator>();
+        UIBPNormal._virtualMaxValue = maxHP;
+        UIBPNormal._actualMaxValue = maxHP + overHealMax;
+        UIBPOverheal._virtualMaxValue = overHealMax;
     }
 
     private void Update()
@@ -38,8 +44,12 @@ public class HealthHandler : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.L))
             HP -= 50;
-        UIBP.value = HP;
-        HP = Mathf.Clamp(HP, 0, maxHP);
+        HP = Mathf.Clamp(HP, 0, maxHP + overHealMax);
+        overHeal = Mathf.Clamp(overHeal, 0, overHealMax);
+        overHeal = HP - maxHP;
+        if(overHeal > 0f && HP - (Time.deltaTime * overHealDrain) > maxHP) HP -= Time.deltaTime * overHealDrain;
+        UIBPOverheal.value = overHeal;
+        UIBPNormal.value = HP;
 
         hits.text = "Hits taken: " + hitsTaken;
 

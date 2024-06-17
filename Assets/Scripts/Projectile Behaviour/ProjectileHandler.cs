@@ -9,15 +9,10 @@ public class ProjectileHandler : MonoBehaviour
 	[SerializeField] AnimationCurve velocityCurve;
 	public float lifeTimeCT;
 	[SerializeField] private int damageAmount;
-	[SerializeField] public bool parriable;
-	[SerializeField] private bool destroyedOnParry = false;
 	[SerializeField] private bool isBeam;
-	[SerializeField] private bool sticks;
 	[SerializeField] private float _gracePeriod = 0f;
 	[SerializeField] private float _endAfterImage = -1;
 
-	Blocking blocking;
-	[HideInInspector] public bool stuck;
 	private Vector3 originalScale;
 	private int projTypeIndex;
 	private bool startEvaporate;
@@ -29,33 +24,13 @@ public class ProjectileHandler : MonoBehaviour
 	private BoxCollider boxCollider;
 	VisualEffect aim;
 
-	private Material mat;
-	private Color originalColorEM;
-	private Color originalColorMAT;
-	private Color invertedColorEM;
-	private Color invertedColorMAT;
 
 	protected float currentVelocity;
-
-	private void Start()
-	{
-		stuck = false;
-		if (TryGetComponent(out MeshRenderer mRend))
-		{
-			mat = mRend.material;
-			originalColorEM = mat.GetColor("_EmissionColor");
-			originalColorMAT = mat.GetColor("_Color");
-			invertedColorEM = new Color(1.0f - mat.GetColor("_EmissionColor").r, 1.0f - mat.GetColor("_EmissionColor").g, 1.0f - mat.GetColor("_EmissionColor").b);
-			invertedColorMAT = new Color(1.0f - mat.GetColor("_Color").r, 1.0f - mat.GetColor("_Color").g, 1.0f - mat.GetColor("_Color").b);
-		}
-			
-	}
 	private void Awake()
 	{
 		boxCollider = GetComponent<BoxCollider>();
 		rb = GetComponent<Rigidbody>();
 		originalScale = transform.localScale;
-		blocking = FindObjectOfType<Blocking>();
 		aim = GetComponentInChildren<VisualEffect>();
 
 	}
@@ -76,12 +51,6 @@ public class ProjectileHandler : MonoBehaviour
 	}
 	private void OnDisable()
 	{
-		if(mat != null)
-		{
-			mat.SetColor("_EmissionColor", originalColorEM);
-			mat.SetColor("_Color", originalColorMAT);
-		}
-		stuck = false;
 		interpolateTimer = 0f;
 		transform.gameObject.layer = 6;
 		transform.gameObject.tag = "Projectile";
@@ -99,7 +68,7 @@ public class ProjectileHandler : MonoBehaviour
 		if (EnemyStagger.StaggerInstance != null)
 		{
 			if (EnemyStagger.StaggerInstance.staggered && interpolateTimer <= 0f) lifeTime = 0;
-			if (!startEvaporate && !stuck && lifeTime > 0f && !EnemyStagger.StaggerInstance.staggered && !isEvaporating){
+			if (!startEvaporate && lifeTime > 0f && !EnemyStagger.StaggerInstance.staggered && !isEvaporating){
 				SetVelocity(velocityCurve.Evaluate(lifeTimeCT - lifeTime));
 			}
 			else SetVelocity(0f);
@@ -120,39 +89,11 @@ public class ProjectileHandler : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Player") && !isBeam)
-		{
 			other.GetComponent<HealthHandler>().TakeHit(damageAmount);
-			if (sticks)
-			{
-				transform.parent = other.transform;
-				stuck = true;
-			}
 
-		}
-		if (parriable && other.CompareTag("Shield") && !stuck)
-		{
-			if(mat != null){
-				mat.SetColor("_Color", invertedColorMAT);
-				mat.SetColor("_EmissionColor", invertedColorEM);
-			}
-			if (destroyedOnParry) lifeTime = 0;
-			//SetMoveDirection(new Vector3(other.transform.forward.x, 0f, -moveDir.z));
-			rb.rotation = Quaternion.LookRotation(new Vector3(other.transform.forward.x, 0f, other.transform.forward.z));
-			transform.gameObject.layer = 11;
-			transform.gameObject.tag = "FProjectile";
-			if(blocking.slowdownCooldown <= 0f && !destroyedOnParry)
-			{
-				//blocking.ReflectSlowDown();
-			}
-
-		}
-		if (other.CompareTag("Enemy") && sticks)
-		{
-			stuck = true;
+		if (other.CompareTag("Enemy"))
 			transform.parent = other.transform;
-		}
-		if (other.CompareTag("Ground") && sticks)
-			stuck = true;
+
 	}
 	public void SetIndex(int index)
 	{

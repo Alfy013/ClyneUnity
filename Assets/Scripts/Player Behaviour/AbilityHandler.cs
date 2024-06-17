@@ -35,7 +35,7 @@ public class AbilityHandler : MonoBehaviour
     {
         stamRegen = 1f;
 		stamina = 100f;
-		UIBP._maxValue = 100;
+		UIBP._virtualMaxValue = 100;
 		foreach(Ability ability in abilities){
 			ability.animator = animator;
 		}
@@ -54,7 +54,7 @@ public class AbilityHandler : MonoBehaviour
 		}
 		UIBP.value = stamina;
 		foreach(Ability ability in abilities){
-			if(Input.GetButtonDown(ability._inputName)){
+			if(ability.channeled? Input.GetButton(ability._inputName) : Input.GetButtonDown(ability._inputName)){
             	if(ability.cooldown <= 0 && stamina > 1f && abilityInUse == null){
 	            	ability.AbilitySetup();
 					stamina -= ability._staminaCost;
@@ -70,6 +70,8 @@ public class AbilityHandler : MonoBehaviour
 			if(ability.cooldown > 0f) ability.cooldown -= Time.deltaTime;
 		}
 		if(abilityInUse != null) stamRegen = 0f;
+		if(Input.GetKeyDown(KeyCode.P)) Time.timeScale = 0.1f;
+		if(Input.GetKeyDown(KeyCode.O)) Time.timeScale = 1f;
     }
 
 	public void FireAbility(){
@@ -93,22 +95,4 @@ public class AbilityHandler : MonoBehaviour
 		}
 		state.text = "State: Knocked";
 	}
-    /*public void StopAction()
-	{
-		playerState = PlayerState.None;
-		canMove = true;
-	}*/
-
-    /*public bool StartAction(float stamCost, PlayerState state, bool stopMove = false)
-	{
-		if(stamina > 1 && (playerState == state || playerState == PlayerState.None) && stamCost < stamina){
-			canMove = !stopMove;
-			playerState = state;
-			stamRegen = 0f;
-			stamina -= stamCost;
-			return true;
-		}
-		return false;
-	}
-*/
 }
