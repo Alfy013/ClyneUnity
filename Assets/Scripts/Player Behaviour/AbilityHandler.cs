@@ -14,7 +14,6 @@ public class AbilityHandler : MonoBehaviour
 	[HideInInspector] public float stamina = 100f;
 	[HideInInspector] public float stamRegen;
 	[HideInInspector] public bool canMove = true;
-	int currentAbility;
 	Ability abilityInUse;
 
 
@@ -41,6 +40,12 @@ public class AbilityHandler : MonoBehaviour
 		}
     }
     void Update(){
+		if(Input.GetKeyDown(KeyCode.F)){
+			stamina = 100f;
+			foreach(Ability ability in abilities){
+				ability.cooldown = 0f;
+			}
+		}
 		UIBP.value = stamina;
 		if(abilityInUse != null)
 			state.text = "State: " + abilityInUse._inputName;

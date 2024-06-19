@@ -5,6 +5,8 @@ using UnityEngine;
 public class Blocking : AbilityHandler.Ability
 {
 	[SerializeField] GameObject shieldHitBox;
+	[SerializeField] UIBarInterpolator UIBIParry;
+
 	/*void Update()
 	{
 		if (slowdownCooldown > 0f) slowdownCooldown -= Time.unscaledDeltaTime;
@@ -60,6 +62,12 @@ public class Blocking : AbilityHandler.Ability
 		timeToSlowDown = timeToSlowDownCT;
 		reflected = true;
 	}*/
+	void Start(){
+		UIBIParry._virtualMaxValue = _cooldown;
+	}
+	void Update(){
+		UIBIParry.value = cooldown;
+	}
 	internal override void AbilitySetup()
     {
         animator.SetBool("Blocking", true);

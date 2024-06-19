@@ -156,6 +156,8 @@ MonoBehaviour:
   _timeToDisappear: 0.2
   lifeTime: 0.2
   damage: 15
+  destroyedOnParry: 1
+  aim: {fileID: 0}
 --- !u!54 &-7290226718127381288
 Rigidbody:
   m_ObjectHideFlags: 0

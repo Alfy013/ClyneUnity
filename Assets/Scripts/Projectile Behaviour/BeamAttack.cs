@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BeamAttack : MonoBehaviour
@@ -9,6 +10,9 @@ public class BeamAttack : MonoBehaviour
 	[SerializeField] GameObject indicator;
 	[SerializeField] GameObject beam;
 	[SerializeField] GameObject beamHitbox;
+	void OnEnable(){
+		indicator.transform.localScale = Vector3.zero;
+	}
 	private void Start()
 	{
 		handler = GetComponent<ProjectileHandler>();

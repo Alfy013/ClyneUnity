@@ -34,7 +34,7 @@ public class HealthHandler : MonoBehaviour
 
     private void Update()
     {
-        if (HP <= 0)
+        if (HP <= 0.5)
         {
             deathCam.SetActive(true);
             EnemyStagger.StaggerInstance.staggered = true;

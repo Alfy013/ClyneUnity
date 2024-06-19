@@ -88,7 +88,7 @@ public class ProjectileHandler : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Player") && !isBeam)
+		if (other.CompareTag("Player"))
 			other.GetComponent<HealthHandler>().TakeHit(damageAmount);
 
 		if (other.CompareTag("Enemy"))
