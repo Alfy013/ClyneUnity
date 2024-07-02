@@ -939,7 +939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &881122141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1398,11 +1398,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionLists:
   - actions:
-    - targetPosition: {fileID: 1548811124}
+    - objectToMove: {fileID: 0}
+      targetPosition: {fileID: 1548811124}
       timeToStart: 1
       timeToArrive: 2
       verticality: 0
-    - targetPosition: {fileID: 1068641077}
+    - objectToMove: {fileID: 0}
+      targetPosition: {fileID: 1068641077}
       timeToStart: 1
       timeToArrive: 2
       verticality: 0
@@ -1558,6 +1560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5233112405309087440, guid: c895208588ff6ca4eab1e6d5ae5c9a85, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1649,9 +1655,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf4dc1d3228f8b48885569c20b956f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCurveAngle: 0
-  _minCurveAngle: 0
-  _degreesPerSecond: 10
+  directionOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _baseModifier: 0
+  _orbitAfterSeconds: -1
+  _closeInAfter: -1
+  _closeInSpeed: 0
+  _closeInFor: 0
+  parentPoint: {fileID: 0}
 --- !u!1 &1018054829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1018054830
 MonoBehaviour:
   m_ObjectHideFlags: 0

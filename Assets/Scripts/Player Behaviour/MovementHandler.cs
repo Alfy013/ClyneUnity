@@ -70,7 +70,7 @@ public class MovementHandler : MonoBehaviour
 	}
 	private void Start()
 	{
-		Application.targetFrameRate = 60;
+		//Application.targetFrameRate = -1;
 		_controller = GetComponent<CharacterController>();
 		//Lock the camera on scene start.
 		Cursor.lockState = CursorLockMode.Locked;

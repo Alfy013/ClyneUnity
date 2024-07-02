@@ -7,7 +7,28 @@ public class Blocking : AbilityHandler.Ability
 	[SerializeField] GameObject shieldHitBox;
 	[SerializeField] UIBarInterpolator UIBIParry;
 
-	/*void Update()
+	
+	void Start(){
+		UIBIParry._virtualMaxValue = _cooldown;
+	}
+	void Update(){
+		UIBIParry.value = cooldown;
+	}
+	internal override void AbilitySetup()
+    {
+        animator.SetBool("Blocking", true);
+		shieldHitBox.SetActive(true);
+    }
+    internal override void AbilityEffect()
+    {
+		shieldHitBox.SetActive(false);
+    }
+    internal override void AbilityReset()
+    {
+        animator.SetBool("Blocking", false);
+    }
+}
+/*void Update()
 	{
 		if (slowdownCooldown > 0f) slowdownCooldown -= Time.unscaledDeltaTime;
 		if (timeToSlowDown > 0f)
@@ -15,7 +36,7 @@ public class Blocking : AbilityHandler.Ability
 			Time.timeScale = Mathf.Lerp(slowDownValue, 1f, timeToSlowDown / timeToSlowDownCT);
 			timeToSlowDown -= Time.unscaledDeltaTime;
 		}
-		if (reflected && timeToSlowDown <= 0f)
+		if (reflected && timeToSlowDown <= 0\f)
 		{
 			reflected = false;
 			timeToNormalize = timeToNormalizeCT;
@@ -62,23 +83,3 @@ public class Blocking : AbilityHandler.Ability
 		timeToSlowDown = timeToSlowDownCT;
 		reflected = true;
 	}*/
-	void Start(){
-		UIBIParry._virtualMaxValue = _cooldown;
-	}
-	void Update(){
-		UIBIParry.value = cooldown;
-	}
-	internal override void AbilitySetup()
-    {
-        animator.SetBool("Blocking", true);
-		shieldHitBox.SetActive(true);
-    }
-    internal override void AbilityEffect()
-    {
-		shieldHitBox.SetActive(false);
-    }
-    internal override void AbilityReset()
-    {
-        animator.SetBool("Blocking", false);
-    }
-}

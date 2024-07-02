@@ -19,7 +19,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: Event Slash has a time (1.419159) outside the clip's
+      valid range (0.000000..0.916667). It will never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -124,7 +125,7 @@ ModelImporter:
       takeName: Armature.001|SingleSlash
       internalID: -8290341067760571375
       firstFrame: 0
-      lastFrame: 122
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -225,7 +226,7 @@ ModelImporter:
       takeName: Armature.001|WindUp
       internalID: 7752656252617346526
       firstFrame: 0
-      lastFrame: 25
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
