@@ -16,6 +16,7 @@ public class HealthHandler : MonoBehaviour
     [HideInInspector]
     public float HP = 250;
     float overHeal;
+    float hitCooldown;
 
 
     
@@ -51,7 +52,7 @@ public class HealthHandler : MonoBehaviour
         if(overHeal > 0f && HP - (Time.deltaTime * overHealDrain) > maxHP) HP -= Time.deltaTime * overHealDrain;
         UIBPOverheal.value = overHeal;
         UIBPNormal.value = HP;
-
+        if(hitCooldown > 0f) hitCooldown -= Time.deltaTime;
         hits.text = "Hits taken: " + hitsTaken;
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -63,11 +64,14 @@ public class HealthHandler : MonoBehaviour
     }
 	private void OnTriggerEnter(Collider other)
 	{
-        if (other.CompareTag("EnemySwordHitbox"))
+        if (other.CompareTag("EnemySwordHitbox") && hitCooldown <= 0f)
         {
             HP -= 50;
-            ShakeHandler.Instance.ShakeCamera(20, 0.2f);
+            ShakeHandler.Instance.ShakeCamera(10, 0.2f);
             hitsTaken++;
+            playeranim.ResetTrigger("Flinch");
+            playeranim.SetTrigger("Flinch");
+            hitCooldown = 0.5f;
         }
 	}
     public void TakeHit(int damage, float stunTime = 0)
