@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class MoveToPosition : MonoBehaviour
@@ -12,8 +13,9 @@ public class MoveToPosition : MonoBehaviour
     private struct Action{
         public GameObject objectToMove; 
         public Transform targetPosition;
+        public float maxDistance;
         public float timeToStart;
-        public float timeToArrive;
+        public float speed;
         public bool verticality;
     }
     [Serializable]
@@ -25,13 +27,12 @@ public class MoveToPosition : MonoBehaviour
     private int AL_Index = -1;
     private int A_Index = 0;
     private int A_IndexMax = 0;
-    private float timeToArrive;
-
     private float timeToStart;
-    private float clampedTime;
-    private bool calculatedPositions;
+    private bool calculatedPos;
     Vector3 selfPos;
     Vector3 targetPos;
+    float movedDistance;
+    float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -53,26 +54,30 @@ public class MoveToPosition : MonoBehaviour
     }
 
     void Move(){
-        if(timeToArrive > 0f){
-            if(timeToStart <= 0f){
-                if(!calculatedPositions){
-                    Vector3 currentPosition = actionLists[AL_Index].actions[A_Index].objectToMove.transform.position;
-                    Vector3 targetPosition = actionLists[AL_Index].actions[A_Index].targetPosition.position;
-                    selfPos = currentPosition;
+        if(!calculatedPos){
+            calculatedPos = true;
+            movedDistance = 0f;
+            Vector3 currentPosition = actionLists[AL_Index].actions[A_Index].objectToMove.transform.position;
+            Vector3 targetPosition = actionLists[AL_Index].actions[A_Index].targetPosition.position;
 
-                    targetPos.x = targetPosition.x;
-                    targetPos.y = actionLists[AL_Index].actions[A_Index].verticality? targetPosition.y : currentPosition.y;
-                    targetPos.z = targetPosition.z;
-                    calculatedPositions = true; 
-                    timeToStart = actionLists[AL_Index].actions[A_Index].timeToStart;
-                    timeToArrive = actionLists[AL_Index].actions[A_Index].timeToArrive;
-                }
-                timeToArrive -= Time.deltaTime;
-                clampedTime = 1 - (timeToArrive / actionLists[AL_Index].actions[A_Index].timeToArrive);
-                actionLists[AL_Index].actions[A_Index].objectToMove.transform.position = Vector3.LerpUnclamped(selfPos, targetPos, clampedTime);
-            } else timeToStart -= Time.deltaTime;
+            selfPos = currentPosition;
+            targetPos.x = targetPosition.x;
+            targetPos.y = actionLists[AL_Index].actions[A_Index].verticality? targetPosition.y : currentPosition.y;
+            targetPos.z = targetPosition.z;
+
+            if(Vector3.Distance(selfPos, targetPos) > actionLists[AL_Index].actions[A_Index].maxDistance){ //checking if the distance is higher than the set maxDistance
+                distance = actionLists[AL_Index].actions[A_Index].maxDistance;
+            }
+            else distance = Vector3.Distance(selfPos, targetPos);
+        }
+        if(timeToStart > 0f)
+            timeToStart -= Time.deltaTime;
+        else if(distance - movedDistance > 0){
+            float step = actionLists[AL_Index].actions[A_Index].speed * Time.deltaTime;
+            movedDistance += step;
+            actionLists[AL_Index].actions[A_Index].objectToMove.transform.position = Vector3.MoveTowards(actionLists[AL_Index].actions[A_Index].objectToMove.transform.position, targetPos, step);
         } else {
-            calculatedPositions = false;
+            calculatedPos = false;
             if(A_Index < A_IndexMax)
                 A_Index++;
             else{
@@ -82,11 +87,10 @@ public class MoveToPosition : MonoBehaviour
         }
     }
     public void CallMovement(int phaseNumber, int lastActionIndex = 0, int firstActionIndex = 0){
-        calculatedPositions = false;
+        calculatedPos = false;
         AL_Index = phaseNumber;
         A_Index = firstActionIndex;
         A_IndexMax = lastActionIndex;
         timeToStart = actionLists[AL_Index].actions[A_Index].timeToStart;
-        timeToArrive = actionLists[AL_Index].actions[A_Index].timeToArrive;
     }
 }

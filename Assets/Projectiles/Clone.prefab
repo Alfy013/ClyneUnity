@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ca6f9a14dab3c4b8445b7431cc1725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPoint: {fileID: 0}
   projectilePrefab: {fileID: 7952956152626720134, guid: 91cd5824afa26bb43b676f5b198b26a0, type: 3}
   fireRateCT: 0
   projectileCountCT: 10
@@ -1207,14 +1208,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lifeTimeCT: 2
+  lifeTimeCT: 1
   damageAmount: 0
-  parriable: 0
-  destroyedOnParry: 0
   isBeam: 0
-  sticks: 0
   _gracePeriod: 0
-  stuck: 0
+  _endAfterImage: -1
 --- !u!54 &-1821197978585741023
 Rigidbody:
   m_ObjectHideFlags: 0

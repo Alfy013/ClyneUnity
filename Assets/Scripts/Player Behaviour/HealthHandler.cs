@@ -34,6 +34,7 @@ public class HealthHandler : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.U)) Time.timeScale = 0.2f;
         if (HP <= 0.5)
         {
             deathCam.SetActive(true);
@@ -65,6 +66,7 @@ public class HealthHandler : MonoBehaviour
         if (other.CompareTag("EnemySwordHitbox"))
         {
             HP -= 50;
+            ShakeHandler.Instance.ShakeCamera(20, 0.2f);
             hitsTaken++;
         }
 	}

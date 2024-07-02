@@ -5773,6 +5773,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!1 &245131398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 245131399}
+  - component: {fileID: 245131400}
+  m_Layer: 0
+  m_Name: Hitbox
+  m_TagString: EnemySwordHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &245131399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245131398}
+  m_LocalRotation: {x: -0.49350956, y: 0.000000059604638, z: -0.000000037481424, w: 0.8697404}
+  m_LocalPosition: {x: 0, y: 35.4, z: 10.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1348108061}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -59.143, y: 0, z: 0}
+--- !u!136 &245131400
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245131398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 5
+  m_Height: 24.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &259749664
 GameObject:
   m_ObjectHideFlags: 0
@@ -9240,7 +9286,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32308
+  m_Name: pb_Mesh32038
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9666,7 +9712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682621092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.99}
+  m_LocalPosition: {x: 0, y: 0, z: 1.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25623,7 +25669,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985353029}
-  m_LocalRotation: {x: 0.62410814, y: -0.000000019012683, z: 0.000000015186732, w: 0.78133804}
+  m_LocalRotation: {x: 0.62410814, y: 0.000000030061695, z: -0.000000024012337, w: 0.781338}
   m_LocalPosition: {x: 0, y: 40.19, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32204,7 +32250,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438860773}
-  m_LocalRotation: {x: 0.62410814, y: -0.000000019012683, z: 0.000000015186732, w: 0.78133804}
+  m_LocalRotation: {x: 0.62410814, y: 0.000000030061695, z: -0.000000024012337, w: 0.781338}
   m_LocalPosition: {x: 0, y: 40.19, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32848,8 +32894,9 @@ MonoBehaviour:
   - actions:
     - objectToMove: {fileID: 1174291417}
       targetPosition: {fileID: 682621093}
+      maxDistance: 25
       timeToStart: 0
-      timeToArrive: 0.33
+      speed: 50
       verticality: 0
 --- !u!1 &1633947555
 GameObject:
