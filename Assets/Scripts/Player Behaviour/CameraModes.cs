@@ -1,23 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 public class CameraModes : MonoBehaviour
 {
-    [SerializeField] GameObject lockedCamera;
-	[SerializeField] GameObject unlockedCamera;	
-    [SerializeField] GameObject playerAsset;
+    [SerializeField] GameObject[] cameras;
     [SerializeField] float rotationSpeed;
     Transform target;
 	private Quaternion rotation;
 	private Vector3 direction;
     private bool locked = true;
+	private int currentCamIndex;
     private bool resetRotation;
     // Start is called before the first frame update
     void Start()
     {
         target = FindObjectOfType<EnemyStagger>().transform;
-        unlockedCamera.transform.rotation = lockedCamera.transform.rotation;
     }
 
     // Update is called once per frame
@@ -28,27 +27,19 @@ public class CameraModes : MonoBehaviour
 		{
 			transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f));
 		}
-		else if(resetRotation)
-		{
-			lockedCamera.SetActive(true);
-			unlockedCamera.SetActive(false);
-			resetRotation = false;
-			transform.rotation = rotation;
-			playerAsset.transform.localRotation = Quaternion.Euler(Vector3.zero);
-			
-		}
-		if (!locked && !resetRotation)
-		{
-			unlockedCamera.transform.rotation = lockedCamera.transform.rotation;
-			resetRotation = true;
-			unlockedCamera.SetActive(true);
-			lockedCamera.SetActive(false);
-		}
-		if (locked)
+		else
 		{
 			direction = (target.position - transform.position).normalized;
 			rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
+		}
+		if(Input.GetKeyDown(KeyCode.X)){
+			cameras[currentCamIndex].SetActive(false);
+			if(currentCamIndex < cameras.Length - 1)
+				currentCamIndex++;
+			else
+				currentCamIndex = 0;
+			cameras[currentCamIndex].SetActive(true);
 		}
     }
 }

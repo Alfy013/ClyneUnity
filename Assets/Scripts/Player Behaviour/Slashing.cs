@@ -9,6 +9,7 @@ public class Slashing : AbilityHandler.Ability
     internal override void AbilitySetup()
     {
         animator.SetBool("Firing", true);
+        beingUsed = true;
     }
     internal override void AbilityEffect()
     {
@@ -17,5 +18,6 @@ public class Slashing : AbilityHandler.Ability
     internal override void AbilityReset()
     {
         animator.SetBool("Firing", false);
+        beingUsed = false;
     }
 }

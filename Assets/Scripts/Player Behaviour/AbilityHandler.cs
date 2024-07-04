@@ -22,6 +22,9 @@ public class AbilityHandler : MonoBehaviour
         [SerializeField] internal float _staminaCost;
         [SerializeField] internal float _cooldown;
 		[SerializeField] internal bool channeled;
+		[SerializeField] internal bool abortReturnsStamina = true;
+		internal bool beingUsed;
+		internal bool resetted;
 		internal bool aborted;
 		internal Animator animator;
         internal float cooldown;
@@ -59,17 +62,37 @@ public class AbilityHandler : MonoBehaviour
 		}
 		UIBP.value = stamina;
 		foreach(Ability ability in abilities){
-			if(ability.channeled? Input.GetButton(ability._inputName) : Input.GetButtonDown(ability._inputName)){
-            	if(ability.cooldown <= 0 && stamina > 1f && abilityInUse == null){
-	            	ability.AbilitySetup();
-					stamina -= ability._staminaCost;
-					ability.cooldown = ability._cooldown;
-					abilityInUse = ability;
+			if(!ability.channeled){
+				if(Input.GetButtonDown(ability._inputName)){
+            		if(ability.cooldown <= 0 && stamina > 1f && abilityInUse == null){
+	            		ability.AbilitySetup();
+						stamina -= ability._staminaCost;
+						ability.cooldown = ability._cooldown;
+						abilityInUse = ability;
+					}
 				}
         	}
+			if(ability.channeled){
+				bool inputCheck = false;
+				if(ability._inputName != string.Empty) inputCheck = Input.GetButton(ability._inputName);
+				if(inputCheck || ability.beingUsed){
+					if(ability.cooldown <= 0 && stamina > 1f && (abilityInUse == null || abilityInUse == ability)){
+						ability.AbilitySetup();
+						stamina -= ability._staminaCost * Time.fixedDeltaTime;
+						abilityInUse = ability;
+						ability.resetted = false;
+					}
+				}
+				if((!ability.beingUsed || (!inputCheck  && ability._inputName != string.Empty)) && !ability.resetted || stamina < 1f){
+					ResetAbility();
+					ability.resetted = true;
+					ability.cooldown = ability._cooldown;
+				}
+			}
 			if(ability.aborted){
 				ability.cooldown = 0;
-				stamina += ability._staminaCost;
+				if(ability.abortReturnsStamina)
+					stamina += ability._staminaCost;
 				ResetAbility();
 			}
 			if(ability.cooldown > 0f) ability.cooldown -= Time.deltaTime;

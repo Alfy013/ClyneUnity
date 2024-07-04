@@ -1,18 +1,25 @@
 using Cinemachine;
 using System;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-public class MovementHandler : MonoBehaviour
+public class MovementHandler : AbilityHandler.Ability
 {
 	//General movement and action variables
 	[SerializeField] Animator _animator;
 	[SerializeField] float _baseSpeed = 7f;
 	[SerializeField] float _focusModifier = 2;
+	[SerializeField] float _runModifier = 4;
+	[SerializeField] float runTurnFraction = 0.5f;
+	[SerializeField] ParticleSystem swordTrail;
+	[SerializeField] ParticleSystem runParticles;
 	[SerializeField] AfterImage aim;
+	[SerializeField] GameObject playerChar;
 	readonly float _gravity = -9.81f;
 
 	CharacterController _controller;
@@ -21,14 +28,35 @@ public class MovementHandler : MonoBehaviour
 	private Vector3 zMoveDirection;
 	private Vector3 moveVelocity;
 	private float baseSpeed;
+	private float runModifierVert;
+	private float runModifierHor;
 	private float focusModifierVert;
 	private float focusModifierHor;
 	private float vertSpeed;
 	private float horSpeed;
+	private bool running;
 
 	private Vector3 jumpVec;
 	private Vector3 gravPull;
+    internal override void AbilitySetup(){
+		runModifierVert = _runModifier * Input.GetAxis("Vertical") * baseSpeed;
+		runModifierHor = _runModifier * Input.GetAxis("Horizontal") * baseSpeed;
+		swordTrail.Stop();
+		if(runParticles.isStopped)
+			runParticles.Play();
+		running = true;
 
+	}
+	internal override void AbilityEffect(){
+
+	}
+	internal override void AbilityReset(){
+		runModifierHor = runModifierVert = 0;
+		swordTrail.Play();
+		if(runParticles.isPlaying)
+			runParticles.Stop();
+		running = false;
+	}
 	private void AnimatorSet()
 	{
 		_animator.SetFloat("Vertical", vertSpeed);
@@ -50,16 +78,23 @@ public class MovementHandler : MonoBehaviour
 	}
 	private void Movement()
 	{
+		beingUsed = (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && Input.GetButton("Run");
 
+		if(running){
+			Vector3 inputDir = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, inputDir.normalized, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
+		} else 
+			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, transform.forward, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
 
 		if (_controller.isGrounded)
 			baseSpeed = _baseSpeed;
-
-		focusModifierVert = _focusModifier * Input.GetAxis("Running") * Input.GetAxis("Vertical") * baseSpeed;
-		focusModifierHor = _focusModifier * Input.GetAxis("Running") * Input.GetAxis("Horizontal") * baseSpeed;
+		if(Input.GetAxisRaw("Focus") > 0 && Mathf.Abs(runModifierHor) + Mathf.Abs(runModifierVert) == 0){
+			focusModifierVert = _focusModifier * Input.GetAxis("Focus") * Input.GetAxis("Vertical") * baseSpeed;
+			focusModifierHor = _focusModifier * Input.GetAxis("Focus") * Input.GetAxis("Horizontal") * baseSpeed;
+		} else focusModifierVert = focusModifierHor = 0;
 		
-		vertSpeed = Input.GetAxis("Vertical") * baseSpeed - focusModifierVert;
-		horSpeed = Input.GetAxis("Horizontal") * baseSpeed - focusModifierHor;
+		vertSpeed = Input.GetAxis("Vertical") * baseSpeed + runModifierVert - focusModifierVert;
+		horSpeed = Input.GetAxis("Horizontal") * baseSpeed + runModifierHor - focusModifierHor;
 		xMoveDirection = transform.rotation * new Vector3(0f, 0f, 1f).normalized * Time.deltaTime * vertSpeed;
 		zMoveDirection = transform.rotation * new Vector3(1f, 0f, 0f).normalized * Time.deltaTime * horSpeed;
 		moveVelocity = xMoveDirection + zMoveDirection + jumpVec;

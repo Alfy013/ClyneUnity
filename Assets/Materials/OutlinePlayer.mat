@@ -108,7 +108,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 1
-    - _Normal_Thickness: 0.05
+    - _Normal_Thickness: 0.0218
     - _OcclusionStrength: 1
     - _OutlineThickness: 1
     - _Parallax: 0.005
