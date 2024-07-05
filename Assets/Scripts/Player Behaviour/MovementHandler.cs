@@ -84,7 +84,7 @@ public class MovementHandler : AbilityHandler.Ability
 			Vector3 inputDir = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
 			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, inputDir.normalized, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
 		} else 
-			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, transform.forward, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
+			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, transform.forward, Mathf.Pow(0.1f, 100 * Time.deltaTime));
 
 		if (_controller.isGrounded)
 			baseSpeed = _baseSpeed;

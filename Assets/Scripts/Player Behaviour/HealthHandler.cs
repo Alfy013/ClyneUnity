@@ -71,7 +71,7 @@ public class HealthHandler : MonoBehaviour
             hitsTaken++;
             playeranim.ResetTrigger("Flinch");
             playeranim.SetTrigger("Flinch");
-            hitCooldown = 0.5f;
+            hitCooldown = 0.5f; //WARNING, ABRUPTLY EXITING ANIMATIONS CASUSES A RUCKUS, FIX LATER
         }
 	}
     public void TakeHit(int damage, float stunTime = 0)

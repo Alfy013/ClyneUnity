@@ -6,7 +6,7 @@ public class Blocking : AbilityHandler.Ability
 {
 	[SerializeField] GameObject shieldHitBox;
 	[SerializeField] UIBarInterpolator UIBIParry;
-
+	[SerializeField] ParticleSystem blockParticle;
 	
 	void Start(){
 		UIBIParry._virtualMaxValue = _cooldown;
@@ -18,10 +18,12 @@ public class Blocking : AbilityHandler.Ability
     {
         animator.SetBool("Blocking", true);
 		shieldHitBox.SetActive(true);
+		blockParticle.Play();
     }
     internal override void AbilityEffect()
     {
 		shieldHitBox.SetActive(false);
+		blockParticle.Stop();
     }
     internal override void AbilityReset()
     {

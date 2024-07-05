@@ -83,10 +83,12 @@ public class AbilityHandler : MonoBehaviour
 						ability.resetted = false;
 					}
 				}
-				if((!ability.beingUsed || (!inputCheck  && ability._inputName != string.Empty)) && !ability.resetted || stamina < 1f){
-					ResetAbility();
-					ability.resetted = true;
-					ability.cooldown = ability._cooldown;
+				if(!ability.beingUsed || (!inputCheck  && ability._inputName != string.Empty)|| stamina < 1f){
+					if(!ability.resetted){
+						ResetAbility();
+						ability.resetted = true;
+						ability.cooldown = ability._cooldown;
+					}
 				}
 			}
 			if(ability.aborted){
