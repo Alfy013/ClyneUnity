@@ -15,7 +15,6 @@ public class EnemyStagger : MonoBehaviour
 	[HideInInspector]
 	public float HP;
 	public bool staggered;
-	private float hitCooldown;
 
     private void Start(){
 		staggered = true;
@@ -24,7 +23,6 @@ public class EnemyStagger : MonoBehaviour
 	private void Awake()
 	{
 		if (StaggerInstance == null) StaggerInstance = this;
-		hitCooldown = 0f;
 		HP = 0;
 		UIBP._virtualMaxValue = maxHP;
 	}
@@ -43,22 +41,17 @@ public class EnemyStagger : MonoBehaviour
 			HP = maxHP;
 			staggered = false;
 		}
-		if(hitCooldown > 0f)
-		{
-			hitCooldown -= Time.deltaTime;
-			//animator.SetBool("wasHit", true);
-		}
-		//else animator.SetBool("wasHit", false);
-
-
 	}
 
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.CompareTag("FProjectile"))
 		{
-			hitCooldown = 0.4f;
 			hit.Play();
 		}
+	}
+	public void TakeHit(float damage){
+		hit.Play();
+		HP -= damage;
 	}
 }

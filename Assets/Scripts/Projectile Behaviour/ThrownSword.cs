@@ -3,50 +3,66 @@ using UnityEngine;
 
 public class ThrownSword : MonoBehaviour
 {
-    [SerializeField] float returnDelay;
+    [SerializeField] float damage;
+    [SerializeField] Transform targetPoint;
+    [SerializeField] ParticleSystem trail;
+    [SerializeField] float _returnDelay;
     [SerializeField] float _timeToReturn;
-    [SerializeField] float speedMultiplier;
+    [SerializeField] float swordSpeedFraction = 0.5f;
+    [SerializeField] float moveFor = 0.5f;
+    [SerializeField] float _graceTime = 0.1f;
+    [SerializeField] float _timeBetweenHits;
+    [HideInInspector] public bool canCharge;
+    float timeBetweenHits;
     GameObject player;
+    float returnDelay;
     float graceTime;
-    float timeToArrive;
-    Transform playerPos;
-    Vector3 startingPos;
-    bool started = false;
     GameObject swordGameObject;
-    Rigidbody rb;
+    BoxCollider swordCollider;
+    void Awake(){
+        swordGameObject = FindObjectOfType<Sword>().gameObject;
+        player = FindObjectOfType<MovementHandler>().gameObject;
+        swordCollider = GetComponent<BoxCollider>();
+    }
     void OnEnable()
     {
-        swordGameObject = FindObjectOfType<Sword>().gameObject;
-        rb = GetComponent<Rigidbody>();
-        player = FindObjectOfType<MovementHandler>().gameObject;
-        playerPos = player.transform;
-        rb.AddForce(transform.forward * speedMultiplier, ForceMode.Impulse);
-        timeToArrive = _timeToReturn;
+        trail.Play();
+        returnDelay = _returnDelay;
         swordGameObject.SetActive(false);
-        graceTime = 0.1f;
+        graceTime = _graceTime;
+        swordCollider.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
+        if(returnDelay > _returnDelay * moveFor){
+            transform.position = Vector3.Lerp(transform.position, targetPoint.position, 1 - Mathf.Pow(swordSpeedFraction, Time.deltaTime * 10));
+            canCharge = false;
+        } else canCharge = true;
         if(returnDelay > 0f){
             if(graceTime > 0f) graceTime -= Time.deltaTime;
-            else GetComponent<BoxCollider>().enabled = true;
+            else swordCollider.enabled = true;
             returnDelay -= Time.deltaTime;
         } else{
-            if(!started){
-                started = true;
-                startingPos = transform.position;
-            }
-            transform.position = Vector3.Lerp(startingPos, playerPos.position, 1 - (timeToArrive / _timeToReturn));
-            timeToArrive -= Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, swordGameObject.transform.position, 1 - Mathf.Pow(swordSpeedFraction, Time.deltaTime * 10));
         }
+        if(timeBetweenHits > 0) timeBetweenHits -= Time.deltaTime;
     }
 
 
     void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Player")){
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            swordGameObject.SetActive(true);
+            trail.Stop();
+            player.GetComponent<SwordThrowAndCatch>().stopped = true;
+        }
+    }
+    void OnTriggerStay(Collider col){
+        if(col.gameObject.CompareTag("Enemy") && timeBetweenHits <= 0f){
+            col.GetComponent<EnemyStagger>().TakeHit(damage);
+            timeBetweenHits = _timeBetweenHits;
         }
     }
 }

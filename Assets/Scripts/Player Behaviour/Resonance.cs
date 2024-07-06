@@ -28,7 +28,7 @@ public class Resonance : AbilityHandler.Ability
     internal override void AbilitySetup()
     {
         if(UIBIHP.currentSlowValue01 - UIBIHP.currentValue01 <= 0f){
-            aborted = true;
+            stopped = true;
             return;
         }
         difference = UIBIHP.currentSlowValue01 - UIBIHP.currentValue01;

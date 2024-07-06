@@ -23,9 +23,10 @@ public class AbilityHandler : MonoBehaviour
         [SerializeField] internal float _cooldown;
 		[SerializeField] internal bool channeled;
 		[SerializeField] internal bool abortReturnsStamina = true;
+		[SerializeField] internal bool abortStartsCooldown = true;
 		internal bool beingUsed;
 		internal bool resetted;
-		internal bool aborted;
+		internal bool stopped;
 		internal Animator animator;
         internal float cooldown;
         abstract internal void AbilitySetup();
@@ -91,11 +92,13 @@ public class AbilityHandler : MonoBehaviour
 					}
 				}
 			}
-			if(ability.aborted){
-				ability.cooldown = 0;
+			if(ability.stopped){
+				if(!ability.abortStartsCooldown)
+					ability.cooldown = 0;
 				if(ability.abortReturnsStamina)
 					stamina += ability._staminaCost;
 				ResetAbility();
+				ability.stopped = false;
 			}
 			if(ability.cooldown > 0f) ability.cooldown -= Time.deltaTime;
 		}
@@ -112,7 +115,7 @@ public class AbilityHandler : MonoBehaviour
 	public void ResetAbility(){
 		if(abilityInUse != null){
 			abilityInUse.AbilityReset();
-			abilityInUse.aborted = false;
+			abilityInUse.stopped = false;
 			abilityInUse = null;
 		}else Debug.Log("Ability already null.");
 	}
