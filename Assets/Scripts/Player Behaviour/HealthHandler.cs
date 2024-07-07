@@ -76,10 +76,13 @@ public class HealthHandler : MonoBehaviour
 	}
     public void TakeHit(int damage, float stunTime = 0)
     {
-        HP -= damage;
-        hitsTaken++;
-        //moveSystem.stamRegen = 0f;
-        hit.Play();
+        if(enabled){
+            HP -= damage;
+            hitsTaken++;
+            //moveSystem.stamRegen = 0f;
+            hit.Play();
+        }
+
     }
     public void Unknocked(){
         HP = maxHP;
