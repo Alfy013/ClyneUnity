@@ -199,5 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba7e298ed60a234787b9dc0168385d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToMax: 0.2
-  _scaleUpMax: {x: 5, y: 1, z: 3}
+  _timeToMax:
+  - 0.15
+  _scaleUpTo:
+  - {x: 4, y: 2, z: 4}
+  startOnAwake: 1

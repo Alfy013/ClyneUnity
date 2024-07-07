@@ -68,8 +68,8 @@ public class AbilityHandler : MonoBehaviour
             		if(ability.cooldown <= 0 && stamina > 1f && abilityInUse == null){
 	            		ability.AbilitySetup();
 						stamina -= ability._staminaCost;
-						ability.cooldown = ability._cooldown;
 						abilityInUse = ability;
+						ability.cooldown = ability._cooldown;
 					}
 				}
         	}
@@ -100,7 +100,7 @@ public class AbilityHandler : MonoBehaviour
 				ResetAbility();
 				ability.stopped = false;
 			}
-			if(ability.cooldown > 0f) ability.cooldown -= Time.deltaTime;
+			if(ability.cooldown > 0f && abilityInUse != ability) ability.cooldown -= Time.deltaTime;
 		}
 		if(abilityInUse != null) stamRegen = 0f;
 		if(Input.GetKeyDown(KeyCode.P)) Time.timeScale = 0.1f;
@@ -116,6 +116,7 @@ public class AbilityHandler : MonoBehaviour
 		if(abilityInUse != null){
 			abilityInUse.AbilityReset();
 			abilityInUse.stopped = false;
+			abilityInUse.cooldown = abilityInUse._cooldown;
 			abilityInUse = null;
 		}else Debug.Log("Ability already null.");
 	}

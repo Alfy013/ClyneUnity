@@ -19,8 +19,12 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     [SerializeField] AfterImage afterImage;
     [SerializeField] ParticleSystem chargeParticles;
     [SerializeField] ParticleSystem explosion;
-    [SerializeField] float chargeRadius;
+    [SerializeField] Transform playerTop;
+    [SerializeField] Transform playerBottom;
     [SerializeField] float chargeDamage;
+    [SerializeField] ScaleUP scale;
+    [SerializeField] UIBarInterpolator UIBIThrow;
+
     Vector3 chargeStart;
     Vector3 chargeEnd;
     Vector3 swordPos;
@@ -28,14 +32,17 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     //float timeToCatch;
     [HideInInspector]
     public bool catchSword;
+    void Start(){
+        UIBIThrow._virtualMaxValue = _cooldown;
+    }
     internal override void AbilitySetup(){
         animator.SetBool("Charging Throw", true);
-        throwTarget.gameObject.SetActive(true);
+        scale.SetIndex(0);
     }
 	internal override void AbilityEffect(){
         throwSword.transform.SetPositionAndRotation(throwPoint.position, throwPoint.rotation);
         throwSword.SetActive(true);
-        throwTarget.gameObject.SetActive(false);
+        scale.SetIndex(1);
     }
 	internal override void AbilityReset(){
         if(catchSword){
@@ -45,13 +52,12 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             afterImage.activate = false;
             chargeParticles.Stop();
             chargeEnd = transform.position;
-            Vector3 direction = chargeEnd - chargeStart;
-            RaycastHit[] hits = Physics.CapsuleCastAll(chargeStart, chargeEnd, chargeRadius, direction);
+            RaycastHit[] hits = Physics.CapsuleCastAll(playerBottom.position, playerTop.position, 1f, chargeStart - chargeEnd, Vector3.Distance(chargeEnd, chargeStart)); //painful fucking shit
             foreach(RaycastHit hit in hits){
                 if(hit.collider.gameObject.CompareTag("Enemy")){
                     explosion.Play();
                     hit.collider.GetComponent<EnemyStagger>().TakeHit(500);
-                }
+                }   
             }
         }
 
@@ -60,8 +66,9 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     // Update is called once per frame
     void Update()
     {
-        throwDistance = Mathf.Clamp(throwDistance, minThrowDistance, maxThrowDistance);
+        UIBIThrow.value = cooldown;
         throwDistance += Input.mouseScrollDelta.y * scrollSpeedMultiplier * Time.deltaTime;
+        throwDistance = Mathf.Clamp(throwDistance, minThrowDistance, maxThrowDistance);
         throwTarget.localPosition = throwDistance * Vector3.forward;
         if(Input.GetButtonUp(_inputName)){
             animator.SetBool("Charging Throw", false);
