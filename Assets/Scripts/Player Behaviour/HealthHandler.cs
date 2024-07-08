@@ -67,7 +67,7 @@ public class HealthHandler : MonoBehaviour
         if (other.CompareTag("EnemySwordHitbox") && hitCooldown <= 0f)
         {
             HP -= 50;
-            ShakeHandler.Instance.ShakeCamera(10, 0.2f);
+            FindObjectOfType<ShakeHandler>().ShakeCamera(10f, 0.2f);
             hitsTaken++;
             playeranim.ResetTrigger("Flinch");
             playeranim.SetTrigger("Flinch");

@@ -17,7 +17,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     [SerializeField] float catchSpeed;
     //[SerializeField] float _timeToCatch;
     [SerializeField] AfterImage afterImage;
-    [SerializeField] ParticleSystem chargeParticles;
+    [SerializeField] ParticleSystem catchParticles;
     [SerializeField] ParticleSystem explosion;
     [SerializeField] Transform playerTop;
     [SerializeField] Transform playerBottom;
@@ -25,8 +25,8 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     [SerializeField] ScaleUP scale;
     [SerializeField] UIBarInterpolator UIBIThrow;
 
-    Vector3 chargeStart;
-    Vector3 chargeEnd;
+    Vector3 catchStart;
+    Vector3 catchEnd;
     Vector3 swordPos;
     float throwDistance;
     //float timeToCatch;
@@ -50,15 +50,16 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             GetComponent<MovementHandler>().enabled = true;
             GetComponent<HealthHandler>().enabled = true;
             afterImage.activate = false;
-            chargeParticles.Stop();
-            chargeEnd = transform.position;
-            RaycastHit[] hits = Physics.CapsuleCastAll(playerBottom.position, playerTop.position, 1f, chargeStart - chargeEnd, Vector3.Distance(chargeEnd, chargeStart)); //painful fucking shit
+            catchParticles.Stop();
+            catchEnd = transform.position;
+            RaycastHit[] hits = Physics.CapsuleCastAll(playerBottom.position, playerTop.position, 3f, catchStart - catchEnd, Vector3.Distance(catchEnd, catchStart)); //painful fucking shit
             foreach(RaycastHit hit in hits){
                 if(hit.collider.gameObject.CompareTag("Enemy")){
                     explosion.Play();
                     hit.collider.GetComponent<EnemyStagger>().TakeHit(500);
                 }   
             }
+            animator.SetBool("Catch", false);
         }
 
 
@@ -78,12 +79,13 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             GetComponent<MovementHandler>().enabled = false;
             GetComponent<HealthHandler>().enabled = false;
             afterImage.activate = true;
-            chargeParticles.Play();
+            catchParticles.Play();
             /*swordPos.x = throwSword.transform.position.x;
             swordPos.y = transform.position.y;
             swordPos.z = throwSword.transform.position.z;
             timeToCatch = _timeToCatch;*/
-            chargeStart = transform.position;
+            catchStart = transform.position;
+            animator.SetBool("Catch", true);
         }
         if(catchSword){
             swordPos.x = throwSword.transform.position.x;
@@ -92,6 +94,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             transform.position = Vector3.MoveTowards(transform.position, swordPos, Time.fixedDeltaTime * catchSpeed);
             /*transform.position = Vector3.Lerp(transform.position, swordPos, 1 - timeToCatch/_timeToCatch);
             timeToCatch -= Time.fixedDeltaTime;*/
+            FindObjectOfType<ShakeHandler>().ShakeCamera(10f, 0.1f);
         }
     }
 }

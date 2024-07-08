@@ -37,11 +37,10 @@ public class Resonance : AbilityHandler.Ability
         animator.SetBool("Resonance", true);
         player.enabled = false; //this will 100% cause issues later
         UIBIHP.drainRate *= drainMultiplier;
-
+        _staminaCost = difference * _staminaCostMultiplier * 100;
     }
     internal override void AbilityEffect()
     {
-        _staminaCost = difference * _staminaCostMultiplier * 100;
         health.HP += difference * UIBIHP._virtualMaxValue * _healMultiplier;
         UIBIHP.drainRate /= drainMultiplier;
     }

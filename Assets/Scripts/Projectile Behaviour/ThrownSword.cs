@@ -1,6 +1,8 @@
 using System;
 using System.Reflection;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ThrownSword : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class ThrownSword : MonoBehaviour
     [SerializeField] float moveFor = 0.5f;
     [SerializeField] float _graceTime = 0.1f;
     [SerializeField] float _timeBetweenHits;
+    [SerializeField] VisualEffect recallEffectPlayer;
+    [SerializeField] VisualEffect recallEffectSword;
     SwordThrowAndCatch swordThrowAndCatch;
     float timeBetweenHits;
     GameObject player;
@@ -39,8 +43,16 @@ public class ThrownSword : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(returnDelay > _returnDelay * moveFor)
+        if(returnDelay > _returnDelay - moveFor)
             transform.position = Vector3.Lerp(transform.position, targetPosStatic, 1 - Mathf.Pow(swordSpeedFraction, Time.deltaTime * 10));
+
+        if(Input.GetButtonDown("Slash") && returnDelay < _returnDelay - moveFor && !swordThrowAndCatch.catchSword){
+            returnDelay = 0.25f;
+            swordThrowAndCatch.animator.SetBool("Recall", true);
+            recallEffectPlayer.Play();
+            recallEffectSword.gameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            recallEffectSword.Play();
+        }
 
         if(returnDelay > 0f){
             if(graceTime > 0f) graceTime -= Time.deltaTime;
@@ -48,6 +60,7 @@ public class ThrownSword : MonoBehaviour
             returnDelay -= Time.deltaTime;
         } else if(!swordThrowAndCatch.catchSword){
             transform.position = Vector3.Lerp(transform.position, swordGameObject.transform.position, 1 - Mathf.Pow(swordSpeedFraction, Time.deltaTime * 10));
+            FindObjectOfType<ShakeHandler>().ShakeCamera(3f, 0.1f);
         }
         if(timeBetweenHits > 0) timeBetweenHits -= Time.deltaTime;
     }
@@ -55,10 +68,11 @@ public class ThrownSword : MonoBehaviour
 
     void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Player")){
-            gameObject.SetActive(false);
-            swordGameObject.SetActive(true);
             trail.Stop();
             player.GetComponent<SwordThrowAndCatch>().stopped = true;
+            swordThrowAndCatch.animator.SetBool("Recall", false);
+            gameObject.SetActive(false);
+            swordGameObject.SetActive(true);
         }
     }
     void OnTriggerStay(Collider col){
