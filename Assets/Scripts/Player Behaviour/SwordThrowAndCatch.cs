@@ -78,7 +78,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
         if(Input.GetButtonUp(_inputName) || Input.GetAxisRaw(_inputName) == 0){
             animator.SetBool("Charging Throw", false);
         }
-        if(throwSword.activeInHierarchy && (Input.GetButtonDown(_inputName) || Input.GetAxisRaw(_inputName) == 1) && timeBeforeCatch <= 0f){
+        if(throwSword.activeInHierarchy && (Input.GetButtonDown(_inputName) || Input.GetAxisRaw(_inputName) == 1) && timeBeforeCatch <= 0f && !catchSword && !animator.GetBool("Recall")){
             catchSword = true;
             GetComponent<MovementHandler>().enabled = false;
             GetComponent<HealthHandler>().enabled = false;

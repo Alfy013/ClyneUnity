@@ -15,7 +15,7 @@ public class AbilityHandler : MonoBehaviour
 	//[HideInInspector] public float stamRegen;
 	[HideInInspector] public bool canMove = true;
 	Ability abilityInUse;
-
+	Ability lastAbilityUsed;
 
     public abstract class Ability : MonoBehaviour{
         [SerializeField] internal string _inputName;
@@ -74,7 +74,7 @@ public class AbilityHandler : MonoBehaviour
 					inputAxis = Input.GetAxisRaw(ability._inputName);
 				}
 				if(inputCheck || inputAxis == 1 || ability.beingUsed){
-            		if(ability.cooldown <= 0 && stamina > ability._staminaCost && abilityInUse == null){
+            		if(ability.cooldown <= 0 && stamina >= ability._staminaCost && abilityInUse == null){
 	            		ability.AbilitySetup();
 						if(!ability.consumeStaminaOnEffect)
 							stamina -= ability._staminaCost;
@@ -115,16 +115,21 @@ public class AbilityHandler : MonoBehaviour
 			abilityInUse.AbilityEffect();
 			if(abilityInUse.consumeStaminaOnEffect) stamina -= abilityInUse._staminaCost;
 		}
-		else Debug.Log("Fired ability is null.");
+		else{
+			lastAbilityUsed.AbilityEffect();
+			if(lastAbilityUsed.consumeStaminaOnEffect) stamina -= lastAbilityUsed._staminaCost;
+		}
 	}
 	public void EndCurrentAbility(){
 		if(abilityInUse != null){
+			lastAbilityUsed = abilityInUse;
 			abilityInUse.AbilityReset();
 			abilityInUse.cooldown = abilityInUse._cooldown;
 			abilityInUse = null;
 		}else Debug.Log("Ability already null.");
 	}
 	void OnDisable(){
+		lastAbilityUsed = null;
 		abilityInUse = null;
 		foreach(Ability ability in abilities){
 			ability.AbilityReset();
