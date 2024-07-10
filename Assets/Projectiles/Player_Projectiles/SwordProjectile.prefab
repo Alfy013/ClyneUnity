@@ -155,7 +155,7 @@ MonoBehaviour:
   forceMode: 1
   _timeToDisappear: 0.2
   lifeTime: 0.2
-  damage: 20
+  damage: 30
   destroyedOnParry: 1
   aim: {fileID: 0}
 --- !u!54 &-7290226718127381288

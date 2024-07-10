@@ -5644,7 +5644,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 245131399}
-  - component: {fileID: 245131401}
   - component: {fileID: 245131400}
   m_Layer: 0
   m_Name: Hitbox
@@ -5668,34 +5667,19 @@ Transform:
   m_Father: {fileID: 1348108061}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &245131400
-CapsuleCollider:
+--- !u!65 &245131400
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245131398}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 9.03
-  m_Height: 34.72
-  m_Direction: 2
-  m_Center: {x: 0, y: 10.49, z: -2.8}
---- !u!136 &245131401
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245131398}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 2.41
-  m_Height: 73.28
-  m_Direction: 1
-  m_Center: {x: 0, y: -15.3, z: -7.18}
+  serializedVersion: 2
+  m_Size: {x: 5.69, y: 68.5, z: 32}
+  m_Center: {x: 0.55, y: -14.52, z: -2.21}
 --- !u!1 &259749664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5977,7 +5961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -93.99994, y: -35}
+  m_AnchoredPosition: {x: -94, y: -35}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &412790866
@@ -6602,13 +6586,14 @@ GameObject:
   - component: {fileID: 481591996}
   - component: {fileID: 481591995}
   - component: {fileID: 481592004}
+  - component: {fileID: 481592007}
   - component: {fileID: 481592005}
   - component: {fileID: 481592009}
-  - component: {fileID: 481592007}
   - component: {fileID: 481591998}
   - component: {fileID: 481592003}
   - component: {fileID: 481592008}
   - component: {fileID: 481592010}
+  - component: {fileID: 481592011}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -6629,11 +6614,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputName: 
-  _staminaCost: 10
+  _staminaCost: 5
   _cooldown: 0
+  consumeStaminaOnEffect: 0
   channeled: 1
-  abortReturnsStamina: 0
-  abortStartsCooldown: 1
   _animator: {fileID: 1744905145}
   _baseSpeed: 14
   _focusModifier: 0.5
@@ -6700,11 +6684,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputName: Block
-  _staminaCost: 30
+  _staminaCost: -20
   _cooldown: 5
+  consumeStaminaOnEffect: 0
   channeled: 0
-  abortReturnsStamina: 1
-  abortStartsCooldown: 1
   shieldHitBox: {fileID: 692496502}
   UIBIParry: {fileID: 1378199973}
   blockParticle: {fileID: 1445930354}
@@ -6721,11 +6704,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputName: Slash
-  _staminaCost: 3
+  _staminaCost: -1
   _cooldown: 0
-  channeled: 1
-  abortReturnsStamina: 1
-  abortStartsCooldown: 1
+  consumeStaminaOnEffect: 1
+  channeled: 0
   slashProjectile: {fileID: 8042940794177779186, guid: ef16bbf65c8fd5742beca39edab65363, type: 3}
   slashTransform: {fileID: 726251325}
 --- !u!114 &481592004
@@ -6797,7 +6779,6 @@ MonoBehaviour:
   UIBP: {fileID: 1580897883}
   animator: {fileID: 1744905145}
   stamina: 100
-  stamRegen: 0
   canMove: 1
   abilities:
   - {fileID: 481592008}
@@ -6817,13 +6798,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426f69c1fb97c1d4a8c272409dfd134d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputName: Resonance
+  _inputName: Mend
   _staminaCost: 1
   _cooldown: 3
+  consumeStaminaOnEffect: 1
   channeled: 0
-  abortReturnsStamina: 1
-  abortStartsCooldown: 1
-  _staminaCostMultiplier: 2
+  _staminaCostMultiplier: 1
   _healMultiplier: 2
   drainMultiplier: 40
   resonanceParticles: {fileID: 1032622298}
@@ -6860,15 +6840,14 @@ MonoBehaviour:
   _inputName: Throw
   _staminaCost: 50
   _cooldown: 10
+  consumeStaminaOnEffect: 0
   channeled: 0
-  abortReturnsStamina: 0
-  abortStartsCooldown: 1
   throwSword: {fileID: 1601095248}
   throwPoint: {fileID: 1255103097}
   throwTarget: {fileID: 588471326}
   minThrowDistance: 10
   maxThrowDistance: 30
-  scrollSpeedMultiplier: 80
+  scrollSpeedMultiplier: 1000
   catchSpeed: 100
   afterImage: {fileID: 2009098955}
   catchParticles: {fileID: 858721705}
@@ -6878,7 +6857,25 @@ MonoBehaviour:
   chargeDamage: 500
   scale: {fileID: 1333963470}
   UIBIThrow: {fileID: 2146445509}
+  _timeBeforeCatch: 0.3
   catchSword: 0
+--- !u!114 &481592011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481591994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e683ad24e5b06469d6b8a7aee8fe1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputName: 
+  _staminaCost: 0
+  _cooldown: 0
+  consumeStaminaOnEffect: 0
+  channeled: 0
 --- !u!1 &487892493
 GameObject:
   m_ObjectHideFlags: 0
@@ -39768,7 +39765,7 @@ GameObject:
   - component: {fileID: 1032622298}
   - component: {fileID: 1032622297}
   m_Layer: 0
-  m_Name: Resonance
+  m_Name: Mend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55223,7 +55220,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh124054
+  m_Name: pb_Mesh31036
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -55791,7 +55788,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 80
+  field of view: 100
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -78562,7 +78559,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 481591997}
   m_Lens:
-    FieldOfView: 80
+    FieldOfView: 100
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000

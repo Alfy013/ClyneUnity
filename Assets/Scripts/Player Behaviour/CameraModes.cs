@@ -22,7 +22,7 @@ public class CameraModes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z)) locked = !locked;
+        if (Input.GetButtonDown("Lock")) locked = !locked;
         if (!locked)
 		{
 			transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f));
@@ -33,7 +33,7 @@ public class CameraModes : MonoBehaviour
 			rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 		}
-		if(Input.GetKeyDown(KeyCode.X)){
+		if(Input.GetButtonDown("Camera")){
 			cameras[currentCamIndex].SetActive(false);
 			if(currentCamIndex < cameras.Length - 1)
 				currentCamIndex++;

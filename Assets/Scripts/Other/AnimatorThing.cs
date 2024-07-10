@@ -13,7 +13,7 @@ public class AnimatorThing : MonoBehaviour
         ah.FireAbility();
     }
     void ResetAbility(){
-        ah.ResetAbility();
+        ah.EndCurrentAbility();
     }
     void Unknocked(){
         health.Unknocked();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -24,11 +25,13 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     [SerializeField] float chargeDamage;
     [SerializeField] ScaleUP scale;
     [SerializeField] UIBarInterpolator UIBIThrow;
+    [SerializeField] float _timeBeforeCatch = 0.3f;
 
     Vector3 catchStart;
     Vector3 catchEnd;
     Vector3 swordPos;
     float throwDistance;
+    float timeBeforeCatch;
     //float timeToCatch;
     [HideInInspector]
     public bool catchSword;
@@ -43,6 +46,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
         throwSword.transform.SetPositionAndRotation(throwPoint.position, throwPoint.rotation);
         throwSword.SetActive(true);
         scale.SetIndex(1);
+        timeBeforeCatch = _timeBeforeCatch;
     }
 	internal override void AbilityReset(){
         if(catchSword){
@@ -68,13 +72,13 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     void Update()
     {
         UIBIThrow.value = cooldown;
-        throwDistance += Input.mouseScrollDelta.y * scrollSpeedMultiplier * Time.deltaTime;
+        throwDistance += Input.GetAxisRaw("Scroll") * scrollSpeedMultiplier * Time.deltaTime;
         throwDistance = Mathf.Clamp(throwDistance, minThrowDistance, maxThrowDistance);
         throwTarget.localPosition = throwDistance * Vector3.forward;
-        if(Input.GetButtonUp(_inputName)){
+        if(Input.GetButtonUp(_inputName) || Input.GetAxisRaw(_inputName) == 0){
             animator.SetBool("Charging Throw", false);
         }
-        if(throwSword.activeInHierarchy && Input.GetButtonDown(_inputName)){
+        if(throwSword.activeInHierarchy && (Input.GetButtonDown(_inputName) || Input.GetAxisRaw(_inputName) == 1) && timeBeforeCatch <= 0f){
             catchSword = true;
             GetComponent<MovementHandler>().enabled = false;
             GetComponent<HealthHandler>().enabled = false;
@@ -87,6 +91,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             catchStart = transform.position;
             animator.SetBool("Catch", true);
         }
+        if(timeBeforeCatch > 0f) timeBeforeCatch -= Time.deltaTime;
         if(catchSword){
             swordPos.x = throwSword.transform.position.x;
             swordPos.y = transform.position.y;

@@ -20,4 +20,9 @@ public class Slashing : AbilityHandler.Ability
         animator.SetBool("Firing", false);
         beingUsed = false;
     }
+    void Update(){
+        if(Input.GetButtonUp(_inputName)){
+            StopAbility();
+        }
+    }
 }

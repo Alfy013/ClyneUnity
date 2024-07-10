@@ -69,7 +69,7 @@ public class ThrownSword : MonoBehaviour
     void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Player")){
             trail.Stop();
-            player.GetComponent<SwordThrowAndCatch>().stopped = true;
+            player.GetComponent<SwordThrowAndCatch>().StopAbility();
             swordThrowAndCatch.animator.SetBool("Recall", false);
             gameObject.SetActive(false);
             swordGameObject.SetActive(true);
