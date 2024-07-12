@@ -1197,11 +1197,11 @@ MonoBehaviour:
   startPoint: {fileID: 8692052350716206844}
   projectilePrefab: {fileID: 7952956152626720134, guid: 91cd5824afa26bb43b676f5b198b26a0, type: 3}
   fireRateCT: 0
-  projectileCountCT: 10
+  projectileCountCT: 1
   burstsFired: 0
   varyBursts: 0
-  startAngle: -60
-  endAngle: 60
+  startAngle: 0
+  endAngle: 0
   delayAfterStartCT: 0
   delayBetweenLoopsCT: 0
   loopPattern: 0
@@ -1245,6 +1245,7 @@ MonoBehaviour:
   isBeam: 0
   _gracePeriod: 0
   _endAfterImage: -1
+  parriable: 0
 --- !u!54 &-1821197978585741023
 Rigidbody:
   m_ObjectHideFlags: 0

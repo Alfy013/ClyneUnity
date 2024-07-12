@@ -32,11 +32,15 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
     Vector3 swordPos;
     float throwDistance;
     float timeBeforeCatch;
+    MovementHandler mh;
+    HealthHandler hh;
     //float timeToCatch;
     [HideInInspector]
     public bool catchSword;
     void Start(){
         UIBIThrow._virtualMaxValue = _cooldown;
+        mh = GetComponent<MovementHandler>();
+        hh = GetComponent<HealthHandler>();
     }
     internal override void AbilitySetup(){
         animator.SetBool("Charging Throw", true);
@@ -47,12 +51,15 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
         throwSword.SetActive(true);
         scale.SetIndex(1);
         timeBeforeCatch = _timeBeforeCatch;
+            FindObjectOfType<ShakeHandler>().ShakeCamera(3f, 0.1f);
+            
+
     }
 	internal override void AbilityReset(){
         if(catchSword){
             catchSword = false;
-            GetComponent<MovementHandler>().enabled = true;
-            GetComponent<HealthHandler>().enabled = true;
+            mh.enabled = true;
+            hh.enabled = true;
             afterImage.activate = false;
             catchParticles.Stop();
             catchEnd = transform.position;
@@ -65,8 +72,8 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             }
             animator.SetBool("Catch", false);
         }
-
-
+        animator.SetBool("Charging Throw", false);
+        scale.SetIndex(1);
     }
     // Update is called once per frame
     void Update()
@@ -80,8 +87,8 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
         }
         if(throwSword.activeInHierarchy && (Input.GetButtonDown(_inputName) || Input.GetAxisRaw(_inputName) == 1) && timeBeforeCatch <= 0f && !catchSword && !animator.GetBool("Recall")){
             catchSword = true;
-            GetComponent<MovementHandler>().enabled = false;
-            GetComponent<HealthHandler>().enabled = false;
+            mh.enabled = false;
+            hh.enabled = false;
             afterImage.activate = true;
             catchParticles.Play();
             /*swordPos.x = throwSword.transform.position.x;

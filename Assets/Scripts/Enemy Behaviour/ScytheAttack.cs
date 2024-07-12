@@ -25,6 +25,4 @@ public class ScytheAttack : MonoBehaviour
             ResetAnimationStance();
         }
     }
-
-    // Update is called once per frame
 }

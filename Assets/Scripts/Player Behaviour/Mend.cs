@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -51,8 +52,6 @@ public class Mend : AbilityHandler.Ability
         resonanceParticles.Stop();
         _staminaCost = 1f;
     }
-
-
 
     // Update is called once per frame
 

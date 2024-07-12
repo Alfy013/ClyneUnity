@@ -80,6 +80,7 @@ public class AbilityHandler : MonoBehaviour
 							stamina -= ability._staminaCost;
 						abilityInUse = ability;
 						ability.cooldown = ability._cooldown;
+						ability.resetted = false;
 					}
 				}
         	}
@@ -122,6 +123,7 @@ public class AbilityHandler : MonoBehaviour
 	}
 	public void EndCurrentAbility(){
 		if(abilityInUse != null){
+			abilityInUse.resetted = true;
 			lastAbilityUsed = abilityInUse;
 			abilityInUse.AbilityReset();
 			abilityInUse.cooldown = abilityInUse._cooldown;

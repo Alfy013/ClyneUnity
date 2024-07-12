@@ -132,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 8042940794177779186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7887366720895090825}
@@ -153,9 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 100
   forceMode: 1
-  _timeToDisappear: 0.2
-  lifeTime: 0.2
-  damage: 30
+  _timeToDisappear: 0.05
+  lifeTime: 0.15
+  damage: 25
   destroyedOnParry: 1
   aim: {fileID: 0}
 --- !u!54 &-7290226718127381288
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeToMax:
-  - 0.15
+  - 0.1
   _scaleUpTo:
   - {x: 4, y: 2, z: 4}
   startOnAwake: 1

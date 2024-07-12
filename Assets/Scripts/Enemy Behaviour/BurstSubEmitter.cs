@@ -18,6 +18,7 @@ public class BurstSubEmitter : MonoBehaviour
 	[SerializeField] bool loopPattern;
 	[SerializeField] bool fireOnTrigger = false;
 	[SerializeField] Transform parentPoint;
+	[SerializeField] bool offByOne;
 	bool switched = false;
 	float fireRate;
 	float waitAfterStart;
@@ -28,7 +29,7 @@ public class BurstSubEmitter : MonoBehaviour
 	void Shotgun()
 	{
 		delayTime = -100f;
-		float angleStep = (endAngle - startAngle) / projectileCountCT;
+		float angleStep = (endAngle - startAngle) / (projectileCountCT - (offByOne? 1 : 0));
 		float angle = startAngle;
 		if (switched) angle += angleStep / 1.5f;
 

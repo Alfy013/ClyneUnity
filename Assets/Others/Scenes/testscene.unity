@@ -409,7 +409,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34058
+  m_Name: pb_Mesh56674
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1040,7 +1040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &956645981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,14 +1048,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956645980}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 962973eb4257efe4c8cbb799067df44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 0
-  startAngle: -180
-  endAngle: 180
+  startAngle: -90
+  endAngle: 90
   angleStep: 0
   amount: 2
   clockAngles: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956645980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd75372fbab9a7f4faeedaa449951fb8, type: 3}
   m_Name: 
@@ -1400,13 +1400,15 @@ MonoBehaviour:
   - actions:
     - objectToMove: {fileID: 0}
       targetPosition: {fileID: 1548811124}
+      maxDistance: 0
       timeToStart: 1
-      timeToArrive: 2
+      speed: 0
       verticality: 0
     - objectToMove: {fileID: 0}
       targetPosition: {fileID: 1068641077}
+      maxDistance: 0
       timeToStart: 1
-      timeToArrive: 2
+      speed: 0
       verticality: 0
 --- !u!1001 &1003812389
 PrefabInstance:
@@ -3114,7 +3116,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34002
+  m_Name: pb_Mesh56608
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

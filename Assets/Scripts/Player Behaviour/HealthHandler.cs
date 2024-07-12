@@ -13,8 +13,9 @@ public class HealthHandler : MonoBehaviour
     UIBarInterpolator UIBPNormal;
     [SerializeField] UIBarInterpolator UIBPOverheal;
     [SerializeField] TMP_Text hits;
+    [SerializeField] ParticleSystem bighit;
     [HideInInspector]
-    public float HP = 250;
+    public float HP;
     float overHeal;
     float hitCooldown;
 
@@ -31,6 +32,7 @@ public class HealthHandler : MonoBehaviour
         UIBPNormal._virtualMaxValue = maxHP;
         UIBPNormal._actualMaxValue = maxHP + overHealMax;
         UIBPOverheal._virtualMaxValue = overHealMax;
+        HP = maxHP;
     }
 
     private void Update()
@@ -64,14 +66,16 @@ public class HealthHandler : MonoBehaviour
     }
 	private void OnTriggerEnter(Collider other)
 	{
-        if (other.CompareTag("EnemySwordHitbox") && hitCooldown <= 0f)
+        if (other.CompareTag("EnemySwordHitbox") && hitCooldown <= 0f && enabled)
         {
-            HP -= 50;
+            HP -= 100;
             FindObjectOfType<ShakeHandler>().ShakeCamera(10f, 0.2f);
             hitsTaken++;
+            bighit.Play();
             playeranim.ResetTrigger("Flinch");
             playeranim.SetTrigger("Flinch");
             hitCooldown = 0.5f; //WARNING, ABRUPTLY EXITING ANIMATIONS CASUSES A RUCKUS, FIX LATER
+            abilityHandler.EndCurrentAbility();
         }
 	}
     public void TakeHit(int damage, float stunTime = 0)

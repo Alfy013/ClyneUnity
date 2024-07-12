@@ -93,4 +93,11 @@ public class MoveToPosition : MonoBehaviour
         A_IndexMax = lastActionIndex;
         timeToStart = actionLists[AL_Index].actions[A_Index].timeToStart;
     }
+    public void EndMovement(){
+        calculatedPos = false;
+        AL_Index = -1;
+        A_Index = -1;
+        A_IndexMax = -1;
+        timeToStart = 0;
+    }
 }

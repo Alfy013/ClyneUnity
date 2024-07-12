@@ -224,14 +224,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   lifeTimeCT: 100
-  damageAmount: 100
-  parriable: 1
-  destroyedOnParry: 1
+  damageAmount: 300
   isBeam: 0
-  sticks: 0
   _gracePeriod: 1
   _endAfterImage: 1
-  stuck: 0
+  parriable: 1
 --- !u!65 &640047528733790096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -274,9 +271,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseModifier: -180
   _orbitAfterSeconds: 1
-  _closeInAfter: 20
-  _closeInSpeed: 2.5
-  _closeInFor: 5
+  _closeInAfter: 30
+  _closeInSpeed: 1.25
+  _closeInFor: 10
   parentPoint: {fileID: 0}
 --- !u!1001 &3901115907806333174
 PrefabInstance:

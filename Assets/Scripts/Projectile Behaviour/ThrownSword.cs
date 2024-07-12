@@ -46,7 +46,7 @@ public class ThrownSword : MonoBehaviour
         if(returnDelay > _returnDelay - moveFor)
             transform.position = Vector3.Lerp(transform.position, targetPosStatic, 1 - Mathf.Pow(swordSpeedFraction, Time.deltaTime * 10));
 
-        if(Input.GetButtonDown("Slash") && returnDelay < _returnDelay - moveFor && !swordThrowAndCatch.catchSword){
+        if((Input.GetButtonDown("Slash") && returnDelay < _returnDelay - moveFor && !swordThrowAndCatch.catchSword) || (swordThrowAndCatch.resetted && returnDelay > 0.25f)){
             returnDelay = 0.25f;
             swordThrowAndCatch.animator.SetBool("Recall", true);
             recallEffectPlayer.Play();
@@ -68,11 +68,7 @@ public class ThrownSword : MonoBehaviour
 
     void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Player")){
-            trail.Stop();
-            player.GetComponent<SwordThrowAndCatch>().StopAbility();
-            swordThrowAndCatch.animator.SetBool("Recall", false);
-            gameObject.SetActive(false);
-            swordGameObject.SetActive(true);
+            ReturnToPlayer();
         }
     }
     void OnTriggerStay(Collider col){
@@ -80,5 +76,12 @@ public class ThrownSword : MonoBehaviour
             col.GetComponent<EnemyStagger>().TakeHit(damage);
             timeBetweenHits = _timeBetweenHits;
         }
+    }
+    void ReturnToPlayer(){
+        trail.Stop();
+        player.GetComponent<SwordThrowAndCatch>().StopAbility();
+        swordThrowAndCatch.animator.SetBool("Recall", false);
+        gameObject.SetActive(false);
+        swordGameObject.SetActive(true);
     }
 }

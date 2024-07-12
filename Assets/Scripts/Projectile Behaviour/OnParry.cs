@@ -7,10 +7,11 @@ using UnityEngine;
 
 public class OnParry : MonoBehaviour
 {
-    [SerializeField] GameObject projectileToTurnInto;
+    [SerializeField] float amountToHeal;
+    /*[SerializeField] GameObject projectileToTurnInto;
     [SerializeField] int burstAmount;
     float angleStep;
-    float angle;
+    float angle;*/
     int projTypeIndex;
     public void SetIndex(int index)
 	{
@@ -19,7 +20,7 @@ public class OnParry : MonoBehaviour
     void OnTriggerEnter(Collider col){
         if (col.CompareTag("Shield"))
 		{
-            transform.rotation = Quaternion.identity;
+            /*transform.rotation = Quaternion.identity;
             angleStep = 360 / (burstAmount - 1);
 
             for(int i = 0; i < burstAmount; i++){
@@ -27,7 +28,8 @@ public class OnParry : MonoBehaviour
                 bul = Instantiate(projectileToTurnInto, transform.position, transform.rotation);
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
                 angle += angleStep;
-            }
+            }*/
+            FindObjectOfType<HealthHandler>().HP += amountToHeal;
             if (ProjectilePools.ObjectPoolInstance != null)
 			    ProjectilePools.ObjectPoolInstance.ReturnPooledObject(gameObject, projTypeIndex);
 		    else print("destruction returned null");

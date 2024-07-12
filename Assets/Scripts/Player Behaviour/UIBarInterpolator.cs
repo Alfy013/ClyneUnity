@@ -49,7 +49,6 @@ public class UIBarInterpolator : MonoBehaviour
 	private float highestMinTimer;
 	private float highestMaxTimer;*/
 	private float displayValue;
-	bool spedUp;
 
 	private void Awake()
 	{
@@ -127,12 +126,10 @@ public class UIBarInterpolator : MonoBehaviour
 		if(slowValueFill != null)
 			slowValueFill.fillAmount = currentSlowValue01;
 		
-		if(value < 1f && !spedUp && _drainRate < 0.5f){
-			spedUp = true;
-			drainRate *= 45f;
-		}
-		if(value > 1f && spedUp){
-			spedUp = false;
+		if(value < 1f)
+			drainRate = _drainRate * 45f;
+			
+		if(value > 1f){
 			drainRate = _drainRate;
 		}	
 	}

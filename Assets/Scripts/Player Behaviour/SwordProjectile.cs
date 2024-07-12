@@ -48,7 +48,8 @@ public class SwordProjectile : MonoBehaviour
 		if(col.CompareTag("Enemy")){
 			if(destroyedOnParry)
 				StartDisappearance();
-			col.GetComponent<EnemyStagger>().HP -= damage;
+			col.GetComponent<EnemyStagger>().TakeHit(damage);
+			FindObjectOfType<AbilityHandler>().stamina += 1;
 		}
 	}
 

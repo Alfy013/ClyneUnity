@@ -42,10 +42,9 @@ public class MovementHandler : AbilityHandler.Ability
 		runModifierVert = _runModifier * Input.GetAxis("Vertical") * baseSpeed;
 		runModifierHor = _runModifier * Input.GetAxis("Horizontal") * baseSpeed;
 		swordTrail.Stop();
-		if(runParticles.isStopped)
-			runParticles.Play();
+		runParticles.Play();
 		running = true;
-
+		aim.activate = true;
 	}
 	internal override void AbilityEffect(){
 
@@ -53,9 +52,9 @@ public class MovementHandler : AbilityHandler.Ability
 	internal override void AbilityReset(){
 		runModifierHor = runModifierVert = 0;
 		swordTrail.Play();
-		if(runParticles.isPlaying)
-			runParticles.Stop();
+		runParticles.Stop();
 		running = false;
+		aim.activate = false;
 	}
 	private void AnimatorSet()
 	{
@@ -76,8 +75,7 @@ public class MovementHandler : AbilityHandler.Ability
 		if (!_controller.isGrounded)
 			gravPull.y += _gravity * Time.deltaTime * 5f;
 	}
-	private void Movement()
-	{
+	private void Running(){
 		beingUsed = (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) && Input.GetAxisRaw("Run") > 0;
 
 		if(running){
@@ -85,6 +83,10 @@ public class MovementHandler : AbilityHandler.Ability
 			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, inputDir.normalized, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
 		} else 
 			playerChar.transform.forward = Vector3.Slerp(playerChar.transform.forward, transform.forward, Mathf.Pow(runTurnFraction, 100 * Time.deltaTime));
+	}
+	private void Movement()
+	{
+
 
 		if (_controller.isGrounded)
 			baseSpeed = _baseSpeed;
@@ -114,8 +116,9 @@ public class MovementHandler : AbilityHandler.Ability
 	}
 	void Update()
 	{
+		Running();
 		AnimatorSet();
-		Gravity();
 		Movement();
+		Gravity();
 	}
 }

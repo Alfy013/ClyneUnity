@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 3018671680604568456}
   - component: {fileID: 640047528733790096}
   - component: {fileID: -5054161509263113279}
-  - component: {fileID: -158275692823053275}
   m_Layer: 6
   m_Name: MiddleProjectile
   m_TagString: Projectile
@@ -216,10 +215,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   lifeTimeCT: 6
-  damageAmount: 15
+  damageAmount: 40
   isBeam: 0
   _gracePeriod: 0.25
   _endAfterImage: -1
+  parriable: 1
 --- !u!65 &640047528733790096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -284,20 +284,6 @@ MonoBehaviour:
   _closeInSpeed: 0
   _closeInFor: 0
   parentPoint: {fileID: 0}
---- !u!114 &-158275692823053275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952956152626720134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8968c04894eed64fa2cfc27607fe3bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileToTurnInto: {fileID: 8042940794177779186, guid: ab4d5bebbe3fec3438152707eb85a35d, type: 3}
-  burstAmount: 9
 --- !u!1001 &3901115907806333174
 PrefabInstance:
   m_ObjectHideFlags: 0

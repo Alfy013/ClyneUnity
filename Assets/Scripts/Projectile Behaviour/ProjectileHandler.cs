@@ -12,6 +12,7 @@ public class ProjectileHandler : MonoBehaviour
 	[SerializeField] private bool isBeam;
 	[SerializeField] private float _gracePeriod = 0f;
 	[SerializeField] private float _endAfterImage = -1;
+	[SerializeField] bool parriable;
 
 	private Vector3 originalScale;
 	private int projTypeIndex;
@@ -23,6 +24,7 @@ public class ProjectileHandler : MonoBehaviour
 	private float gracePeriod;
 	private BoxCollider boxCollider;
 	VisualEffect aim;
+	bool wasParried;
 
 
 	protected float currentVelocity;
@@ -56,6 +58,7 @@ public class ProjectileHandler : MonoBehaviour
 		transform.gameObject.tag = "Projectile";
 		isEvaporating = false;
 		startEvaporate = false;
+		wasParried = false;
 
 	}
 
@@ -94,6 +97,11 @@ public class ProjectileHandler : MonoBehaviour
 		if (other.CompareTag("Enemy"))
 			transform.parent = other.transform;
 
+		if (other.CompareTag("Shield") && parriable && !wasParried){
+			lifeTime = 0;
+			wasParried = true;
+			other.GetComponent<FailSafe>().Parry();
+		}
 	}
 	public void SetIndex(int index)
 	{
@@ -124,5 +132,6 @@ public class ProjectileHandler : MonoBehaviour
 		moveSpeed = newSpeed;
 		rb.velocity = transform.forward * moveSpeed;
 	}
+	
 }
 
