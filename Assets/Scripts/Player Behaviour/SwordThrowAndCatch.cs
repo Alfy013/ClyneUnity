@@ -66,7 +66,7 @@ public class SwordThrowAndCatch : AbilityHandler.Ability
             RaycastHit[] hits = Physics.CapsuleCastAll(playerBottom.position, playerTop.position, 3f, catchStart - catchEnd, Vector3.Distance(catchEnd, catchStart)); //painful fucking shit
             foreach(RaycastHit hit in hits){
                 if(hit.collider.gameObject.CompareTag("Enemy")){
-                    explosion.Play();
+                    //explosion.Play();
                     hit.collider.GetComponent<EnemyStagger>().TakeHit(500);
                 }   
             }

@@ -105,13 +105,12 @@ public class MovementHandler : AbilityHandler.Ability
 		if (_controller.isGrounded) moveVelocity.y -= 0.1f;
 		_controller.Move(moveVelocity);
 	}
-	private void Start()
+	private void Awake()
 	{
 		//Application.targetFrameRate = -1;
 		_controller = GetComponent<CharacterController>();
 		//Lock the camera on scene start.
 		Cursor.lockState = CursorLockMode.Locked;
-
 		baseSpeed = _baseSpeed;
 	}
 	void Update()

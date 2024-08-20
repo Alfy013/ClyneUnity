@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering.Universal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraModes : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class CameraModes : MonoBehaviour
 		}
 		else
 		{
-			direction = (target.position - transform.position).normalized;
+			if(target)
+				direction = (target.position - transform.position).normalized;
 			rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 		}
@@ -41,5 +43,6 @@ public class CameraModes : MonoBehaviour
 				currentCamIndex = 0;
 			cameras[currentCamIndex].SetActive(true);
 		}
+		if(Input.GetKeyDown(KeyCode.I)) SceneManager.LoadScene(1);
     }
 }

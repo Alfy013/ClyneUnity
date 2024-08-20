@@ -19,6 +19,7 @@ public class EnemyStagger : MonoBehaviour
 	public float HP;
 	public bool staggered;
 	Vector3[] positions = new Vector3[100];
+	Quaternion[] rotations = new Quaternion[100];
     private void Start(){
 		staggered = true;
     }
@@ -40,6 +41,7 @@ public class EnemyStagger : MonoBehaviour
 			foreach(GameObject obj in clonepoints){
 				obj.transform.parent = gameObject.transform;
 				obj.transform.localPosition = positions[i];
+				obj.transform.localRotation = rotations[i];
 				i++;
 			}
 		}
@@ -52,6 +54,7 @@ public class EnemyStagger : MonoBehaviour
 			int i = 0;
 			foreach(GameObject obj in clonepoints){
 				positions[i] = obj.transform.localPosition;
+				rotations[i] = obj.transform.localRotation;
 				i++;
 				obj.transform.parent = null;
 			}

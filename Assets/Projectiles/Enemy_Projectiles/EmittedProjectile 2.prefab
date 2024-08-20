@@ -399,4 +399,5 @@ MonoBehaviour:
   _objectsToBeAfterImaged: []
   _afterImageCount: 0
   useSkinnedMesh: 1
+  frequency: 0
   activate: 0

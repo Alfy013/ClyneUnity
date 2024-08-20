@@ -16,5 +16,6 @@ public class EnemyAnimatorEvents : MonoBehaviour
 	void FireBurst(){
 		for(int i = 0; i < BSEOrbit.Length; i++)
 			BSEOrbit[i].FireBurst(delaysForBSEOrbit[i]);
+		ShakeHandler.Instance.ShakeCamera(10, 0.1f);
 	}
 }

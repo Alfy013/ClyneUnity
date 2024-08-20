@@ -12,10 +12,12 @@ public class AfterImage : MonoBehaviour
 	[SerializeField] int _afterImageCount;
 	GameObject[] afterImageSMObjects;
 	[SerializeField] bool useSkinnedMesh = true;
+	[SerializeField] int frequency = 0;
 	public bool activate;
 	private MeshRenderer afterImageMeshRenderer;
 	private Mesh meshToUse;
 	private int currentAfterImageObject;
+	int frequencyDecrement;
 	AfterImageObject[] afterImageObjects;
 	SkinnedMeshRenderer characterMesh;
 	class AfterImageObject
@@ -69,30 +71,34 @@ public class AfterImage : MonoBehaviour
     {
 		if (activate)
 		{
-			for (int j = 0; j < _objectsToBeAfterImaged.Length; j++)
-			{
-				for (int i = 0; i < afterImageObjects.Length; i++)
+			if(frequencyDecrement == 0){
+				for (int j = 0; j < _objectsToBeAfterImaged.Length; j++)
 				{
-					if (afterImageObjects[i] == null) print("fuk");
-					if (afterImageObjects[i].objectID == j && !afterImageObjects[i].afterImageGO.activeSelf)
+					for (int i = 0; i < afterImageObjects.Length; i++)
 					{
-						afterImageObjects[i].afterImageGO.transform.SetPositionAndRotation(_objectsToBeAfterImaged[j].transform.position, _objectsToBeAfterImaged[j].transform.rotation);
-						afterImageObjects[i].afterImageGO.SetActive(true);
+						if (afterImageObjects[i] == null) print("The afterimage object is missing.");
+						if (afterImageObjects[i].objectID == j && !afterImageObjects[i].afterImageGO.activeSelf)
+						{
+							afterImageObjects[i].afterImageGO.transform.SetPositionAndRotation(_objectsToBeAfterImaged[j].transform.position, _objectsToBeAfterImaged[j].transform.rotation);
+							afterImageObjects[i].afterImageGO.SetActive(true);
+							break;
+						}
+					}
+				}
+				for (int i = 0; i < afterImageSMObjects.Length; i++)
+				{
+					if (!afterImageSMObjects[i].activeInHierarchy && afterImageSMObjects[i] != null)
+					{
+						if(useSkinnedMesh)
+							characterMesh.BakeMesh(afterImageSMObjects[i].GetComponent<MeshFilter>().mesh);
+						afterImageSMObjects[i].transform.SetPositionAndRotation(transform.position, transform.rotation);
+						afterImageSMObjects[i].SetActive(true);
 						break;
 					}
 				}
-			}
-			for (int i = 0; i < afterImageSMObjects.Length; i++)
-			{
-				if (!afterImageSMObjects[i].activeInHierarchy && afterImageSMObjects[i] != null)
-				{
-					if(useSkinnedMesh)
-						characterMesh.BakeMesh(afterImageSMObjects[i].GetComponent<MeshFilter>().mesh);
-					afterImageSMObjects[i].transform.SetPositionAndRotation(transform.position, transform.rotation);
-					afterImageSMObjects[i].SetActive(true);
-					break;
-				}
-			}
+				frequencyDecrement = frequency;
+			} else frequencyDecrement--;
+
 		}	
 	}
 }
